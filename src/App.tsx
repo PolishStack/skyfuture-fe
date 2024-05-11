@@ -10,23 +10,21 @@ import WithdrawHistoryPage from "./pages/WithdrawHistoryPage";
 import BankAccountPage from "./pages/BankAccountPage";
 
 function App() {
-
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/individual" element={<IndividualPage />} />
-
-      <Route path="/participation_history" element={<ParticipationHistoryPage />} />
+      <Route path="home" element={<HomePage />} />
+      <Route path="individual" element={<IndividualPage />} />
+      <Route
+        path="/participation_history"
+        element={<ParticipationHistoryPage />}
+      />
       <Route path="/reward_history" element={<RewardHistoryPage />} />
       <Route path="/deposit_history" element={<DepositHistoryPage />} />
       <Route path="/withdrawal_history" element={<WithdrawHistoryPage />} />
       <Route path="/bank_account" element={<BankAccountPage />} />
 
-      <Route path="app" element={<FrameWithFooter />}>
-        {/* หน้าอื่นๆที่มี Footer */}
-        {/* เช่น <Route path="homepage" element={<Homepage />} /> */}
-      </Route>
+      <Route path="app" element={<FrameWithFooter />}></Route>
     </Routes>
   );
 }

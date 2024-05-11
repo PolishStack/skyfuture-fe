@@ -2,8 +2,10 @@ import { Center, Container, Flex, Image, Stack } from "@mantine/core";
 import { NavLink } from "@mantine/core";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { IoMdDownload } from "react-icons/io";
+import { useAppSelector } from "../hooks/store";
 
 const HomePage = () => {
+  const { user, point: userPoint } = useAppSelector((state) => state.user);
   return (
     <>
       <Center style={{ width: "100%", height: "100%" }} bg={"#f2f2f2"}>
@@ -22,12 +24,10 @@ const HomePage = () => {
           <Container style={{ width: "100%" }}>
             <Flex justify={"space-between"}>
               <Flex>
-                {/* user id */}
-                <p>ID: user_id </p>
+                <p>ID: {user?.id}</p>
               </Flex>
               <Flex>
-                {/* user point */}
-                <p>Number of points: user_point</p>
+                <p>Number of points: {userPoint}</p>
               </Flex>
             </Flex>
           </Container>
