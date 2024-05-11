@@ -31,27 +31,47 @@ const HomePage = () => {
               </Flex>
             </Flex>
           </Container>
-          <Flex justify={"center"}>
-            <h3>COORDINATION CENTER</h3>
+          <Flex justify={"center"} style={{ margin: "0px"}}>
+            <h3 style={{ margin: "0px"}}>COORDINATION CENTER</h3>
           </Flex>
           <Container bg={"white"} style={{ padding: "20px", height: "100vh" }}>
             <Stack>
-              <Image src="./banner1.png" />
-              <Image src="./banner2.png" />
+              <Image src="/banner1.png" />
+              <Image src="/banner2.png" />
               <Center>
-                <Image src={"./heart.png"} width={"200px"} height={"32px"} />
+                <Image src={"/heart.png"} width={"200px"} height={"32px"} />
               </Center>
             </Stack>
           </Container>
-          <NavLink
-            bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            renderRoot={({ _, ...others }) => (
-              <RouterNavLink to={`/video/123`} {...others} />
-            )}
-            label={"ข้อความที่โชว์"}
-            leftSection={<IoMdDownload />}
-          />
+          <Flex>
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/home`} {...others} />
+              )}
+              label={"Homepage"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/individual`} {...others} />
+              )}
+              label={"individual"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/customer_service`} {...others} />
+              )}
+              label={"Customer Service"}
+              leftSection={<IoMdDownload />}
+            />
+          </Flex>
         </Stack>
       </Center>
     </>

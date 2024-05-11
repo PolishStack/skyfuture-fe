@@ -27,6 +27,7 @@ function App() {
       <Route path="/bank_account" element={<BankAccountPage />} />
       <Route path="/change_password" element={<ChangePasswordPage />} />
       <Route path="/withdraw_point" element={<WithdrawPointPage />} />
+      <Route path="/customer_service" element={<WithdrawPointPage />} />
 
       <Route path="app" element={<FrameWithFooter />}></Route>
     </Routes>

@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import "../styles/index.css"
 
 function LoginPage() {
   const [phone, setPhone] = useState("");
@@ -46,10 +47,10 @@ function LoginPage() {
                   <h2>LOG</h2>
                 </Center>
                 <PhoneInput
-                  style={{ width: "100%" }}
                   defaultCountry="vn"
                   value={phone}
                   onChange={(phone) => setPhone(phone)}
+                  inputStyle={{ width: "100%"}}
                 />
                 <PasswordInput
                   size="md"

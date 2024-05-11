@@ -31,7 +31,7 @@ const FrameWithCenter = ({
               to={"/individual"}
               style={{
                 position: "absolute",
-                right: "0",
+                right: "10px",
                 textDecorationLine: "none",
               }}
             >
@@ -44,7 +44,7 @@ const FrameWithCenter = ({
               bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               renderRoot={({ _, ...others }) => (
-                <RouterNavLink to={`/`} {...others} />
+                <RouterNavLink to={`/home`} {...others} />
               )}
               label={"Homepage"}
               leftSection={<IoMdDownload />}
@@ -62,7 +62,7 @@ const FrameWithCenter = ({
               bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               renderRoot={({ _, ...others }) => (
-                <RouterNavLink to={`/`} {...others} />
+                <RouterNavLink to={`/customer_service`} {...others} />
               )}
               label={"Customer Service"}
               leftSection={<IoMdDownload />}

@@ -19,8 +19,10 @@ import {
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
 import { Link, NavLink as RouterNavLink } from "react-router-dom";
+import { useAppSelector } from "../hooks/store";
 
 const IndividualPage = () => {
+  const { user, point: userPoint } = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
 
   const menuList = [
@@ -81,20 +83,20 @@ const IndividualPage = () => {
               justify={"space-between"}
               style={{ padding: "0px 30px 0px 30px" }}
             >
-              <p>ID: user_id</p>
-              <p>user_phoneNumber</p>
+              <p>ID: {user?.id ?? "None"}</p>
+              <p>{user?.phone ?? "None"}</p>
             </Flex>
             <Center>
               <div>
                 <p style={{ margin: "0px" }}>Account points</p>
-                <h1 style={{ margin: "0px", textAlign: "center" }}>0</h1>
+                <h1 style={{ margin: "0px", textAlign: "center" }}>{userPoint}</h1>
               </div>
             </Center>
             <Center>
               <Container
                 style={{
                   marginTop: "10px",
-                  padding: "5px 30px",
+                  padding: "5px 20px",
                   borderRadius: "32px",
                   border: "solid 1px white",
                 }}
@@ -128,7 +130,7 @@ const IndividualPage = () => {
               height: "100%",
               marginTop: "30px",
             }}
-            gap={4}
+            gap={3}
           >
             {menuList.map(
               (menu: {
@@ -136,14 +138,21 @@ const IndividualPage = () => {
                 href: string;
                 icon: React.ReactNode;
               }) => (
-                <Link to={menu.href} style={{ textDecorationLine: "none" }}>
+                <Link
+                  to={menu.href}
+                  style={{ textDecorationLine: "none" }}
+                  key={menu.href}
+                >
                   <Button
                     fullWidth
                     leftSection={menu.icon}
                     variant="transparent"
                     justify="flex-start"
                     size="lg"
-                    color="black"
+                    color="#444"
+                    style={{
+                      fontWeight: "normal"
+                    }}
                   >
                     {menu.title}
                   </Button>
@@ -151,15 +160,35 @@ const IndividualPage = () => {
               )
             )}
           </Stack>
-          <NavLink
-            bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            renderRoot={({ _, ...others }) => (
-              <RouterNavLink to={`/video/123`} {...others} />
-            )}
-            label={"ข้อความที่โชว์"}
-            leftSection={<IoMdDownload />}
-          />
+          <Flex>
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/home`} {...others} />
+              )}
+              label={"Homepage"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/individual`} {...others} />
+              )}
+              label={"individual"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/customer_service`} {...others} />
+              )}
+              label={"Customer Service"}
+              leftSection={<IoMdDownload />}
+            />
+          </Flex>
         </Stack>
 
         {/* Modal */}
