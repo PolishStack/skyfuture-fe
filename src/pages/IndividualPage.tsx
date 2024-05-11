@@ -1,13 +1,28 @@
-import { Button, Center, Container, Flex, NavLink, Stack } from "@mantine/core";
+import {
+  Button,
+  Center,
+  Container,
+  Flex,
+  Modal,
+  NavLink,
+  Stack,
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { AiFillBank, AiOutlinePartition } from "react-icons/ai";
 import { CiCreditCard1 } from "react-icons/ci";
 import { IoIosLogOut, IoMdDownload } from "react-icons/io";
-import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
+import {
+  PiHandDeposit,
+  PiHandWithdraw,
+  PiLineVerticalBold,
+} from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
 import { Link, NavLink as RouterNavLink } from "react-router-dom";
 
 const IndividualPage = () => {
+  const [opened, { open, close }] = useDisclosure(false);
+
   const menuList = [
     {
       title: "Participation history",
@@ -25,7 +40,11 @@ const IndividualPage = () => {
       href: "/withdrawal_history",
       icon: <PiHandWithdraw />,
     },
-    { title: "Add a bank account", href: "/bank_account", icon: <AiFillBank /> },
+    {
+      title: "Add a bank account",
+      href: "/bank_account",
+      icon: <AiFillBank />,
+    },
     {
       title: "Change password",
       href: "/change_password",
@@ -81,16 +100,24 @@ const IndividualPage = () => {
                 }}
                 bg={"linear-gradient(#86d3c3,#e8fcfb)"}
               >
-                <Flex style={{ alignItems: "center", gap: "20px" }}>
-                  <Flex style={{ alignItems: "center", gap: "5px" }}>
-                    <p>Deposit points </p>
-                    <CiCreditCard1 style={{ fontSize: "24px" }} />
-                  </Flex>
-                  <p>|</p>
-                  <Flex style={{ alignItems: "center", gap: "5px" }}>
-                    <p>Draw points </p>
-                    <CiCreditCard1 style={{ fontSize: "24px" }} />
-                  </Flex>
+                <Flex style={{ alignItems: "center", gap: "5px" }}>
+                  <Button onClick={open} variant="transparent" color="black">
+                    <Flex style={{ alignItems: "center", gap: "5px" }}>
+                      <p>Deposit points </p>
+                      <CiCreditCard1 style={{ fontSize: "24px" }} />
+                    </Flex>
+                  </Button>
+                  <p style={{ color: "white" }}>
+                    <PiLineVerticalBold />
+                  </p>
+                  <Link to={"/withdraw_point"}>
+                    <Button variant="transparent" color="black">
+                      <Flex style={{ alignItems: "center", gap: "5px" }}>
+                        <p>Draw points </p>
+                        <CiCreditCard1 style={{ fontSize: "24px" }} />
+                      </Flex>
+                    </Button>
+                  </Link>
                 </Flex>
               </Container>
             </Center>
@@ -134,6 +161,29 @@ const IndividualPage = () => {
             leftSection={<IoMdDownload />}
           />
         </Stack>
+
+        {/* Modal */}
+        <Modal opened={opened} onClose={close} centered withCloseButton={false}>
+          <Center>
+            <Stack style={{ textAlign: "center" }}>
+              <h3 style={{ margin: "0px" }}>Deposit points</h3>
+              <p>
+                Please contact Customer Service for instructions on submitting
+                points
+              </p>
+            </Stack>
+          </Center>
+          <Flex justify={"center"}>
+            <Button
+              onClick={close}
+              variant="filled"
+              bg={"#ddd"}
+              style={{ color: "black" }}
+            >
+              Agree
+            </Button>
+          </Flex>
+        </Modal>
       </Center>
     </>
   );
