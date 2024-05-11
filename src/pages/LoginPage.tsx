@@ -8,7 +8,7 @@ import {
   Stack,
 } from "@mantine/core";
 
-function App() {
+function LoginPage() {
   return (
     <>
       <Center style={{ width: "100%", height: "100%" }}>
@@ -57,4 +57,4 @@ function App() {
   );
 }
 
-export default App;
+export default LoginPage;
