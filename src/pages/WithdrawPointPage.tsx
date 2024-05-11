@@ -3,7 +3,7 @@ import { Button, Center, Input, Stack } from "@mantine/core";
 import { useAppSelector } from "../hooks/store";
 
 const WithdrawPointPage = () => {
-  const { user, point: userPoint } = useAppSelector((state) => state.user);
+  const { point: userPoint } = useAppSelector((state) => state.user);
   return (
     <>
       <FrameWithCenter title="Draw points">
