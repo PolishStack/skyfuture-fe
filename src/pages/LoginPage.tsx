@@ -9,7 +9,8 @@ import {
 import { useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
-import "../styles/index.css"
+import "../styles/index.css";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   const [phone, setPhone] = useState("");
@@ -50,7 +51,7 @@ function LoginPage() {
                   defaultCountry="vn"
                   value={phone}
                   onChange={(phone) => setPhone(phone)}
-                  inputStyle={{ width: "100%"}}
+                  inputStyle={{ width: "100%" }}
                 />
                 <PasswordInput
                   size="md"
@@ -58,15 +59,18 @@ function LoginPage() {
                   style={{ width: "100%" }}
                 />
                 <p>Forgot your password? Click here</p>
-                <button
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "24px",
-                    padding: "8px",
-                  }}
-                >
-                  <b>Log</b>
-                </button>
+                <Link to={"/home"} style={{ width: "100%"}}>
+                  <button
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "24px",
+                      padding: "8px",
+                      width: "100%"
+                    }}
+                  >
+                    <b>Log</b>
+                  </button>
+                </Link>
                 <button
                   style={{
                     backgroundColor: "#ffffff",
