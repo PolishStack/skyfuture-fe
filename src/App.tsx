@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import FrameWithFooter from "./component/FrameWithFooter";
+import LoginPage from "./pages/LoginPage";
+import HomePage from "./pages/HomePage";
+import IndividualPage from "./pages/IndividualPage";
+import ParticipationHistoryPage from "./pages/ParticipationHistoryPage";
+import RewardHistoryPage from "./pages/RewardHistoryPage";
+import DepositHistoryPage from "./pages/DepositHistoryPage";
+import WithdrawHistoryPage from "./pages/WithdrawHistoryPage";
+import BankAccountPage from "./pages/BankAccountPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
+import WithdrawPointPage from "./pages/WithdrawPointPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="home" element={<HomePage />} />
+      <Route path="individual" element={<IndividualPage />} />
+      <Route
+        path="/participation_history"
+        element={<ParticipationHistoryPage />}
+      />
+      <Route path="/reward_history" element={<RewardHistoryPage />} />
+      <Route path="/deposit_history" element={<DepositHistoryPage />} />
+      <Route path="/withdrawal_history" element={<WithdrawHistoryPage />} />
+      <Route path="/bank_account" element={<BankAccountPage />} />
+      <Route path="/change_password" element={<ChangePasswordPage />} />
+      <Route path="/withdraw_point" element={<WithdrawPointPage />} />
+      <Route path="/customer_service" element={<WithdrawPointPage />} />
+
+      <Route path="app" element={<FrameWithFooter />}></Route>
+    </Routes>
+  );
 }
 
-export default App
+export default App;
