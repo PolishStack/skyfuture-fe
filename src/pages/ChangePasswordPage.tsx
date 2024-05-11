@@ -1,51 +1,47 @@
-// import React, { useState } from "react";
-// import FrameWithCenter from "../component/FrameWithCenter";
-// import { Stack, TextInput } from "@mantine/core";
+import React, { useState } from "react";
+import FrameWithCenter from "../component/FrameWithCenter";
+import { Button, Center, PasswordInput, Stack } from "@mantine/core";
 
 const ChangePasswordPage = () => {
-  // const [oldPassword, setOldPassword] = useState("")
-  // const [newPassword, setNewPassword] = useState("")
-  // const 
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   return (
-    // <>
-    //   <FrameWithCenter title="Add a bank account">
-    //     <Stack style={{ height: "100vh", padding: "0px 25px 0px 25px" }}>
-    //       <TextInput
-    //         label="Bank name"
-    //         placeholder="Enter bank name"
-    //         value={bankName}
-    //         onChange={(e) => setBankName(e.target.value)}
-    //       />
-    //       <TextInput
-    //         label="Account number"
-    //         placeholder="Enter your account number"
-    //         value={accountNumber}
-    //         onChange={(e) => setAccountNumber(e.target.value)}
-    //       />
-    //       <TextInput
-    //         label="Account holder"
-    //         placeholder="Enter the recipient's full name"
-    //         value={accountHolder}
-    //         onChange={(e) => setAccountHolder(e.target.value)}
-    //       />
-    //       <Center>
-    //         <Button
-    //           variant="gradient"
-    //           style={{ paddingLeft: "25px", paddingRight: "25px" }}
-    //           gradient={{
-    //             from: "teal",
-    //             to: "rgba(240, 240, 240, 1)",
-    //             deg: 180,
-    //           }}
-    //         >
-    //           Confirm
-    //         </Button>
-    //       </Center>
-    //     </Stack>
-    //   </FrameWithCenter>
-    // </>
-    <></>
+    <>
+      <FrameWithCenter title="Change password">
+        <Stack style={{ height: "100vh", padding: "0px 20px 0px 20px" }}>
+          <PasswordInput
+            placeholder="Old password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
+          />
+          <PasswordInput
+            placeholder="New password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <PasswordInput
+            placeholder="Re-enter password"
+            value={confirmNewPassword}
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
+          />
+          <Center>
+            <Button
+              variant="gradient"
+              style={{ paddingLeft: "25px", paddingRight: "25px" }}
+              gradient={{
+                from: "teal",
+                to: "rgba(240, 240, 240, 1)",
+                deg: 180,
+              }}
+            >
+              Confirm
+            </Button>
+          </Center>
+        </Stack>
+      </FrameWithCenter>
+    </>
   );
 };
 

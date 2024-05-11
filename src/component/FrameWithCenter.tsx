@@ -1,4 +1,4 @@
-import { Center, NavLink, Stack } from "@mantine/core";
+import { Center, Flex, NavLink, Stack } from "@mantine/core";
 import React from "react";
 import { IoMdDownload } from "react-icons/io";
 import { Link, NavLink as RouterNavLink } from "react-router-dom";
@@ -39,15 +39,35 @@ const FrameWithCenter = ({
             </Link>
           </Center>
           {children}
-          <NavLink
-            bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            renderRoot={({ _, ...others }) => (
-              <RouterNavLink to={`/video/123`} {...others} />
-            )}
-            label={"ข้อความที่โชว์"}
-            leftSection={<IoMdDownload />}
-          />
+          <Flex>
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/`} {...others} />
+              )}
+              label={"Homepage"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/individual`} {...others} />
+              )}
+              label={"individual"}
+              leftSection={<IoMdDownload />}
+            />
+            <NavLink
+              bg={"linear-gradient(180deg,#71d2a7,#94e3ce)"}
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              renderRoot={({ _, ...others }) => (
+                <RouterNavLink to={`/`} {...others} />
+              )}
+              label={"Customer Service"}
+              leftSection={<IoMdDownload />}
+            />
+          </Flex>
         </Stack>
       </Center>
     </>

@@ -6,7 +6,9 @@ const RewardHistoryPage = () => {
   return (
     <>
       <FrameWithCenter title="Reward history">
-        <Stack style={{ height: "100vh" }}></Stack>
+        <Stack style={{ height: "100vh" }}>
+          
+        </Stack>
       </FrameWithCenter>
     </>
   );
