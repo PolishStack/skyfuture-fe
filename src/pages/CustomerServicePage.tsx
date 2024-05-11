@@ -1,4 +1,3 @@
-import React from "react";
 import FrameWithCenter from "../component/FrameWithCenter";
 import { Stack } from "@mantine/core";
 

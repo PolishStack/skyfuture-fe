@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FrameWithCenter from "../component/FrameWithCenter";
 import { Button, Center, PasswordInput, Stack } from "@mantine/core";
 
