@@ -1,14 +1,14 @@
-import { useEffect, ReactNode } from "react";
+import { useEffect, ReactNode, useState } from "react";
 import axios from "axios";
 import { apiUrl } from "../config";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Box, LoadingOverlay } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 
 const LoginGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const [visible, { close }] = useDisclosure(true);
+  const location = useLocation();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const auth = async () => {
@@ -23,16 +23,16 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         });
         navigate("/");
         console.log(err);
-        close();
+        setLoading(false);
       }
     };
     auth();
-  }, [navigate, close]);
+  }, [navigate, location]);
 
   return (
     <Box pos="relative">
       <LoadingOverlay
-        visible={visible}
+        visible={loading}
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "lime", type: "bars" }}

@@ -17,8 +17,8 @@ const RegisterPage = () => {
     },
     validate: {
       phone: (value) => (value.length < 10 ? "Invalid phone number": null),
-      password: (value) => (value.length < 0 ? "Invalid password" : null),
-      confirmPassword: (value) => (value.length < 5 ? "Invalid confirm password" : null),
+      password: (value) => (value.length < 5 ? "Password must longer than 5 character" : null),
+      confirmPassword: (value) => (value.length < 5 ? "Password must longer than 5 character" : null),
     },
   });
 

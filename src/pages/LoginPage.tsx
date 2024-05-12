@@ -1,4 +1,11 @@
-import { Center, Container, Image, PasswordInput, Stack } from "@mantine/core";
+import {
+  Center,
+  Container,
+  Image,
+  PasswordInput,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../styles/index.css";
@@ -20,7 +27,7 @@ function LoginPage() {
       password: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Invalid phone number": null),
+      phone: (value) => (value.length < 10 ? "Invalid phone number" : null),
       password: (value) => (value.length < 5 ? "Invalid password" : null),
     },
   });
@@ -111,20 +118,25 @@ function LoginPage() {
                     padding: "8px",
                     width: "100%",
                   }}
+                  className="clickable"
                 >
                   <b>Login</b>
                 </button>
-                <Link to={"/register"} style={{ width: "100%" }}>
-                  <button
+                <Link to={"/register"}>
+                  <Text
+                    ta="center"
+                    fw="bold"
                     style={{
                       backgroundColor: "#ffffff",
                       borderRadius: "24px",
                       padding: "8px",
-                      width: "100%"
+                      width: "100%",
+                      border: "solid 2px black",
                     }}
+                    className="clickable"
                   >
-                    <b>Don't have an account yet? Sign up now</b>
-                  </button>
+                    Don't have an account yet? Sign up now
+                  </Text>
                 </Link>
               </Stack>
             </Container>
