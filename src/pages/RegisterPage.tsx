@@ -1,9 +1,13 @@
 import { Center, Container, Image, PasswordInput, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React from "react";
+import axios from "axios";
 import { PhoneInput } from "react-international-phone";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { apiUrl } from "../config";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -12,13 +16,48 @@ const RegisterPage = () => {
       confirmPassword: "",
     },
     validate: {
-      password: (value) => (value.length < 5 ? "Invalid password" : null),
+      phone: (value) => (value.length < 10 ? "Invalid phone number": null),
+      password: (value) => (value.length < 0 ? "Invalid password" : null),
+      confirmPassword: (value) => (value.length < 5 ? "Invalid confirm password" : null),
     },
   });
 
   const createNewUser = async () => {
-    
-  }
+    const { password, confirmPassword } = form.getValues()
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        text: "Confirm password is not correct",
+        confirmButtonColor: "#6EE3A5",
+      })
+      return;
+    }
+
+    if (form.validate().hasErrors) {
+      return;
+    }
+
+    try {
+      await axios.post(`${apiUrl}/users`, form.getValues())
+
+      navigate("/")
+
+      Swal.fire({
+        icon: "success",
+        text: "Register success",
+        confirmButtonColor: "#6EE3A5",
+        timer: 2000,
+      });
+
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Register failed please try again",
+        confirmButtonColor: "#6EE3A5",
+      });
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -50,7 +89,7 @@ const RegisterPage = () => {
             >
               <Stack style={{ padding: "20px" }}>
                 <Center>
-                  <h2>LOG</h2>
+                  <h2>REGISTER</h2>
                 </Center>
                 <PhoneInput
                   defaultCountry="vn"
@@ -65,7 +104,16 @@ const RegisterPage = () => {
                   {...form.getInputProps("password")}
                   style={{ width: "100%" }}
                 />
-                <p>Forgot your password? Click here</p>
+                <PasswordInput
+                  size="md"
+                  placeholder="Re-enter password"
+                  key={form.key("confirmPassword")}
+                  {...form.getInputProps("confirmPassword")}
+                  style={{ width: "100%" }}
+                />
+                <p>
+                  Already have an account ? <Link to={"/"}>Sign in now</Link>
+                </p>
                 <button
                   onClick={createNewUser}
                   style={{
@@ -75,16 +123,7 @@ const RegisterPage = () => {
                     width: "100%",
                   }}
                 >
-                  <b>Login</b>
-                </button>
-                <button
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "24px",
-                    padding: "8px",
-                  }}
-                >
-                  <b>Don't have an account yet? Sign up now</b>
+                  <b>Register</b>
                 </button>
               </Stack>
             </Container>

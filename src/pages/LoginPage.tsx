@@ -6,7 +6,7 @@ import { useForm } from "@mantine/form";
 import axios from "axios";
 import { apiUrl } from "../config";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/store";
 import { setUser, setPoint } from "../features/user/userSlice";
 
@@ -20,6 +20,7 @@ function LoginPage() {
       password: "",
     },
     validate: {
+      phone: (value) => (value.length < 10 ? "Invalid phone number": null),
       password: (value) => (value.length < 5 ? "Invalid password" : null),
     },
   });
@@ -113,15 +114,18 @@ function LoginPage() {
                 >
                   <b>Login</b>
                 </button>
-                <button
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "24px",
-                    padding: "8px",
-                  }}
-                >
-                  <b>Don't have an account yet? Sign up now</b>
-                </button>
+                <Link to={"/register"} style={{ width: "100%" }}>
+                  <button
+                    style={{
+                      backgroundColor: "#ffffff",
+                      borderRadius: "24px",
+                      padding: "8px",
+                      width: "100%"
+                    }}
+                  >
+                    <b>Don't have an account yet? Sign up now</b>
+                  </button>
+                </Link>
               </Stack>
             </Container>
           </Container>

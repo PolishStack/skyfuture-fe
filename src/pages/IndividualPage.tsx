@@ -14,14 +14,56 @@ import { IoIosLogOut, IoIosArrowForward } from "react-icons/io";
 import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
+import axios from "axios";
+import { apiUrl } from "../config";
+import Swal from "sweetalert2";
+// import { useEffect } from "react";
 
 const IndividualPage = () => {
+  const navigate = useNavigate();
   const { user, point: userPoint } = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
+
+  const handleUserLogout = async () => {
+    try {
+      await axios.get(`${apiUrl}/logout`, { withCredentials: true });
+      navigate("/");
+
+      Swal.fire({
+        icon: "success",
+        text: "Logout success",
+        confirmButtonColor: "#6EE3A5",
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "failed to logout",
+      });
+      console.log(err);
+    }
+  };
+
+  // useEffect(() => {
+  //   const auth = async () => {
+  //     try {
+  //       await axios.get(`${apiUrl}/auth`, { withCredentials: true })
+  //     } catch (err) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         text: "Time out login again",
+  //         confirmButtonColor: "#6EE3A5",
+  //         timer: 2000,
+  //       })
+  //       navigate("/")
+  //       console.log(err)
+  //     }
+  //   }
+  //   auth()
+  // }, [navigate])
 
   const menuList = [
     {
@@ -54,7 +96,11 @@ const IndividualPage = () => {
       href: "/app/change_password",
       icon: <RiLockPasswordLine />,
     },
-    { title: "Log out", href: "/", icon: <IoIosLogOut /> },
+    {
+      title: "Log out",
+      href: "/",
+      icon: <IoIosLogOut />,
+    },
   ];
 
   return (
@@ -120,11 +166,12 @@ const IndividualPage = () => {
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link
-              to={menu.href}
+              to={menu.title !== "Log out" ? menu.href: ""}
               style={{ textDecorationLine: "none" }}
               key={menu.href}
             >
               <Button
+                onClick={menu.title === "Log out" ? handleUserLogout : () => {}}
                 fullWidth
                 leftSection={menu.icon}
                 variant="transparent"

@@ -12,6 +12,7 @@ import ChangePasswordPage from "./pages/ChangePasswordPage";
 import WithdrawPointPage from "./pages/WithdrawPointPage";
 import { Box } from "@mantine/core";
 import CustomerServicePage from "./pages/CustomerServicePage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="change_password" element={<ChangePasswordPage />} />
+        <Route path="register" element={<RegisterPage />} />
 
         <Route path="app" element={<FrameWithFooter />}>
           <Route path="home" element={<HomePage />} />
