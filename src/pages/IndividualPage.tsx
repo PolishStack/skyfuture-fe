@@ -113,7 +113,7 @@ const IndividualPage = () => {
         style={{
           fontSize: "18px",
           height: "100%",
-          marginTop: "30px",
+          marginTop: "60px",
         }}
         gap={3}
       >
