@@ -1,3 +1,12 @@
 :root {
-    --react-international-phone-height: 40px
+  --react-international-phone-height: 40px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.clickable:hover {
+  cursor: pointer;
 }
