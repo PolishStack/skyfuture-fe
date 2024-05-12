@@ -94,7 +94,7 @@ function LoginPage() {
             >
               <Stack style={{ padding: "20px" }}>
                 <Center>
-                  <h2>LOG</h2>
+                  <h2>LOGIN</h2>
                 </Center>
                 <PhoneInput
                   defaultCountry="vn"
