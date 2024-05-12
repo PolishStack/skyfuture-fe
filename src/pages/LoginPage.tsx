@@ -2,18 +2,59 @@ import {
   Center,
   Container,
   Image,
-  // Input,
   PasswordInput,
   Stack,
 } from "@mantine/core";
-import { useState } from "react";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../styles/index.css";
-import { Link } from "react-router-dom";
+import { useForm } from "@mantine/form";
+import axios from "axios";
+import { apiUrl } from "../config";
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      phone: "",
+      password: "",
+    },
+    validate: {
+      password: (value) => (value.length < 5 ? "Invalid password" : null),
+    },
+  });
+
+  const handleOnFormSubmit = async () => {
+    if (form.validate().hasErrors) {
+      return;
+    }
+
+    try {
+      await axios.post(`${apiUrl}/users`, form.values, {
+        withCredentials: true,
+      });
+
+      Swal.fire({
+        icon: "success",
+        text: "Login success",
+        confirmButtonColor: "#6EE3A5",
+        timer: 2000,
+      })
+
+      navigate("/home")
+
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Login failed phone number or password is wrong",
+        confirmButtonColor: "#6EE3A5"
+      })
+      console.log(err)
+    }
+  };
 
   return (
     <>
@@ -49,28 +90,29 @@ function LoginPage() {
                 </Center>
                 <PhoneInput
                   defaultCountry="vn"
-                  value={phone}
-                  onChange={(phone) => setPhone(phone)}
                   inputStyle={{ width: "100%" }}
+                  key={form.key("phone")}
+                  {...form.getInputProps("phone")}
                 />
                 <PasswordInput
                   size="md"
                   placeholder="Enter your password"
+                  key={form.key("password")}
+                  {...form.getInputProps("password")}
                   style={{ width: "100%" }}
                 />
                 <p>Forgot your password? Click here</p>
-                <Link to={"/home"} style={{ width: "100%"}}>
-                  <button
-                    style={{
-                      backgroundColor: "#ffffff",
-                      borderRadius: "24px",
-                      padding: "8px",
-                      width: "100%"
-                    }}
-                  >
-                    <b>Log</b>
-                  </button>
-                </Link>
+                <button
+                  onClick={handleOnFormSubmit}
+                  style={{
+                    backgroundColor: "#ffffff",
+                    borderRadius: "24px",
+                    padding: "8px",
+                    width: "100%",
+                  }}
+                >
+                  <b>Login</b>
+                </button>
                 <button
                   style={{
                     backgroundColor: "#ffffff",
