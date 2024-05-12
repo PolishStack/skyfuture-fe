@@ -1,16 +1,7 @@
-import FrameWithCenter from "../component/FrameWithCenter";
-import { Stack } from "@mantine/core";
+import Header from "../component/Header";
 
 const DepositHistoryPage = () => {
-  return (
-    <>
-      <FrameWithCenter title="Transaction history">
-        <Stack style={{ height: "100vh" }}>
-            
-        </Stack>
-      </FrameWithCenter>
-    </>
-  );
+  return <Header title="Transaction history" />;
 };
 
 export default DepositHistoryPage;
