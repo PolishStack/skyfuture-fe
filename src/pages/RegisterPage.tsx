@@ -1,60 +1,24 @@
 import { Center, Container, Image, PasswordInput, Stack } from "@mantine/core";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
-import "../styles/index.css";
 import { useForm } from "@mantine/form";
-import axios from "axios";
-import { apiUrl } from "../config";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../hooks/store";
-import { setUser, setPoint } from "../features/user/userSlice";
+import React from "react";
+import { PhoneInput } from "react-international-phone";
 
-function LoginPage() {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+const RegisterPage = () => {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       phone: "",
       password: "",
+      confirmPassword: "",
     },
     validate: {
       password: (value) => (value.length < 5 ? "Invalid password" : null),
     },
   });
 
-  const handleOnFormSubmit = async () => {
-    if (form.validate().hasErrors) {
-      return;
-    }
-
-    try {
-      const res = await axios.post(`${apiUrl}/login`, form.getValues(), {
-        withCredentials: true,
-      });
-
-      const { result } = res.data;
-      dispatch(setUser({ id: result.id, phone: result.phone, name: "None" }));
-      dispatch(setPoint(result.point));
-
-      Swal.fire({
-        icon: "success",
-        text: "Login success",
-        confirmButtonColor: "#6EE3A5",
-        timer: 2000,
-      });
-
-      navigate("/app/home");
-    } catch (err) {
-      Swal.fire({
-        icon: "error",
-        text: "Login failed phone number or password is wrong",
-        confirmButtonColor: "#6EE3A5",
-      });
-      console.log(err);
-    }
-  };
+  const createNewUser = async () => {
+    
+  }
 
   return (
     <>
@@ -103,7 +67,7 @@ function LoginPage() {
                 />
                 <p>Forgot your password? Click here</p>
                 <button
-                  onClick={handleOnFormSubmit}
+                  onClick={createNewUser}
                   style={{
                     backgroundColor: "#ffffff",
                     borderRadius: "24px",
@@ -129,6 +93,6 @@ function LoginPage() {
       </Center>
     </>
   );
-}
+};
 
-export default LoginPage;
+export default RegisterPage;

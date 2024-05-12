@@ -1,4 +1,4 @@
-import { AppShell, Flex, Grid, Text } from "@mantine/core";
+import { AppShell, Box, Flex, Grid, Text } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { IoHomeOutline, IoPersonOutline } from "react-icons/io5";
@@ -13,6 +13,7 @@ export const FrameWithFooter = () => {
     >
       <AppShell.Main p="0">
         <Outlet />
+        <Box style={{ height: "60px" }} />
       </AppShell.Main>
       <AppShell.Footer
         p="0"
@@ -36,7 +37,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/home">
               <Flex direction="column" align="center">
                 <IoHomeOutline size="20px" />
-                <Text>Homepage</Text>
+                <Text style={{ fontSize: "14px" }}>Homepage</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
@@ -44,7 +45,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/individual">
               <Flex direction="column" align="center">
                 <IoPersonOutline size="20px" />
-                <Text>individual</Text>
+                <Text style={{ fontSize: "14px" }}>individual</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
@@ -52,7 +53,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/customer_service">
               <Flex direction="column" align="center">
                 <TbHeadset size="20px" />
-                <Text>Customer Service</Text>
+                <Text style={{ fontSize: "14px" }}>Customer Service</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
