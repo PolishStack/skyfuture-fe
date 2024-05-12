@@ -1,19 +1,21 @@
-import { useEffect, ReactNode, useState } from "react";
+import { useEffect, ReactNode } from "react";
 import axios from "axios";
 import { apiUrl } from "../config";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, LoadingOverlay } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const LoginGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [visible, { close }] = useDisclosure(true);
 
   useEffect(() => {
     const auth = async () => {
       try {
         await axios.get(`${apiUrl}/auth`, { withCredentials: true });
+        close();
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -23,16 +25,15 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         });
         navigate("/");
         console.log(err);
-        setLoading(false);
       }
     };
     auth();
-  }, [navigate, location]);
+  }, [navigate, close, location]);
 
   return (
     <Box pos="relative">
       <LoadingOverlay
-        visible={loading}
+        visible={visible}
         zIndex={1000}
         overlayProps={{ radius: "sm", blur: 2 }}
         loaderProps={{ color: "lime", type: "bars" }}

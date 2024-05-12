@@ -122,6 +122,7 @@ const RegisterPage = () => {
                     padding: "8px",
                     width: "100%",
                   }}
+                  className="clickable"
                 >
                   <b>Register</b>
                 </button>
