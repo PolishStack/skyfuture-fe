@@ -47,24 +47,6 @@ const IndividualPage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const auth = async () => {
-  //     try {
-  //       await axios.get(`${apiUrl}/auth`, { withCredentials: true })
-  //     } catch (err) {
-  //       Swal.fire({
-  //         icon: "error",
-  //         text: "Time out login again",
-  //         confirmButtonColor: "#6EE3A5",
-  //         timer: 2000,
-  //       })
-  //       navigate("/")
-  //       console.log(err)
-  //     }
-  //   }
-  //   auth()
-  // }, [navigate])
-
   const menuList = [
     {
       title: "Participation history",
@@ -166,7 +148,7 @@ const IndividualPage = () => {
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link
-              to={menu.title !== "Log out" ? menu.href: ""}
+              to={menu.title !== "Log out" ? menu.href : ""}
               style={{ textDecorationLine: "none" }}
               key={menu.href}
             >

@@ -8,32 +8,9 @@ import {
   Title,
 } from "@mantine/core";
 import { useAppSelector } from "../hooks/store";
-// import { useEffect } from "react";
-// import axios from "axios";
-// import { apiUrl } from "../config";
-// import { useNavigate } from "react-router-dom";
-// import Swal from "sweetalert2";
 
 const HomePage = () => {
-  // const navigate = useNavigate()
   const { user, point: userPoint } = useAppSelector((state) => state.user);
-
-  // useEffect(() => {
-  //   const auth = async () => {
-  //     try {
-  //       await axios.get(`${apiUrl}/auth`, { withCredentials: true })
-  //     } catch (err) {
-  //       Swal.fire({
-  //         icon: "error",
-  //         text: "Time out login again",
-  //         confirmButtonColor: "#6EE3A5",
-  //       })
-  //       navigate("/")
-  //       console.log(err)
-  //     }
-  //   }
-  //   auth()
-  // }, [navigate])
 
   return (
     <Stack bg="#77d5ae">
