@@ -1,16 +1,7 @@
-import FrameWithCenter from "../component/FrameWithCenter";
-import { Stack } from "@mantine/core";
+import Header from "../component/Header";
 
 const RewardHistoryPage = () => {
-  return (
-    <>
-      <FrameWithCenter title="Reward history">
-        <Stack style={{ height: "100vh" }}>
-          
-        </Stack>
-      </FrameWithCenter>
-    </>
-  );
+  return <Header title="Reward history" />;
 };
 
-export default RewardHistoryPage
+export default RewardHistoryPage;
