@@ -1,56 +1,58 @@
 import { Center, Container, Image, PasswordInput, Stack } from "@mantine/core";
-import { PhoneInput } from "react-international-phone";
-import "react-international-phone/style.css";
-import "../styles/index.css";
 import { useForm } from "@mantine/form";
 import axios from "axios";
-import { apiUrl } from "../config";
-import Swal from "sweetalert2";
+import { PhoneInput } from "react-international-phone";
 import { Link, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../hooks/store";
-import { setUser, setPoint } from "../features/user/userSlice";
+import Swal from "sweetalert2";
+import { apiUrl } from "../config";
 
-function LoginPage() {
+const RegisterPage = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       phone: "",
       password: "",
+      confirmPassword: "",
     },
     validate: {
       phone: (value) => (value.length < 10 ? "Invalid phone number": null),
-      password: (value) => (value.length < 5 ? "Invalid password" : null),
+      password: (value) => (value.length < 0 ? "Invalid password" : null),
+      confirmPassword: (value) => (value.length < 5 ? "Invalid confirm password" : null),
     },
   });
 
-  const handleOnFormSubmit = async () => {
+  const createNewUser = async () => {
+    const { password, confirmPassword } = form.getValues()
+    if (password !== confirmPassword) {
+      Swal.fire({
+        icon: "error",
+        text: "Confirm password is not correct",
+        confirmButtonColor: "#6EE3A5",
+      })
+      return;
+    }
+
     if (form.validate().hasErrors) {
       return;
     }
 
     try {
-      const res = await axios.post(`${apiUrl}/login`, form.getValues(), {
-        withCredentials: true,
-      });
+      await axios.post(`${apiUrl}/users`, form.getValues())
 
-      const { result } = res.data;
-      dispatch(setUser({ id: result.id, phone: result.phone, name: "None" }));
-      dispatch(setPoint(result.point));
+      navigate("/")
 
       Swal.fire({
         icon: "success",
-        text: "Login success",
+        text: "Register success",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
 
-      navigate("/app/home");
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "Login failed phone number or password is wrong",
+        text: "Register failed please try again",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);
@@ -87,7 +89,7 @@ function LoginPage() {
             >
               <Stack style={{ padding: "20px" }}>
                 <Center>
-                  <h2>LOG</h2>
+                  <h2>REGISTER</h2>
                 </Center>
                 <PhoneInput
                   defaultCountry="vn"
@@ -102,9 +104,18 @@ function LoginPage() {
                   {...form.getInputProps("password")}
                   style={{ width: "100%" }}
                 />
-                <p>Forgot your password? Click here</p>
+                <PasswordInput
+                  size="md"
+                  placeholder="Re-enter password"
+                  key={form.key("confirmPassword")}
+                  {...form.getInputProps("confirmPassword")}
+                  style={{ width: "100%" }}
+                />
+                <p>
+                  Already have an account ? <Link to={"/"}>Sign in now</Link>
+                </p>
                 <button
-                  onClick={handleOnFormSubmit}
+                  onClick={createNewUser}
                   style={{
                     backgroundColor: "#ffffff",
                     borderRadius: "24px",
@@ -112,20 +123,8 @@ function LoginPage() {
                     width: "100%",
                   }}
                 >
-                  <b>Login</b>
+                  <b>Register</b>
                 </button>
-                <Link to={"/register"} style={{ width: "100%" }}>
-                  <button
-                    style={{
-                      backgroundColor: "#ffffff",
-                      borderRadius: "24px",
-                      padding: "8px",
-                      width: "100%"
-                    }}
-                  >
-                    <b>Don't have an account yet? Sign up now</b>
-                  </button>
-                </Link>
               </Stack>
             </Container>
           </Container>
@@ -133,6 +132,6 @@ function LoginPage() {
       </Center>
     </>
   );
-}
+};
 
-export default LoginPage;
+export default RegisterPage;

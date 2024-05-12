@@ -1,14 +1,7 @@
-import { Stack } from "@mantine/core";
-import FrameWithCenter from "../component/FrameWithCenter";
+import Header from "../component/Header";
 
 const WithdrawHistoryPage = () => {
-  return (
-    <>
-      <FrameWithCenter title="Draw history">
-        <Stack style={{ height: "100vh" }}></Stack>
-      </FrameWithCenter>
-    </>
-  );
+  return <Header title="Withdraw history" />;
 };
 
 export default WithdrawHistoryPage;

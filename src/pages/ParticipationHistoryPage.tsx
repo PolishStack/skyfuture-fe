@@ -1,14 +1,7 @@
-import FrameWithCenter from "../component/FrameWithCenter";
-import { Stack } from "@mantine/core";
+import Header from "../component/Header";
 
 const ParticipationHistoryPage = () => {
-  return (
-    <>
-      <FrameWithCenter title="Participation history">
-        <Stack style={{ height: "100vh" }}></Stack>
-      </FrameWithCenter>
-    </>
-  );
+  return <Header title="Participation history" />;
 };
 
 export default ParticipationHistoryPage;
