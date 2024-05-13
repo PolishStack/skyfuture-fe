@@ -29,7 +29,7 @@ const IndividualPage = () => {
   const handleUserLogout = async () => {
     try {
       localStorage.removeItem("token")
-      
+
       navigate("/");
 
       Swal.fire({
@@ -148,12 +148,12 @@ const IndividualPage = () => {
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link
-              to={menu.title !== "Log out" ? menu.href : ""}
+              to={menu.title !== "Đăng xuất" ? menu.href : ""}
               style={{ textDecorationLine: "none" }}
               key={menu.href}
             >
               <Button
-                onClick={menu.title === "Log out" ? handleUserLogout : () => {}}
+                onClick={menu.title === "Đăng xuất" ? handleUserLogout : () => {}}
                 fullWidth
                 leftSection={menu.icon}
                 variant="transparent"
