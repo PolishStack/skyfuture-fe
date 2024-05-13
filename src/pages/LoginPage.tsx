@@ -31,7 +31,7 @@ function LoginPage() {
       password: (value) => (value.length < 5 ? "Mật khẩu không hợp lệ" : null),
     },
   });
-
+  
   const handleOnFormSubmit = async () => {
     if (form.validate().hasErrors) {
       return;
@@ -41,8 +41,10 @@ function LoginPage() {
       const res = await axios.post(`${apiUrl}/login`, form.getValues(), {
         withCredentials: true,
       });
-
       const { result } = res.data;
+
+      localStorage.setItem("token", result.token)
+
       dispatch(setUser({ id: result.id, phone: result.phone, name: "None" }));
       dispatch(setPoint(result.point));
 
