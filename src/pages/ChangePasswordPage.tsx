@@ -9,20 +9,20 @@ const ChangePasswordPage = () => {
 
   return (
     <>
-      <Header title="Change password" />
+      <Header title="Mật khẩu cũ" />
       <Stack gap="16px" style={{ padding: "16px 24px 0px 24px" }}>
         <PasswordInput
-          placeholder="Old password"
+          placeholder="Mật khẩu cũ"
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
         />
         <PasswordInput
-          placeholder="New password"
+          placeholder="Mật khẩu mới"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
         />
         <PasswordInput
-          placeholder="Re-enter password"
+          placeholder="Nhập lại mật khẩu"
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
         />
@@ -36,7 +36,7 @@ const ChangePasswordPage = () => {
               deg: 180,
             }}
           >
-            Confirm
+            Xác nhận
           </Button>
         </Center>
       </Stack>

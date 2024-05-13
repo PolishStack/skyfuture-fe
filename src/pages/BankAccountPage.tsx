@@ -9,23 +9,23 @@ const BankAccountPage = () => {
 
   return (
     <>
-      <Header title="Add a bank account" />
+      <Header title="Thêm tài khoản ngân hàng" />
       <Stack gap="16px" style={{ padding: "16px 24px 0px 24px" }}>
         <TextInput
-          label="Bank name"
-          placeholder="Enter bank name"
+          label="Tên ngân hàng"
+          placeholder="Nhập tên ngân hàng"
           value={bankName}
           onChange={(e) => setBankName(e.target.value)}
         />
         <TextInput
-          label="Account number"
-          placeholder="Enter your account number"
+          label="Số tài khoản"
+          placeholder="Nhập số tài khoản"
           value={accountNumber}
           onChange={(e) => setAccountNumber(e.target.value)}
         />
         <TextInput
-          label="Account holder"
-          placeholder="Enter the recipient's full name"
+          label="Chủ tài khoản"
+          placeholder="Nhập họ tên người nhận"
           value={accountHolder}
           onChange={(e) => setAccountHolder(e.target.value)}
         />
@@ -39,7 +39,7 @@ const BankAccountPage = () => {
               deg: 180,
             }}
           >
-            Confirm
+            Xác nhận
           </Button>
         </Center>
       </Stack>

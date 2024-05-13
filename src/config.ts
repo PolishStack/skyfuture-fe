@@ -1,2 +1,1 @@
-
-export const apiUrl = `http://localhost:8080/api/v1`
+export const apiUrl = import.meta.env.VITE_SERVER_URL
