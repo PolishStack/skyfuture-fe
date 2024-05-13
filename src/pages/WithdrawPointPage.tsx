@@ -6,11 +6,11 @@ const WithdrawPointPage = () => {
   const { point: userPoint } = useAppSelector((state) => state.user);
   return (
     <>
-      <Header title="Draw points" />
+      <Header title="Rút điểm" />
       <Stack style={{ height: "100vh", padding: "20px 24px 0px 24px" }}>
         <Box>
-          <p style={{ margin: "0px" }}>Avalible points: {userPoint} đ</p>
-          <Input placeholder="Enter the number of points to withdraw" />
+          <p style={{ margin: "0px" }}>Số điểm hiện có: {userPoint} đ</p>
+          <Input placeholder="Nhập số điểm cần rút" />
         </Box>
         <Center>
           <Button
@@ -22,7 +22,7 @@ const WithdrawPointPage = () => {
               deg: 180,
             }}
           >
-            Confirm
+            Xác nhận
           </Button>
         </Center>
       </Stack>
