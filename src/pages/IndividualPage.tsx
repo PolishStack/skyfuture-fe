@@ -18,8 +18,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
-import axios from "axios";
-import { apiUrl } from "../config";
 import Swal from "sweetalert2";
 // import { useEffect } from "react";
 
@@ -30,7 +28,8 @@ const IndividualPage = () => {
 
   const handleUserLogout = async () => {
     try {
-      await axios.get(`${apiUrl}/logout`, { withCredentials: true });
+      localStorage.removeItem("token")
+      
       navigate("/");
 
       Swal.fire({
