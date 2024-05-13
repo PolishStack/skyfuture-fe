@@ -16,20 +16,22 @@ const RegisterPage = () => {
       confirmPassword: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Invalid phone number": null),
-      password: (value) => (value.length < 5 ? "Password must longer than 5 character" : null),
-      confirmPassword: (value) => (value.length < 5 ? "Password must longer than 5 character" : null),
+      phone: (value) => (value.length < 10 ? "Invalid phone number" : null),
+      password: (value) =>
+        value.length < 5 ? "Password must longer than 5 character" : null,
+      confirmPassword: (value) =>
+        value.length < 5 ? "Password must longer than 5 character" : null,
     },
   });
 
   const createNewUser = async () => {
-    const { password, confirmPassword } = form.getValues()
+    const { password, confirmPassword } = form.getValues();
     if (password !== confirmPassword) {
       Swal.fire({
         icon: "error",
         text: "Confirm password is not correct",
         confirmButtonColor: "#6EE3A5",
-      })
+      });
       return;
     }
 
@@ -38,9 +40,9 @@ const RegisterPage = () => {
     }
 
     try {
-      await axios.post(`${apiUrl}/users`, form.getValues())
+      await axios.post(`${apiUrl}/users`, form.getValues());
 
-      navigate("/")
+      navigate("/");
 
       Swal.fire({
         icon: "success",
@@ -48,7 +50,6 @@ const RegisterPage = () => {
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
-
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -60,78 +61,73 @@ const RegisterPage = () => {
   };
 
   return (
-    <>
-      <Center style={{ width: "100%", height: "100%" }} bg="#f2f2f2">
-        <Stack
-          style={{
-            width: "540px",
-            height: "100vh",
-            boxShadow:
-              "0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-          }}
-          bg="#77d5ae"
-        >
-          <Center bg="#88ffce" style={{ padding: "8px" }}>
-            <b>DREAMS</b>
-          </Center>
-          <Center>
-            <Image src="./logo.png" alt="logo" height="254px" />
-          </Center>
-          <Container style={{ width: "100%", padding: "0px 30px 30px 30px" }}>
-            <Container
-              bg="linear-gradient(#86d3c3,#e8fcfb)"
-              style={{
-                width: "100%",
-                borderRadius: "18px",
-                border: "solid 2px black",
-                paddingBottom: "12px",
-              }}
-            >
-              <Stack style={{ padding: "20px" }}>
-                <Center>
-                  <h2>REGISTER</h2>
-                </Center>
-                <PhoneInput
-                  defaultCountry="vn"
-                  inputStyle={{ width: "100%" }}
-                  key={form.key("phone")}
-                  {...form.getInputProps("phone")}
-                />
-                <PasswordInput
-                  size="md"
-                  placeholder="Enter your password"
-                  key={form.key("password")}
-                  {...form.getInputProps("password")}
-                  style={{ width: "100%" }}
-                />
-                <PasswordInput
-                  size="md"
-                  placeholder="Re-enter password"
-                  key={form.key("confirmPassword")}
-                  {...form.getInputProps("confirmPassword")}
-                  style={{ width: "100%" }}
-                />
-                <p>
-                  Already have an account ? <Link to={"/"}>Sign in now</Link>
-                </p>
-                <button
-                  onClick={createNewUser}
-                  style={{
-                    backgroundColor: "#ffffff",
-                    borderRadius: "24px",
-                    padding: "8px",
-                    width: "100%",
-                  }}
-                  className="clickable"
-                >
-                  <b>Register</b>
-                </button>
-              </Stack>
-            </Container>
-          </Container>
-        </Stack>
+    <Stack
+      style={{
+        minHeight: "100vh",
+        boxShadow:
+          "0 4px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+      }}
+      bg="#77d5ae"
+    >
+      <Center bg="#88ffce" style={{ padding: "8px" }}>
+        <b>DREAMS</b>
       </Center>
-    </>
+      <Center>
+        <Image src="./logo.png" alt="logo" height="254px" />
+      </Center>
+      <Container style={{ width: "100%", padding: "0px 30px 30px 30px" }}>
+        <Container
+          bg="linear-gradient(#86d3c3,#e8fcfb)"
+          style={{
+            width: "100%",
+            borderRadius: "18px",
+            border: "solid 2px black",
+            paddingBottom: "12px",
+          }}
+        >
+          <Stack style={{ padding: "20px" }}>
+            <Center>
+              <h2>REGISTER</h2>
+            </Center>
+            <PhoneInput
+              defaultCountry="vn"
+              inputStyle={{ width: "100%" }}
+              key={form.key("phone")}
+              {...form.getInputProps("phone")}
+            />
+            <PasswordInput
+              size="md"
+              placeholder="Enter your password"
+              key={form.key("password")}
+              {...form.getInputProps("password")}
+              style={{ width: "100%" }}
+            />
+            <PasswordInput
+              size="md"
+              placeholder="Re-enter password"
+              key={form.key("confirmPassword")}
+              {...form.getInputProps("confirmPassword")}
+              style={{ width: "100%" }}
+            />
+            <p>
+              Already have an account ? <Link to={"/"}>Sign in now</Link>
+            </p>
+            <button
+              onClick={createNewUser}
+              style={{
+                backgroundColor: "#ffffff",
+                borderRadius: "24px",
+                padding: "8px",
+                width: "100%",
+              }}
+              className="clickable"
+            >
+              <b>Register</b>
+            </button>
+          </Stack>
+        </Container>
+      </Container>
+    </Stack>
   );
 };
 

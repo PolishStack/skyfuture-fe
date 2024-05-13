@@ -1,4 +1,4 @@
-import { AppShell, Box, Flex, Grid, Text } from "@mantine/core";
+import { AppShell, Flex, Grid, ScrollArea, Text } from "@mantine/core";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { IoHomeOutline, IoPersonOutline } from "react-icons/io5";
@@ -12,8 +12,9 @@ export const FrameWithFooter = () => {
       styles={{ root: { position: "relative" } }}
     >
       <AppShell.Main p="0">
-        <Outlet />
-        <Box style={{ height: "60px" }} />
+        <ScrollArea h="calc(100vh - 60px)">
+          <Outlet />
+        </ScrollArea>
       </AppShell.Main>
       <AppShell.Footer
         p="0"
