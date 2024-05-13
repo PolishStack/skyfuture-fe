@@ -35,13 +35,13 @@ const IndividualPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "Logout success",
+        text: "Đăng xuất thành công",
         confirmButtonColor: "#6EE3A5",
       });
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "failed to logout",
+        text: "Không thể đăng xuất",
       });
       console.log(err);
     }
@@ -180,10 +180,9 @@ const IndividualPage = () => {
       <Modal opened={opened} onClose={close} centered withCloseButton={false}>
         <Center>
           <Stack style={{ textAlign: "center" }}>
-            <h3 style={{ margin: "0px" }}>Deposit points</h3>
+            <h3 style={{ margin: "0px" }}>NẠP ĐIỂM</h3>
             <p>
-              Please contact Customer Service for instructions on submitting
-              points
+              Vui lòng liên hệ với CSKH để được hướng dẫn nạp điểm
             </p>
           </Stack>
         </Center>
@@ -194,7 +193,7 @@ const IndividualPage = () => {
             bg="#ddd"
             style={{ color: "black" }}
           >
-            Agree
+            Đồng ý
           </Button>
         </Flex>
       </Modal>

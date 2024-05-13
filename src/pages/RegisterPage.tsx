@@ -16,11 +16,11 @@ const RegisterPage = () => {
       confirmPassword: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Invalid phone number" : null),
+      phone: (value) => (value.length < 10 ? "Số điện thoại không hợp lệ" : null),
       password: (value) =>
-        value.length < 5 ? "Password must longer than 5 character" : null,
+        value.length < 5 ? "Mật khẩu phải dài hơn 5 ký tự" : null,
       confirmPassword: (value) =>
-        value.length < 5 ? "Password must longer than 5 character" : null,
+        value.length < 5 ? "Mật khẩu phải dài hơn 5 ký tự" : null,
     },
   });
 
@@ -29,7 +29,7 @@ const RegisterPage = () => {
     if (password !== confirmPassword) {
       Swal.fire({
         icon: "error",
-        text: "Confirm password is not correct",
+        text: "Xác nhận mật khẩu không đúng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -46,14 +46,14 @@ const RegisterPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "Register success",
+        text: "Đăng ký thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "Register failed please try again",
+        text: "Đăng ký không thành công, vui lòng thử lại",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);

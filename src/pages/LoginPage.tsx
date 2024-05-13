@@ -27,8 +27,8 @@ function LoginPage() {
       password: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Invalid phone number" : null),
-      password: (value) => (value.length < 5 ? "Invalid password" : null),
+      phone: (value) => (value.length < 10 ? "Số điện thoại không hợp lệ" : null),
+      password: (value) => (value.length < 5 ? "Mật khẩu không hợp lệ" : null),
     },
   });
 
@@ -48,7 +48,7 @@ function LoginPage() {
 
       Swal.fire({
         icon: "success",
-        text: "Login success",
+        text: "Đăng nhập thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
@@ -57,7 +57,7 @@ function LoginPage() {
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "Login failed phone number or password is wrong",
+        text: "Đăng nhập không thành công số điện thoại hoặc mật khẩu sai",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);
