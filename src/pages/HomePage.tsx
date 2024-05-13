@@ -24,7 +24,7 @@ const HomePage = () => {
           </Flex>
           <Flex>
             <Text style={{ fontSize: "14px" }}>
-              Number of points: {userPoint}
+              Số điểm: {userPoint}
             </Text>
           </Flex>
         </Flex>
@@ -34,7 +34,7 @@ const HomePage = () => {
           order={3}
           style={{ margin: "0px", marginTop: "8px", fontSize: "18px" }}
         >
-          COORDINATION CENTER
+          TRUNG TÂM ĐIỀU PHỐI
         </Title>
       </Flex>
       <Container bg="white" style={{ padding: "20px" }}>

@@ -91,7 +91,7 @@ function LoginPage() {
         >
           <Stack style={{ padding: "20px" }}>
             <Center>
-              <h2>LOGIN</h2>
+              <h2>ĐĂNG NHẬP</h2>
             </Center>
             <PhoneInput
               defaultCountry="vn"
@@ -101,12 +101,12 @@ function LoginPage() {
             />
             <PasswordInput
               size="md"
-              placeholder="Enter your password"
+              placeholder="Nhập mật khẩu của bạn"
               key={form.key("password")}
               {...form.getInputProps("password")}
               style={{ width: "100%" }}
             />
-            <p>Forgot your password? Click here</p>
+            <p>Bạn quên mật khẩu ? Hãy ấn vào đây</p>
             <button
               onClick={handleOnFormSubmit}
               style={{
@@ -117,7 +117,7 @@ function LoginPage() {
               }}
               className="clickable"
             >
-              <b>Login</b>
+              <b>ĐĂNG NHẬP</b>
             </button>
             <Link to={"/register"}>
               <Text
@@ -132,7 +132,7 @@ function LoginPage() {
                 }}
                 className="clickable"
               >
-                Don't have an account yet? Sign up now
+                Bạn chưa có tài khoản ? Đăng ký ngay
               </Text>
             </Link>
           </Stack>
