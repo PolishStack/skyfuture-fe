@@ -1,7 +1,7 @@
 import Header from "../component/Header";
 
 const CustomerServicePage = () => {
-  return <Header title="Customer care" />;
+  return <Header title="Chăm Sóc Khách Hàng" />;
 };
 
 export default CustomerServicePage;
