@@ -49,37 +49,37 @@ const IndividualPage = () => {
 
   const menuList = [
     {
-      title: "Participation history",
+      title: "Lịch sử tham gia",
       href: "/app/participation_history",
       icon: <AiOutlinePartition />,
     },
     {
-      title: "Reward history",
+      title: "Lịch sử nhận thưởng",
       href: "/app/reward_history",
       icon: <SlPresent />,
     },
     {
-      title: "Deposit history",
+      title: "Lịch sử nạp",
       href: "/app/deposit_history",
       icon: <PiHandDeposit />,
     },
     {
-      title: "Withdrawal history",
+      title: "Lịch sử rút",
       href: "/app/withdrawal_history",
       icon: <PiHandWithdraw />,
     },
     {
-      title: "Add a bank account",
+      title: "Thêm tài khoản ngân hàng",
       href: "/app/bank_account",
       icon: <AiFillBank />,
     },
     {
-      title: "Change password",
+      title: "Đổi mật khẩu",
       href: "/app/change_password",
       icon: <RiLockPasswordLine />,
     },
     {
-      title: "Log out",
+      title: "Đăng xuất",
       href: "/",
       icon: <IoIosLogOut />,
     },
@@ -97,7 +97,7 @@ const IndividualPage = () => {
         bg="linear-gradient(180deg,#71d2a7,#94e3ce)"
       >
         <Center style={{ padding: "8px" }}>
-          <b>Member Center</b>
+          <b>Trung Tâm Thành Viên</b>
         </Center>
         <Flex justify="space-between" style={{ padding: "0px 30px 0px 30px" }}>
           <p>ID: {user?.id ?? "None"}</p>
@@ -105,7 +105,7 @@ const IndividualPage = () => {
         </Flex>
         <Center>
           <div>
-            <p style={{ margin: "0px" }}>Account points</p>
+            <p style={{ margin: "0px" }}>Số điểm tài khoản</p>
             <h1 style={{ margin: "0px", textAlign: "center" }}>{userPoint}</h1>
           </div>
         </Center>
@@ -120,18 +120,19 @@ const IndividualPage = () => {
             width: "340px",
           }}
           bg="linear-gradient(#86d3c3,#e8fcfb)"
+          className="center-line"
         >
           <GridCol onClick={open} span={6} className="clickable">
             <Flex direction="column" align="center">
               <MdAddCard size="24px" />
-              <Text style={{ fontSize: "14px" }}>Deposit points</Text>
+              <Text style={{ fontSize: "14px" }}>Nạp điểm</Text>
             </Flex>
           </GridCol>
           <GridCol span={6}>
             <Link to="/app/withdraw_point">
               <Flex direction="column" align="center">
                 <BiMoneyWithdraw size="24px" />
-                <Text style={{ fontSize: "14px" }}>Withdraw points</Text>
+                <Text style={{ fontSize: "14px" }}>Rút điểm</Text>
               </Flex>
             </Link>
           </GridCol>

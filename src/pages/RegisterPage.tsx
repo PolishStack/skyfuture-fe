@@ -87,7 +87,7 @@ const RegisterPage = () => {
         >
           <Stack style={{ padding: "20px" }}>
             <Center>
-              <h2>REGISTER</h2>
+              <h2>Đăng ký</h2>
             </Center>
             <PhoneInput
               defaultCountry="vn"
@@ -97,20 +97,20 @@ const RegisterPage = () => {
             />
             <PasswordInput
               size="md"
-              placeholder="Enter your password"
+              placeholder="Nhập mật Khẩu của bạn"
               key={form.key("password")}
               {...form.getInputProps("password")}
               style={{ width: "100%" }}
             />
             <PasswordInput
               size="md"
-              placeholder="Re-enter password"
+              placeholder="Nhập lại mật khẩu"
               key={form.key("confirmPassword")}
               {...form.getInputProps("confirmPassword")}
               style={{ width: "100%" }}
             />
             <p>
-              Already have an account ? <Link to={"/"}>Sign in now</Link>
+              Đã có tài khoản ? <Link to={"/"}>Đăng nhập ngay</Link>
             </p>
             <button
               onClick={createNewUser}
@@ -122,7 +122,7 @@ const RegisterPage = () => {
               }}
               className="clickable"
             >
-              <b>Register</b>
+              <b>Đăng ký</b>
             </button>
           </Stack>
         </Container>

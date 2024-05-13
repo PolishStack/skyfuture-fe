@@ -38,7 +38,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/home">
               <Flex direction="column" align="center">
                 <IoHomeOutline size="20px" />
-                <Text style={{ fontSize: "14px" }}>Homepage</Text>
+                <Text style={{ fontSize: "14px" }}>Trang chủ</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
@@ -46,7 +46,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/individual">
               <Flex direction="column" align="center">
                 <IoPersonOutline size="20px" />
-                <Text style={{ fontSize: "14px" }}>individual</Text>
+                <Text style={{ fontSize: "14px" }}>Cá nhân</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
@@ -54,7 +54,7 @@ export const FrameWithFooter = () => {
             <NavLink to="/app/customer_service">
               <Flex direction="column" align="center">
                 <TbHeadset size="20px" />
-                <Text style={{ fontSize: "14px" }}>Customer Service</Text>
+                <Text style={{ fontSize: "14px" }}>CSKH</Text>
               </Flex>
             </NavLink>
           </Grid.Col>
