@@ -14,7 +14,18 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const auth = async () => {
       try {
-        await axios.get(`${apiUrl}/auth`, { withCredentials: true });
+        const token = localStorage.getItem("token") ?? "";
+        if (token == "") {
+          throw new Error("Not found token");
+        }
+
+        await axios.get(`${apiUrl}/auth`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        });
+        
         close();
       } catch (err) {
         Swal.fire({
