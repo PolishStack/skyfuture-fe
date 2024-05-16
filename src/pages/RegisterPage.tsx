@@ -119,6 +119,7 @@ const RegisterPage = () => {
                 borderRadius: "24px",
                 padding: "8px",
                 width: "100%",
+                border: "solid 2px black",
               }}
               className="clickable"
             >
