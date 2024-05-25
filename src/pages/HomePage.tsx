@@ -15,12 +15,12 @@ const HomePage = () => {
   return (
     <Stack bg="#77d5ae">
       <Center bg="#88ffce" style={{ padding: "8px" }}>
-        <b>DREAMS</b>
+        <b>SKYFUTURE</b>
       </Center>
       <Container style={{ width: "100%" }}>
         <Flex justify="space-between">
           <Flex>
-            <Text style={{ fontSize: "14px" }}>ID: {user?.id}</Text>
+            <Text style={{ fontSize: "14px" }}>ID: {user?.id.substring(0, 5)}</Text>
           </Flex>
           <Flex>
             <Text style={{ fontSize: "14px" }}>

@@ -28,7 +28,7 @@ const IndividualPage = () => {
 
   const handleUserLogout = async () => {
     try {
-      localStorage.removeItem("token")
+      localStorage.removeItem("token");
 
       navigate("/");
 
@@ -99,7 +99,7 @@ const IndividualPage = () => {
           <b>Trung Tâm Thành Viên</b>
         </Center>
         <Flex justify="space-between" style={{ padding: "0px 30px 0px 30px" }}>
-          <p>ID: {user?.id ?? "None"}</p>
+          <p>ID: {user?.id.substring(0, 5) ?? "None"}</p>
           <p>{user?.phone ?? "None"}</p>
         </Flex>
         <Center>
@@ -153,7 +153,9 @@ const IndividualPage = () => {
               key={menu.href}
             >
               <Button
-                onClick={menu.title === "Đăng xuất" ? handleUserLogout : () => {}}
+                onClick={
+                  menu.title === "Đăng xuất" ? handleUserLogout : () => {}
+                }
                 fullWidth
                 leftSection={menu.icon}
                 variant="transparent"
@@ -180,9 +182,7 @@ const IndividualPage = () => {
         <Center>
           <Stack style={{ textAlign: "center" }}>
             <h3 style={{ margin: "0px" }}>NẠP ĐIỂM</h3>
-            <p>
-              Vui lòng liên hệ với CSKH để được hướng dẫn nạp điểm
-            </p>
+            <p>Vui lòng liên hệ với CSKH để được hướng dẫn nạp điểm</p>
           </Stack>
         </Center>
         <Flex justify="center">
