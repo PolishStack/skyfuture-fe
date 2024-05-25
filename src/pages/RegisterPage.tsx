@@ -70,7 +70,7 @@ const RegisterPage = () => {
       bg="#77d5ae"
     >
       <Center bg="#88ffce" style={{ padding: "8px" }}>
-        <b>DREAMS</b>
+        <b>SKYFUTURE</b>
       </Center>
       <Center>
         <Image src="./logo.png" alt="logo" height="254px" />
