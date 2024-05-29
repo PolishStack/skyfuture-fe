@@ -63,7 +63,7 @@ const ParticipationHistoryPage = () => {
         } catch (err) {
           Swal.fire({
             icon: "error",
-            text: "EN: failed to load participle history",
+            text: "không tải được lịch sử phân từ",
             confirmButtonColor: "#6EE3A5",
           });
           console.log(err);
@@ -85,7 +85,7 @@ const ParticipationHistoryPage = () => {
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              EN: No history
+              Không tìm thấy tiền sử
             </Badge>
           )
         ) : (

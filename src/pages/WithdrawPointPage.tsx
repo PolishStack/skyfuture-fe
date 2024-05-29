@@ -25,7 +25,7 @@ const WithdrawPointPage = () => {
     if (!user) {
       Swal.fire({
         icon: "error",
-        text: "EN: user id is not found",
+        text: "Không tìm thấy người dùng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -33,7 +33,7 @@ const WithdrawPointPage = () => {
     if (amount < 1) {
       Swal.fire({
         icon: "error",
-        text: "EN: withdraw amount must be greater than 0",
+        text: "Rút tiền phải lớn hơn 0",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -41,7 +41,7 @@ const WithdrawPointPage = () => {
     if (amount > user.point) {
       Swal.fire({
         icon: "error",
-        text: "EN: withdraw amount must not exceed user point",
+        text: "Rút tiền không được vượt quá điểm của người dùng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -64,7 +64,7 @@ const WithdrawPointPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "EN: create withdraw request success",
+        text: "Tạo yêu cầu rút tiền thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
@@ -89,7 +89,7 @@ const WithdrawPointPage = () => {
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "EN: failed to create withdraw request",
+        text: "Không thể tạo yêu cầu rút tiền thành công",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);

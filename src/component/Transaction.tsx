@@ -54,8 +54,8 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
                   style={{ fontSize: "16px", lineHeight: "19px" }}
                 >
                   {transaction.status === "success" && "Thành công"}
-                  {transaction.status === "pending" && "EN: pending"}
-                  {transaction.status === "failed" && "EN: failed"}
+                  {transaction.status === "pending" && "Chờ"}
+                  {transaction.status === "failed" && "Thất bại"}
                 </Text>
               ))}
             <Text style={{ fontSize: "12px", lineHeight: "16px" }}>
