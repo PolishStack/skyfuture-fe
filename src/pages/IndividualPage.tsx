@@ -19,24 +19,25 @@ import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import Swal from "sweetalert2";
-// import { useEffect } from "react";
 
 const IndividualPage = () => {
   const navigate = useNavigate();
-  const { user, point: userPoint } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const handleUserLogout = async () => {
+  const handleUserLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     try {
-      localStorage.removeItem("token")
-
-      navigate("/");
+      localStorage.removeItem("token");
 
       Swal.fire({
         icon: "success",
         text: "Đăng xuất thành công",
         confirmButtonColor: "#6EE3A5",
       });
+      navigate("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -105,7 +106,9 @@ const IndividualPage = () => {
         <Center>
           <div>
             <p style={{ margin: "0px" }}>Số điểm tài khoản</p>
-            <h1 style={{ margin: "0px", textAlign: "center" }}>{userPoint}</h1>
+            <h1 style={{ margin: "0px", textAlign: "center" }}>
+              {user?.point}
+            </h1>
           </div>
         </Center>
 
@@ -153,7 +156,11 @@ const IndividualPage = () => {
               key={menu.href}
             >
               <Button
-                onClick={menu.title === "Đăng xuất" ? handleUserLogout : () => {}}
+                onClick={
+                  menu.title === "Đăng xuất"
+                    ? (e) => handleUserLogout(e)
+                    : () => {}
+                }
                 fullWidth
                 leftSection={menu.icon}
                 variant="transparent"
@@ -180,9 +187,7 @@ const IndividualPage = () => {
         <Center>
           <Stack style={{ textAlign: "center" }}>
             <h3 style={{ margin: "0px" }}>NẠP ĐIỂM</h3>
-            <p>
-              Vui lòng liên hệ với CSKH để được hướng dẫn nạp điểm
-            </p>
+            <p>Vui lòng liên hệ với CSKH để được hướng dẫn nạp điểm</p>
           </Stack>
         </Center>
         <Flex justify="center">

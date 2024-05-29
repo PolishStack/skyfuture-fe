@@ -4,13 +4,16 @@ import App from "./App";
 import "@mantine/core/styles.css";
 
 import { createTheme, MantineProvider } from "@mantine/core";
+
+import { generateColors } from "@mantine/colors-generator";
 import { BrowserRouter } from "react-router-dom";
 import store from "./app/store";
 import { Provider } from "react-redux";
 
 const theme = createTheme({
-  fontFamily: '"Inter", sans-serif'
-})
+  fontFamily: '"Inter", sans-serif',
+  colors: { green: generateColors("#48b02c") },
+});
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
