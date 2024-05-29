@@ -19,7 +19,7 @@ const ParticipationHistoryPage = () => {
       (async () => {
         try {
           const token = getToken();
-          let {
+          const {
             data: {
               result: {
                 transaction: transactionList,
