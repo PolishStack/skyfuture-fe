@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { SlArrowLeft } from "react-icons/sl";
 import { IoIosAlert } from "react-icons/io";
 import {
+  charToSingleDigit,
   getCurrentRound,
   getGameEndTime,
-  getRandomDigitNumber,
   getToken,
+  hashToSixDigits,
 } from "../utils/helpers";
 import Countdown from "../component/Game/Countdown";
 import { useEffect, useState } from "react";
@@ -17,6 +18,8 @@ import GameBody from "../component/Game/GameBody";
 import Swal from "sweetalert2";
 import axios from "../services/api";
 import { setUser } from "../features/user/userSlice";
+import { jwtDecode } from "jwt-decode";
+import { User } from "../features/user/type";
 
 interface GamePageProps {
   imageSrc: string;
@@ -37,11 +40,13 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     getCurrentRound(2, gamesStartDateTime[1]),
     getCurrentRound(3, gamesStartDateTime[2]),
   ]);
-  const room5DigitNumber = getRandomDigitNumber(5).toString().split("");
+  const [room5DigitNumber, setRoom5DigitNumber] = useState<string[]>(
+    "000000".split("")
+  );
+
   const availableRoomsId = [1, 2, 3];
 
   const onTimerEnd = () => {
-    console.log("Hey");
     setRoomNumberList((rnl) => {
       let newList = [...rnl];
       newList[roomId - 1] = getCurrentRound(
@@ -131,16 +136,9 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
   useEffect(() => {
     (async () => {
       try {
-        if (!user) {
-          Swal.fire({
-            icon: "error",
-            text: "Không tìm thấy người dùng",
-            confirmButtonColor: "#6EE3A5",
-          });
-          return;
-        }
         const token = getToken();
-        const res = await axios.get(`/users/${user.id}`, {
+        const { id } = jwtDecode<User>(token);
+        const res = await axios.get(`/users/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -167,6 +165,16 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
       }
     })();
   }, []);
+  useEffect(() => {
+    (async () => {
+      setRoom5DigitNumber(
+        (await hashToSixDigits(roomNumberList[roomId - 1]))
+          .toString()
+          .slice(1, 6)
+          .split("")
+      );
+    })();
+  }, [roomId]);
   return (
     <>
       <Box bg="#87f3d9" pb={30}>
@@ -206,7 +214,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
         <Group justify="space-between" px="35px">
           <Group fw={700}>Number: {roomNumberList[roomId - 1]}</Group>
           <Group gap={10}>
-            {room5DigitNumber.map((digit, index) => (
+            {room5DigitNumber.map((char, index) => (
               <Group
                 key={index}
                 justify="center"
@@ -215,7 +223,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
                 fw={700}
                 style={{ borderRadius: "100%", border: "2px solid white" }}
               >
-                {digit}
+                {charToSingleDigit(char)}
               </Group>
             ))}
           </Group>
