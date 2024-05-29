@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import Header from "../../component/Header";
-import { Badge, Button, Card, Flex, SimpleGrid, Stack } from "@mantine/core";
+import {
+  Badge,
+  Button,
+  Card,
+  Flex,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { TransactionType } from "../../services/api/type";
 import Swal from "sweetalert2";
 import axios from "../../services/api";
@@ -61,14 +69,13 @@ const ManageTransactionPage = () => {
         }
       );
 
-      refetchTransaction()
-      
+      refetchTransaction();
+
       Swal.fire({
         icon: "success",
         text: `EN: Update status transaction success`,
         confirmButtonColor: "#6ee3a5",
-      })
-
+      });
     } catch (err) {
       console.log(err);
       Swal.fire({
@@ -88,7 +95,7 @@ const ManageTransactionPage = () => {
             Refresh
           </Button>
         </Flex>
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
           {transactions?.map((transaction) => (
             <Card
               shadow="sm"
@@ -97,14 +104,14 @@ const ManageTransactionPage = () => {
               withBorder
               key={transaction.id}
             >
-              <Stack>
+              <Stack gap={4}>
                 <Flex justify={"space-between"} align={"center"}>
-                  <p>User id: {transaction.userId}</p>
+                  <Text>User id: {transaction.userId}</Text>
                   <Badge color="yellow">{transaction.status}</Badge>
                 </Flex>
-                <p>Method: {transaction.method}</p>
-                <p>Amount: {transaction.amount * -1}</p>
-                <p>Date: {convertDate(transaction.createdAt)}</p>
+                <Text>Method: {transaction.method}</Text>
+                <Text>Amount: {transaction.amount * -1}</Text>
+                <Text>Date: {convertDate(transaction.createdAt)}</Text>
               </Stack>
 
               <Flex gap={"xs"}>
