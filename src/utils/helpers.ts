@@ -57,6 +57,19 @@ export const getCurrentRound = (
   const gameDuration = import.meta.env.VITE_GAME_DURATION_MINUTE * 60 * 1000; // game minutes * 60 seconds/minute * 1000 milliseconds/second
 
   // Calculate the number of rounds (rounded down to whole rounds)
-  const currentRound = (Math.floor(elapsedTime / gameDuration)+roomId-1) * 3;
+  const currentRound =
+    (Math.floor(elapsedTime / gameDuration) + roomId - 1) * 3;
   return currentRound;
+};
+
+export const getGameEndTime = (gameStartTime: Date): Date => {
+  const gameDuration = 3 * 60 * 1000;
+  const gameEndTime = new Date(
+    gameStartTime.getTime() +
+      Math.ceil(
+        (new Date().getTime() - gameStartTime.getTime()) / gameDuration
+      ) *
+        gameDuration
+  );
+  return gameEndTime;
 };

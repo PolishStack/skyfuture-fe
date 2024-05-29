@@ -14,6 +14,7 @@ import { IoIosLogOut, IoIosArrowForward } from "react-icons/io";
 import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
+import { MdHistoryEdu, MdInput } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
@@ -156,7 +157,7 @@ const IndividualPage = () => {
             >
               <Button
                 fullWidth
-                // leftSection={menu.icon}
+                leftSection={<MdHistoryEdu />}
                 variant="transparent"
                 justify="flex-start"
                 size="lg"
@@ -178,7 +179,7 @@ const IndividualPage = () => {
             >
               <Button
                 fullWidth
-                // leftSection={menu.icon}
+                leftSection={<MdInput />}
                 variant="transparent"
                 justify="flex-start"
                 size="lg"

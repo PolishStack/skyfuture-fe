@@ -58,6 +58,7 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
           <Group w="100%" justify="space-between">
             {amountChoiceList.map((amountChoice) => (
               <Button
+                key={amountChoice}
                 onClick={() => setAmount(amountChoice)}
                 bg={
                   amount === amountChoice

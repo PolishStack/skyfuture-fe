@@ -5,11 +5,12 @@ import { SlArrowLeft } from "react-icons/sl";
 import { IoIosAlert } from "react-icons/io";
 import {
   getCurrentRound,
+  getGameEndTime,
   getRandomDigitNumber,
   getToken,
 } from "../utils/helpers";
 import Countdown from "../component/Game/Countdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { gamesStartDateTime } from "../config";
 import { LuRefreshCcw } from "react-icons/lu";
 import GameBody from "../component/Game/GameBody";
@@ -40,6 +41,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
   const availableRoomsId = [1, 2, 3];
 
   const onTimerEnd = () => {
+    console.log("Hey");
     setRoomNumberList((rnl) => {
       let newList = [...rnl];
       newList[roomId - 1] = getCurrentRound(
@@ -49,7 +51,6 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
       return newList;
     });
   };
-
   const onSubmit = async (side: boolean, amount: number) => {
     if (!user) {
       Swal.fire({
@@ -126,6 +127,46 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!user) {
+          Swal.fire({
+            icon: "error",
+            text: "Không tìm thấy người dùng",
+            confirmButtonColor: "#6EE3A5",
+          });
+          return;
+        }
+        const token = getToken();
+        const res = await axios.get(`/users/${user.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const { result } = res.data;
+
+        localStorage.setItem("token", result.token);
+
+        dispatch(
+          setUser({
+            id: result.id,
+            phone: result.phone,
+            point: result.point,
+            role: result.role,
+          })
+        );
+      } catch (err) {
+        Swal.fire({
+          icon: "error",
+          text: "Không thể tạo yêu cầu rút tiền thành công",
+          confirmButtonColor: "#6EE3A5",
+        });
+        console.log(err);
+      }
+    })();
+  }, []);
   return (
     <>
       <Box bg="#87f3d9" pb={30}>
@@ -147,12 +188,9 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
                 Number: {roomNumberList[roomId - 1] + 3}
               </Text>
               <Countdown
-                gameEndDateTime={
-                  new Date(
-                    new Date(gamesStartDateTime[roomId - 1]).getTime() +
-                      (roomNumberList[roomId - 1] + 1) * 3 * 60 * 1000
-                  )
-                }
+                gameEndDateTime={getGameEndTime(
+                  new Date(gamesStartDateTime[roomId - 1])
+                )}
                 onTimerEnd={onTimerEnd}
               />
             </Stack>
