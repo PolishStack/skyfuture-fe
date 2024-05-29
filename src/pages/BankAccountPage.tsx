@@ -1,11 +1,86 @@
-import { useState } from "react";
 import Header from "../component/Header";
 import { Button, Center, Stack, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import Swal from "sweetalert2";
+import axios from "../services/api";
+import { useAppSelector } from "../hooks/store";
+import { getToken } from "../utils/helpers";
+import { useEffect } from "react";
 
 const BankAccountPage = () => {
-  const [bankName, setBankName] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-  const [accountHolder, setAccountHolder] = useState("");
+  const { user } = useAppSelector((state) => state.user);
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      bankName: "",
+      accountNumber: "",
+      accountHolder: "",
+    },
+  });
+
+  const handleOnFormSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (!user) {
+      Swal.fire({
+        icon: "error",
+        text: "không tìm thấy người dùng",
+        confirmButtonColor: "#6EE3A5",
+      });
+      return;
+    }
+    try {
+      const token = getToken();
+      await axios.put(`/users/${user.id}`, form.getValues(), {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      Swal.fire({
+        icon: "success",
+        text: "Thông tin ngân hàng đã được cập nhật thành công",
+        confirmButtonColor: "#6EE3A5",
+        timer: 2000,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        text: "Cập nhật nhầm thông tin ngân hàng",
+        confirmButtonColor: "#6EE3A5",
+      });
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (user)
+      (async () => {
+        try {
+          const token = getToken();
+          const {
+            data: { result },
+          } = await axios.get(`/users/${user!.id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          form.setValues({
+            bankName: result.bankName,
+            accountNumber: result.accountNumber,
+            accountHolder: result.accountHolder,
+          });
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            text: "Đăng nhập không thành công số điện thoại hoặc mật khẩu sai",
+            confirmButtonColor: "#6EE3A5",
+          });
+          console.log(err);
+        }
+      })();
+  }, [user]);
 
   return (
     <>
@@ -14,23 +89,24 @@ const BankAccountPage = () => {
         <TextInput
           label="Tên ngân hàng"
           placeholder="Nhập tên ngân hàng"
-          value={bankName}
-          onChange={(e) => setBankName(e.target.value)}
+          key={form.key("bankName")}
+          {...form.getInputProps("bankName")}
         />
         <TextInput
           label="Số tài khoản"
           placeholder="Nhập số tài khoản"
-          value={accountNumber}
-          onChange={(e) => setAccountNumber(e.target.value)}
+          key={form.key("accountNumber")}
+          {...form.getInputProps("accountNumber")}
         />
         <TextInput
           label="Chủ tài khoản"
           placeholder="Nhập họ tên người nhận"
-          value={accountHolder}
-          onChange={(e) => setAccountHolder(e.target.value)}
+          key={form.key("accountHolder")}
+          {...form.getInputProps("accountHolder")}
         />
         <Center>
           <Button
+            onClick={(e) => handleOnFormSubmit(e)}
             variant="gradient"
             style={{ paddingLeft: "25px", paddingRight: "25px" }}
             gradient={{

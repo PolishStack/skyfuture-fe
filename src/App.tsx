@@ -14,6 +14,10 @@ import { Box } from "@mantine/core";
 import CustomerServicePage from "./pages/CustomerServicePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginGuard from "./component/LoginGuard";
+import GamePage from "./pages/GamePage";
+import CautionPage from "./pages/CautionPage";
+import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
+import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
 
 function App() {
   return (
@@ -37,6 +41,10 @@ function App() {
             </LoginGuard>
           }
         >
+          <Route path="admin">
+            <Route path="manage-transaction" element={<ManageTransactionPage />}/>
+            <Route path="manage-point" element={<ManageUserPointPage  />}/>
+          </Route>
           <Route path="home" element={<HomePage />} />
           <Route path="individual" element={<IndividualPage />} />
           <Route path="change_password" element={<ChangePasswordPage />} />
@@ -50,6 +58,27 @@ function App() {
           <Route path="withdrawal_history" element={<WithdrawHistoryPage />} />
           <Route path="bank_account" element={<BankAccountPage />} />
           <Route path="withdraw_point" element={<WithdrawPointPage />} />
+          <Route path="caution" element={<CautionPage />} />
+          <Route
+            path="game/1/:id"
+            element={
+              <GamePage
+                imageSrc="/banner3.png"
+                left={import.meta.env.VITE_GAME1_LEFT}
+                right={import.meta.env.VITE_GAME1_RIGHT}
+              />
+            }
+          />
+          <Route
+            path="game/2/:id"
+            element={
+              <GamePage
+                imageSrc="/banner4.png"
+                left={import.meta.env.VITE_GAME2_LEFT}
+                right={import.meta.env.VITE_GAME2_RIGHT}
+              />
+            }
+          />
         </Route>
       </Routes>
     </Box>

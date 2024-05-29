@@ -14,29 +14,31 @@ import { IoIosLogOut, IoIosArrowForward } from "react-icons/io";
 import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
+import { MdHistoryEdu, MdInput } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import Swal from "sweetalert2";
-// import { useEffect } from "react";
 
 const IndividualPage = () => {
   const navigate = useNavigate();
-  const { user, point: userPoint } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const handleUserLogout = async () => {
+  const handleUserLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     try {
       localStorage.removeItem("token");
-
-      navigate("/");
 
       Swal.fire({
         icon: "success",
         text: "Đăng xuất thành công",
         confirmButtonColor: "#6EE3A5",
       });
+      navigate("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -45,7 +47,7 @@ const IndividualPage = () => {
       console.log(err);
     }
   };
-
+  //vn-commerce-be-production.up.railway.app
   const menuList = [
     {
       title: "Lịch sử tham gia",
@@ -99,13 +101,15 @@ const IndividualPage = () => {
           <b>Trung Tâm Thành Viên</b>
         </Center>
         <Flex justify="space-between" style={{ padding: "0px 30px 0px 30px" }}>
-          <p>ID: {user?.id.substring(0, 5) ?? "None"}</p>
+          <p>ID: {user?.id ?? "None"}</p>
           <p>{user?.phone ?? "None"}</p>
         </Flex>
         <Center>
           <div>
             <p style={{ margin: "0px" }}>Số điểm tài khoản</p>
-            <h1 style={{ margin: "0px", textAlign: "center" }}>{userPoint}</h1>
+            <h1 style={{ margin: "0px", textAlign: "center" }}>
+              {user?.point}
+            </h1>
           </div>
         </Center>
 
@@ -145,6 +149,54 @@ const IndividualPage = () => {
         }}
         gap={3}
       >
+        {user?.role === "admin" && (
+          <>
+            <Link
+              to={"/app/admin/manage-transaction"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<MdHistoryEdu />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage Transactions
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-point"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<MdInput />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage User Point
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+          </>
+        )}
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link
@@ -154,7 +206,9 @@ const IndividualPage = () => {
             >
               <Button
                 onClick={
-                  menu.title === "Đăng xuất" ? handleUserLogout : () => {}
+                  menu.title === "Đăng xuất"
+                    ? (e) => handleUserLogout(e)
+                    : () => {}
                 }
                 fullWidth
                 leftSection={menu.icon}

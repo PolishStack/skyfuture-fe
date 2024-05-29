@@ -1,10 +1,9 @@
 import { Center, Container, Image, PasswordInput, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import axios from "axios";
+import axios from "../services/api";
 import { PhoneInput } from "react-international-phone";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { apiUrl } from "../config";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -16,7 +15,8 @@ const RegisterPage = () => {
       confirmPassword: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Số điện thoại không hợp lệ" : null),
+      phone: (value) =>
+        value.length < 10 ? "Số điện thoại không hợp lệ" : null,
       password: (value) =>
         value.length < 5 ? "Mật khẩu phải dài hơn 5 ký tự" : null,
       confirmPassword: (value) =>
@@ -24,7 +24,10 @@ const RegisterPage = () => {
     },
   });
 
-  const createNewUser = async () => {
+  const createNewUser = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     const { password, confirmPassword } = form.getValues();
     if (password !== confirmPassword) {
       Swal.fire({
@@ -40,9 +43,7 @@ const RegisterPage = () => {
     }
 
     try {
-      await axios.post(`${apiUrl}/users`, form.getValues());
-
-      navigate("/");
+      await axios.post("/users", form.getValues());
 
       Swal.fire({
         icon: "success",
@@ -50,6 +51,7 @@ const RegisterPage = () => {
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
+      navigate("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -113,7 +115,7 @@ const RegisterPage = () => {
               Đã có tài khoản ? <Link to={"/"}>Đăng nhập ngay</Link>
             </p>
             <button
-              onClick={createNewUser}
+              onClick={(e) => createNewUser(e)}
               style={{
                 backgroundColor: "#ffffff",
                 borderRadius: "24px",
