@@ -145,8 +145,6 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
         });
         const { result } = res.data;
 
-        localStorage.setItem("token", result.token);
-
         dispatch(
           setUser({
             id: result.id,
