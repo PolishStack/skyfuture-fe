@@ -2,12 +2,22 @@ import { Center } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 
-const Header = ({ title }: { title: string }) => {
+interface HeaderProps {
+  title: string;
+  position?: "absolute";
+}
+const Header = ({ title, position }: HeaderProps) => {
   const navigate = useNavigate();
   return (
     <Center
+      h={44}
       bg="#87f3d9"
-      style={{ padding: "8px", fontSize: "18px", position: "relative" }}
+      style={{
+        padding: "8px",
+        fontSize: "18px",
+        position: position === "absolute" ? "absolute" : "relative",
+        top: position === "absolute" ? "0" : "",
+      }}
     >
       <b>{title}</b>
       <IoClose

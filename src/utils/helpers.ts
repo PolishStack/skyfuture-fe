@@ -54,9 +54,54 @@ export const getCurrentRound = (
   const elapsedTime = now.getTime() - startDateTime.getTime();
 
   // Define the game duration in milliseconds (3 minutes)
-  const gameDuration = import.meta.env.VITE_GAME_DURATION_MINUTE * 60 * 1000; // game minutes * 60 seconds/minute * 1000 milliseconds/second
-
+  const gameDuration = import.meta.env.VITE_GAME_DURATION_MINUTE * 60 * 1000;
+  const gamePast = Math.floor(elapsedTime / gameDuration);
   // Calculate the number of rounds (rounded down to whole rounds)
-  const currentRound = (Math.floor(elapsedTime / gameDuration)+roomId-1) * 3;
+  const currentRound = gamePast * 3 - (3 - roomId);
   return currentRound;
+};
+
+export const getGameEndTime = (gameStartTime: Date): Date => {
+  const gameDuration = 3 * 60 * 1000;
+  const gameEndTime = new Date(
+    gameStartTime.getTime() +
+      Math.ceil(
+        (new Date().getTime() - gameStartTime.getTime()) / gameDuration
+      ) *
+        gameDuration
+  );
+  return gameEndTime;
+};
+
+export const hashToSixDigits = async (number: number) => {
+  // Convert the number to a string (assuming it's an integer)
+  const numberString = String(number);
+
+  // Create a TextEncoder to encode the string as a Uint8Array
+  const textEncoder = new TextEncoder();
+  const data = textEncoder.encode(numberString);
+
+  // Crypto API: Get a SHA-256 digest
+  const crypto = window.crypto; // Handle browser compatibility
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+
+  // Convert the hash buffer to a hex string
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+
+  // Extract first digit and truncate to last five digits
+  const firstDigit = numberString[0];
+  const lastFiveDigits = hashHex.slice(-5);
+
+  // Combine and return the six-digit hash
+  return firstDigit + lastFiveDigits;
+};
+
+export const charToSingleDigit = (char: string) => {
+  if (!isNaN(parseInt(char))) return char;
+  const charCode = char.charCodeAt(0); // Get the character code
+  const digit = charCode - 48; // Subtract the code of '0' to get the digit value
+  return digit.toString()[0];
 };

@@ -14,6 +14,7 @@ import { IoIosLogOut, IoIosArrowForward } from "react-icons/io";
 import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
+import { MdHistoryEdu, MdInput } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
@@ -46,7 +47,7 @@ const IndividualPage = () => {
       console.log(err);
     }
   };
-
+  //vn-commerce-be-production.up.railway.app
   const menuList = [
     {
       title: "Lịch sử tham gia",
@@ -148,6 +149,54 @@ const IndividualPage = () => {
         }}
         gap={3}
       >
+        {user?.role === "admin" && (
+          <>
+            <Link
+              to={"/app/admin/manage-transaction"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<MdHistoryEdu />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage Transactions
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-point"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<MdInput />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage User Point
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+          </>
+        )}
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link

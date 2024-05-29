@@ -63,11 +63,18 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
             </Text>
           </Box>
         </Group>
-        {transaction.method !== "game-pending" && (
+        {transaction.method !== "game-pending" ? (
           <Text c={transaction.amount > 0 ? "green" : "red"} fw="bold">
             <NumberFormatter
               prefix={transaction.amount > 0 ? "+" : ""}
               value={transaction.amount}
+              thousandSeparator
+            />
+          </Text>
+        ) : (
+          <Text c="gray" fw="bold">
+            <NumberFormatter
+              value={Math.abs(transaction.amount)}
               thousandSeparator
             />
           </Text>
