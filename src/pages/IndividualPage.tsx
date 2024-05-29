@@ -19,24 +19,25 @@ import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import Swal from "sweetalert2";
-// import { useEffect } from "react";
 
 const IndividualPage = () => {
   const navigate = useNavigate();
-  const { user, point: userPoint } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const handleUserLogout = async () => {
+  const handleUserLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     try {
       localStorage.removeItem("token");
-
-      navigate("/");
 
       Swal.fire({
         icon: "success",
         text: "Đăng xuất thành công",
         confirmButtonColor: "#6EE3A5",
       });
+      navigate("/");
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -99,13 +100,15 @@ const IndividualPage = () => {
           <b>Trung Tâm Thành Viên</b>
         </Center>
         <Flex justify="space-between" style={{ padding: "0px 30px 0px 30px" }}>
-          <p>ID: {user?.id.substring(0, 5) ?? "None"}</p>
+          <p>ID: {user?.id ?? "None"}</p>
           <p>{user?.phone ?? "None"}</p>
         </Flex>
         <Center>
           <div>
             <p style={{ margin: "0px" }}>Số điểm tài khoản</p>
-            <h1 style={{ margin: "0px", textAlign: "center" }}>{userPoint}</h1>
+            <h1 style={{ margin: "0px", textAlign: "center" }}>
+              {user?.point}
+            </h1>
           </div>
         </Center>
 
@@ -154,7 +157,9 @@ const IndividualPage = () => {
             >
               <Button
                 onClick={
-                  menu.title === "Đăng xuất" ? handleUserLogout : () => {}
+                  menu.title === "Đăng xuất"
+                    ? (e) => handleUserLogout(e)
+                    : () => {}
                 }
                 fullWidth
                 leftSection={menu.icon}

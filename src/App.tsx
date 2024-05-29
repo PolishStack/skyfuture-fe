@@ -14,6 +14,7 @@ import { Box } from "@mantine/core";
 import CustomerServicePage from "./pages/CustomerServicePage";
 import RegisterPage from "./pages/RegisterPage";
 import LoginGuard from "./component/LoginGuard";
+import GamePage from "./pages/GamePage";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="withdrawal_history" element={<WithdrawHistoryPage />} />
           <Route path="bank_account" element={<BankAccountPage />} />
           <Route path="withdraw_point" element={<WithdrawPointPage />} />
+          <Route path="game/:id" element={<GamePage />} />
         </Route>
       </Routes>
     </Box>

@@ -10,12 +10,11 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import "../styles/index.css";
 import { useForm } from "@mantine/form";
-import axios from "axios";
-import { apiUrl } from "../config";
+import axios from "../services/api";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/store";
-import { setUser, setPoint } from "../features/user/userSlice";
+import { setUser } from "../features/user/userSlice";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -27,26 +26,34 @@ function LoginPage() {
       password: "",
     },
     validate: {
-      phone: (value) => (value.length < 10 ? "Số điện thoại không hợp lệ" : null),
+      phone: (value) =>
+        value.length < 10 ? "Số điện thoại không hợp lệ" : null,
       password: (value) => (value.length < 5 ? "Mật khẩu không hợp lệ" : null),
     },
   });
-  
-  const handleOnFormSubmit = async () => {
+
+  const handleOnFormSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     if (form.validate().hasErrors) {
       return;
     }
 
     try {
-      const res = await axios.post(`${apiUrl}/login`, form.getValues(), {
-        withCredentials: true,
-      });
+      const res = await axios.post("/login", form.getValues(), {});
       const { result } = res.data;
 
-      localStorage.setItem("token", result.token)
+      localStorage.setItem("token", result.token);
 
-      dispatch(setUser({ id: result.id, phone: result.phone, name: "None" }));
-      dispatch(setPoint(result.point));
+      dispatch(
+        setUser({
+          id: result.id,
+          phone: result.phone,
+          point: result.point,
+          role: result.role,
+        })
+      );
 
       Swal.fire({
         icon: "success",
@@ -110,7 +117,7 @@ function LoginPage() {
             />
             <p>Bạn quên mật khẩu ? Hãy ấn vào đây</p>
             <button
-              onClick={handleOnFormSubmit}
+              onClick={(e) => handleOnFormSubmit(e)}
               style={{
                 backgroundColor: "#ffffff",
                 borderRadius: "24px",
