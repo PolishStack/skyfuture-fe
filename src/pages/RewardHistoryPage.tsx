@@ -17,7 +17,7 @@ const RewardHistoryPage = () => {
       (async () => {
         try {
           const token = getToken();
-          let {
+          const {
             data: { result: transactionList },
           } = (await axios.get(`/users/${user.id}/transactions`, {
             params: { method: "reward" },
