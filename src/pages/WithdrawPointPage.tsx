@@ -1,5 +1,5 @@
 import Header from "../component/Header";
-import { Box, Button, Center, Input, NumberInput, Stack } from "@mantine/core";
+import { Box, Button, Center, NumberInput, Stack } from "@mantine/core";
 import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { useForm } from "@mantine/form";
 import Swal from "sweetalert2";

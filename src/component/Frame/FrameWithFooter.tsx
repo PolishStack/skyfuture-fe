@@ -12,7 +12,7 @@ export const FrameWithFooter = () => {
       styles={{ root: { position: "relative" } }}
     >
       <AppShell.Main p="0">
-        <ScrollArea h="calc(100vh - 60px)">
+        <ScrollArea h="calc(100vh - 60px)" pos="relative">
           <Outlet />
         </ScrollArea>
         <Box h={60} />
