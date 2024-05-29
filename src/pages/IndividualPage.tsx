@@ -46,7 +46,7 @@ const IndividualPage = () => {
       console.log(err);
     }
   };
-
+  //vn-commerce-be-production.up.railway.app
   const menuList = [
     {
       title: "Lịch sử tham gia",
@@ -148,6 +148,54 @@ const IndividualPage = () => {
         }}
         gap={3}
       >
+        {user?.role === "admin" && (
+          <>
+            <Link
+              to={"/app/admin/manage-transaction"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                // leftSection={menu.icon}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage Transactions
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-point"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                // leftSection={menu.icon}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Admin Manage User Point
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+          </>
+        )}
         {menuList.map(
           (menu: { title: string; href: string; icon: React.ReactNode }) => (
             <Link

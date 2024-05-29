@@ -25,7 +25,7 @@ const BankAccountPage = () => {
     if (!user) {
       Swal.fire({
         icon: "error",
-        text: "EN: user id is not found",
+        text: "không tìm thấy người dùng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -40,14 +40,14 @@ const BankAccountPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "EN: update bank info success",
+        text: "Thông tin ngân hàng đã được cập nhật thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "EN: update bank info failed",
+        text: "Cập nhật nhầm thông tin ngân hàng",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);

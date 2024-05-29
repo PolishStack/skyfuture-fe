@@ -16,6 +16,8 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginGuard from "./component/LoginGuard";
 import GamePage from "./pages/GamePage";
 import CautionPage from "./pages/CautionPage";
+import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
+import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
 
 function App() {
   return (
@@ -39,6 +41,10 @@ function App() {
             </LoginGuard>
           }
         >
+          <Route path="admin">
+            <Route path="manage-transaction" element={<ManageTransactionPage />}/>
+            <Route path="manage-point" element={<ManageUserPointPage  />}/>
+          </Route>
           <Route path="home" element={<HomePage />} />
           <Route path="individual" element={<IndividualPage />} />
           <Route path="change_password" element={<ChangePasswordPage />} />

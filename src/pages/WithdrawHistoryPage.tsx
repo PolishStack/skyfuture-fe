@@ -19,7 +19,7 @@ const WithdrawHistoryPage = () => {
       (async () => {
         try {
           const token = getToken();
-          let {
+          const {
             data: { result: transactionList },
           } = (await axios.get(`/users/${user.id}/transactions`, {
             params: { method: "withdraw" },
@@ -36,7 +36,7 @@ const WithdrawHistoryPage = () => {
         } catch (err) {
           Swal.fire({
             icon: "error",
-            text: "EN: failed to load withdraw history",
+            text: "Không thể mở trang lịch sử rút tiền",
             confirmButtonColor: "#6EE3A5",
           });
           console.log(err);
@@ -58,7 +58,7 @@ const WithdrawHistoryPage = () => {
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              EN: No history
+              Không tìm thấy tiền sử
             </Badge>
           )
         ) : (

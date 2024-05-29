@@ -17,7 +17,7 @@ const RewardHistoryPage = () => {
       (async () => {
         try {
           const token = getToken();
-          let {
+          const {
             data: { result: transactionList },
           } = (await axios.get(`/users/${user.id}/transactions`, {
             params: { method: "reward" },
@@ -34,7 +34,7 @@ const RewardHistoryPage = () => {
         } catch (err) {
           Swal.fire({
             icon: "error",
-            text: "EN: failed to load reward history",
+            text: "Không thể mở trang Lịch sử giải thưởng",
             confirmButtonColor: "#6EE3A5",
           });
           console.log(err);
@@ -50,13 +50,13 @@ const RewardHistoryPage = () => {
             rewardList.map((transaction) => (
               <Transaction
                 key={transaction.id}
-                title="EN: reward"
+                title="thưởng"
                 transaction={transaction}
               />
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              EN: No history
+              Không tìm thấy tiền sử
             </Badge>
           )
         ) : (
