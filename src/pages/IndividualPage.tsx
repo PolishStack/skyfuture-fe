@@ -167,7 +167,7 @@ const IndividualPage = () => {
                   position: "relative",
                 }}
               >
-                EN: Admin Manage Transactions
+                Quản trị viên Quản lý giao dịch
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />
@@ -189,7 +189,7 @@ const IndividualPage = () => {
                   position: "relative",
                 }}
               >
-                EN: Admin Manage User Point
+                Quản trị viên Quản lý điểm người dùng
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />

@@ -39,7 +39,7 @@ const ManageTransactionPage = () => {
         console.log(err);
         Swal.fire({
           icon: "error",
-          text: "EN: Load transaction failed",
+          text: "Tải giao dịch không thành công",
           confirmButtonColor: "#6ee3a5",
         });
       }
@@ -73,14 +73,14 @@ const ManageTransactionPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: `EN: Update status transaction success`,
+        text: `Cập nhật trạng thái giao dịch thành công`,
         confirmButtonColor: "#6ee3a5",
       });
     } catch (err) {
       console.log(err);
       Swal.fire({
         icon: "error",
-        text: "EN: Approve transaction failed, please try again",
+        text: "Phê duyệt giao dịch không thành công, vui lòng thử lại",
         confirmButtonColor: "#6ee3a5",
       });
     }
@@ -88,7 +88,7 @@ const ManageTransactionPage = () => {
 
   return (
     <div>
-      <Header title="EN: Admin Manage Transaction" />
+      <Header title="Quản trị viên Quản lý giao dịch" />
       <Stack gap="16px" style={{ padding: "16px 24px 24px 24px" }}>
         <Flex justify={"end"}>
           <Button color="cyan" onClick={refetchTransaction}>

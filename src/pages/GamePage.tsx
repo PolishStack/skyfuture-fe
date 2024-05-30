@@ -60,7 +60,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     if (!user) {
       Swal.fire({
         icon: "error",
-        text: "EN: user id is not found",
+        text: "Không tìm thấy id người dùng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -68,7 +68,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     if (amount < 1) {
       Swal.fire({
         icon: "error",
-        text: "EN: bet amount must be greater than 0",
+        text: "Số tiền đặt cược phải lớn hơn 0",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -76,7 +76,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     if (amount > user.point) {
       Swal.fire({
         icon: "error",
-        text: "EN: bet amount must not exceed user point",
+        text: "Số tiền đặt cược không được vượt quá số điểm của người dùng",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -101,7 +101,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
 
       Swal.fire({
         icon: "success",
-        text: "EN: create withdraw request success",
+        text: "tạo yêu cầu rút tiền thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
@@ -126,7 +126,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "EN: failed to submit bet",
+        text: "Không thể gửi tiền cượct",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);
@@ -144,8 +144,6 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
           },
         });
         const { result } = res.data;
-
-        localStorage.setItem("token", result.token);
 
         dispatch(
           setUser({

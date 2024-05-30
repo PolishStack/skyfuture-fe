@@ -32,7 +32,7 @@ const ManageUserPointPage = () => {
     },
     validate: {
       amount: (amount) =>
-        amount < 1 ? "EN: Amount must greater than zero" : null,
+        amount < 1 ? "Số tiền phải lớn hơn 0" : null,
     },
   });
 
@@ -50,7 +50,7 @@ const ManageUserPointPage = () => {
       return;
     }
     if (method === "reward" && !description) {
-      form.setFieldError("description", "EN: please fill reward reason");
+      form.setFieldError("description", "Vui lòng điền lý do nhận thưởng");
       return;
     }
     if (form.validate().hasErrors) return;
@@ -75,14 +75,14 @@ const ManageUserPointPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "EN: submit from success",
+        text: "gửi từ thành công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
     } catch (err) {
       Swal.fire({
         icon: "error",
-        text: "EN: Failed to submit form",
+        text: "Không thể gửi biểu mẫu",
         confirmButtonColor: "#6EE3A5",
       });
       console.log(err);
@@ -91,11 +91,11 @@ const ManageUserPointPage = () => {
 
   return (
     <>
-      <Header title="EN: Add user point" />
+      <Header title="Thêm điểm người dùng" />
       <Stack gap={8} px={16} mt={16}>
         <NumberInput
-          label="EN: user ID:"
-          placeholder="EN: enter user id"
+          label="tên id người dùng"
+          placeholder="nhập id người dùng"
           allowNegative={false}
           allowDecimal={false}
           hideControls
@@ -104,8 +104,8 @@ const ManageUserPointPage = () => {
           {...form.getInputProps("userId")}
         />
         <NumberInput
-          label="EN: amount:"
-          placeholder="EN: enter amount"
+          label="Số lượng:"
+          placeholder="Nhập số lượng"
           allowNegative={false}
           allowDecimal={false}
           withAsterisk
@@ -147,7 +147,7 @@ const ManageUserPointPage = () => {
               deg: 180,
             }}
           >
-            EN: submit
+            nộp
           </Button>
         </Center>
       </Stack>

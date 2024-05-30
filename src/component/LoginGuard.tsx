@@ -70,7 +70,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
       } catch (err) {
         Swal.fire({
           icon: "error",
-          text: "EN: Time out login again",
+          text: "Hết thời gian chờ, đăng nhập lại",
           confirmButtonColor: "#6EE3A5",
           timer: 2000,
         });
@@ -110,7 +110,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         } catch (err) {
           Swal.fire({
             icon: "error",
-            text: "EN: failed to mark notify as read",
+            text: "Thông báo không thể được đánh dấu là đã đọc",
             confirmButtonColor: "#6EE3A5",
             timer: 2000,
           });

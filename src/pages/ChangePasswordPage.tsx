@@ -56,7 +56,7 @@ const ChangePasswordPage = () => {
 
       Swal.fire({
         icon: "success",
-        text: "EN: Update account password success",
+        text: "Cập nhật mật khẩu tài khoản thành công",
         confirmButtonColor: "#6EE3A5",
       });
       navigate("/app/home")
@@ -64,7 +64,7 @@ const ChangePasswordPage = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
-        text: "EN: Update account password failed, please try again",
+        text: "Cập nhật mật khẩu tài khoản không thành công, vui lòng thử lại",
         confirmButtonColor: "#6EE3A5",
       });
     }
