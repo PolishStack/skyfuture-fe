@@ -7,7 +7,12 @@ import {
   Title,
 } from "@mantine/core";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { IoCloseCircle, IoTimerSharp } from "react-icons/io5";
+import {
+  IoAlert,
+  IoAlertCircle,
+  IoCloseCircle,
+  IoTimerSharp,
+} from "react-icons/io5";
 
 import { TransactionStatusType, TransactionType } from "../services/api/type";
 import { formatDate } from "../utils/helpers";
@@ -18,14 +23,26 @@ interface TransactionProps {
 }
 const Transaction = ({ title, transaction }: TransactionProps) => {
   let description = "";
-  if (transaction.method === "win") {
-    description = "Win";
-  } else if (transaction.method === "lose") {
-    description = "Lose";
-  } else if (transaction.method === "game-pending") {
-    description = "Pending";
+  switch (transaction.method) {
+    case "withdraw":
+      if (transaction.status === "failed")
+        description =
+          "Lý do :  Hệ thống đã huỷ lệnh rút của quý khách trước đó ,vui lòng vào web để kiểm tra số dư ,trân trọng cảm ơn !";
+      break;
+    case "win":
+      description = "Win";
+      break;
+    case "lose":
+      description = "Lose";
+      break;
+    case "game-pending":
+      description = "Pending";
+      break;
+    case "reward":
+      description = transaction.description;
+      break;
   }
-  if (transaction.method === "reward") description = transaction.description;
+
   const getIcon = (status: TransactionStatusType) => {
     switch (status) {
       case "success":
@@ -35,7 +52,7 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
       case "failed":
         return <IoCloseCircle color="red" size="calc(35px * 1.23)" />;
       case "pending":
-        return <IoTimerSharp color="grey" size="calc(35px * 1.23)" />;
+        return <IoAlertCircle color="orange" size="calc(35px * 1.23)" />;
     }
   };
   return (
@@ -58,11 +75,20 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
               transaction.method === "withdraw") && (
               <Text
                 fw="bold"
-                c="green"
+                c={(() => {
+                  switch (transaction.status) {
+                    case "success":
+                      return "green";
+                    case "pending":
+                      return "yellow";
+                    case "failed":
+                      return "red";
+                  }
+                })()}
                 style={{ fontSize: "16px", lineHeight: "19px" }}
               >
                 {transaction.status === "success" && "Thành công"}
-                {transaction.status === "pending" && "Đang xử lý !"}
+                {transaction.status === "pending" && "Đang xử lý"}
                 {transaction.status === "failed" && "Thất bại"}
               </Text>
             )}
@@ -72,7 +98,12 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
                 lineHeight: "16px",
               }}
             >
-              <Spoiler maxHeight={16} showLabel="Show more" hideLabel="Hide">
+              <Spoiler
+                maxHeight={transaction.method === "withdraw" ? 100 : 16}
+                showLabel="Show more"
+                hideLabel="Hide"
+                maw="80%"
+              >
                 {description && description}
               </Spoiler>
             </Text>
