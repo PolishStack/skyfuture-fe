@@ -31,7 +31,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id: roomIdParam } = useParams();
-  let roomId = parseInt(roomIdParam || "0");
+  const roomId = parseInt(roomIdParam || "0");
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -48,7 +48,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
 
   const onTimerEnd = () => {
     setRoomNumberList((rnl) => {
-      let newList = [...rnl];
+      const newList = [...rnl];
       newList[roomId - 1] = getCurrentRound(
         roomId,
         gamesStartDateTime[roomId - 1]

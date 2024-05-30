@@ -7,12 +7,7 @@ import {
   Title,
 } from "@mantine/core";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import {
-  IoAlert,
-  IoAlertCircle,
-  IoCloseCircle,
-  IoTimerSharp,
-} from "react-icons/io5";
+import { IoAlertCircle, IoCloseCircle } from "react-icons/io5";
 
 import { TransactionStatusType, TransactionType } from "../services/api/type";
 import { formatDate } from "../utils/helpers";

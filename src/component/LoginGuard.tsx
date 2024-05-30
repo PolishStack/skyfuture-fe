@@ -122,7 +122,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
       closeReward();
       setRewardList((rl) => {
         if (rl && rl.length > 0) {
-          return [...rl?.slice(1, -1)];
+          return [...rl.slice(1, -1)];
         } else return [];
       });
     }
