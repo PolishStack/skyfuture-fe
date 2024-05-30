@@ -1,4 +1,11 @@
-import { Button, Group, NumberInput, Stack, Text } from "@mantine/core";
+import {
+  Button,
+  Group,
+  NumberInput,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core";
 import { useState } from "react";
 import { BsTrash3 } from "react-icons/bs";
 import { useAppSelector } from "../../hooks/store";
@@ -16,36 +23,41 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
   const amountChoiceList = [100, 500, 1000, 10000, 20000];
   return (
     <Group mt={18} gap={0}>
-      <Button
-        onClick={() => setSelectedSide(false)}
-        style={{
-          flexGrow: "1",
-          border:
-            selectedSide === false ? "1px solid #88ffce" : "1px solid #e8ffea",
-          color: "#f44336",
-          backgroundColor: selectedSide === false ? "#fff" : "#f6fff7",
-          height: "83px",
-          fontWeight: "700",
-          fontSize: "18px",
-        }}
-      >
-        {left}
-      </Button>
-      <Button
-        onClick={() => setSelectedSide(true)}
-        style={{
-          flexGrow: "1",
-          border:
-            selectedSide === true ? "1px solid #88ffce" : "1px solid #e8ffea",
-          color: "#f44336",
-          backgroundColor: selectedSide === true ? "#fff" : "#f6fff7",
-          height: "83px",
-          fontWeight: "700",
-          fontSize: "18px",
-        }}
-      >
-        {right}
-      </Button>
+      <SimpleGrid cols={2} w="100%" style={{ gap: "0" }}>
+        <Button
+          onClick={() => setSelectedSide(false)}
+          style={{
+            flexGrow: "1",
+            border:
+              selectedSide === false
+                ? "1px solid #88ffce"
+                : "1px solid #e8ffea",
+            color: selectedSide === false ? "white" : "#f44336",
+            backgroundColor: selectedSide === false ? "#00AD13" : "#D4FED8",
+            height: "83px",
+            fontWeight: "700",
+            fontSize: "18px",
+          }}
+        >
+          {left}
+        </Button>
+        <Button
+          onClick={() => setSelectedSide(true)}
+          style={{
+            flexGrow: "1",
+            border:
+              selectedSide === true ? "1px solid #88ffce" : "1px solid #e8ffea",
+            color: selectedSide === true ? "white" : "#f44336",
+            backgroundColor: selectedSide === true ? "#00AD13" : "#D4FED8",
+            height: "83px",
+            fontWeight: "700",
+            fontSize: "18px",
+          }}
+        >
+          {right}
+        </Button>
+      </SimpleGrid>
+
       {selectedSide !== null && (
         <Stack
           pos="absolute"

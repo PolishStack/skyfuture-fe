@@ -67,7 +67,11 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
           <Text c={transaction.amount > 0 ? "green" : "red"} fw="bold">
             <NumberFormatter
               prefix={transaction.amount > 0 ? "+" : ""}
-              value={transaction.amount}
+              value={
+                transaction.method === "win"
+                  ? transaction.amount / 2
+                  : transaction.amount
+              }
               thousandSeparator
             />
           </Text>
