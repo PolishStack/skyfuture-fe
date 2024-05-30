@@ -76,7 +76,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     if (amount > user.point) {
       Swal.fire({
         icon: "error",
-        text: "Số tiền đặt cược không được vượt quá số điểm của người dùng",
+        text: "Số điểm không đủ để thực hiện thao tác !",
         confirmButtonColor: "#6EE3A5",
       });
       return;

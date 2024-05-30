@@ -62,7 +62,7 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
                 style={{ fontSize: "16px", lineHeight: "19px" }}
               >
                 {transaction.status === "success" && "Thành công"}
-                {transaction.status === "pending" && "Chờ"}
+                {transaction.status === "pending" && "Đang xử lý !"}
                 {transaction.status === "failed" && "Thất bại"}
               </Text>
             )}
