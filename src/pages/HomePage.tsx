@@ -38,8 +38,16 @@ const HomePage = () => {
       </Flex>
       <Container bg="white" style={{ padding: "20px" }}>
         <Stack>
-          <Image src="/banner1.png" onClick={() => navigate("/app/game/1")} className="clickable" />
-          <Image src="/banner2.png" onClick={() => navigate("/app/game/2")} className="clickable" />
+          <Image
+            src="/banner1.png"
+            onClick={() => navigate("/app/game/1/1")}
+            className="clickable"
+          />
+          <Image
+            src="/banner2.png"
+            onClick={() => navigate("/app/game/2/1")}
+            className="clickable"
+          />
           <Center>
             <Image src="/heart.png" width="200px" height="32px" />
           </Center>
