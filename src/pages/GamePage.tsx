@@ -101,7 +101,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
 
       Swal.fire({
         icon: "success",
-        text: "tạo yêu cầu rút tiền thành công",
+        text: "Thành Công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
@@ -112,8 +112,6 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
         },
       });
       const { result } = res.data;
-
-      localStorage.setItem("token", result.token);
 
       dispatch(
         setUser({
