@@ -85,7 +85,7 @@ const ParticipationHistoryPage = () => {
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              Không tìm thấy tiền sử
+              Không tìm thấy lịch sử
             </Badge>
           )
         ) : (
