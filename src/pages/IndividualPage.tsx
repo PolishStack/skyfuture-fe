@@ -163,6 +163,7 @@ const IndividualPage = () => {
                 size="lg"
                 color="#444"
                 style={{
+                  fontSize: "16px",
                   fontWeight: "normal",
                   position: "relative",
                 }}
@@ -185,6 +186,7 @@ const IndividualPage = () => {
                 size="lg"
                 color="#444"
                 style={{
+                  fontSize: "16px",
                   fontWeight: "normal",
                   position: "relative",
                 }}
@@ -217,6 +219,7 @@ const IndividualPage = () => {
                 size="lg"
                 color="#444"
                 style={{
+                  fontSize: "16px",
                   fontWeight: "normal",
                   position: "relative",
                 }}
