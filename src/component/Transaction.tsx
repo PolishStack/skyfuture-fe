@@ -1,4 +1,11 @@
-import { Box, Group, NumberFormatter, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Group,
+  NumberFormatter,
+  Spoiler,
+  Text,
+  Title,
+} from "@mantine/core";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoCloseCircle, IoTimerSharp } from "react-icons/io5";
 
@@ -18,6 +25,7 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
   } else if (transaction.method === "game-pending") {
     description = "Pending";
   }
+  if (transaction.method === "reward") description = transaction.description;
   const getIcon = (status: TransactionStatusType) => {
     switch (status) {
       case "success":
@@ -33,9 +41,9 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
   return (
     <>
       <Group wrap="nowrap" justify="space-between" p="5px" gap="0">
-        <Group>
+        <Group gap={12}>
           {getIcon(transaction.status)}
-          <Box>
+          <Box ml="4px">
             <Title
               order={6}
               fs="16px"
@@ -46,20 +54,27 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
             <Text style={{ fontSize: "12px", lineHeight: "16px" }}>
               {formatDate(transaction.updatedAt)}
             </Text>
-            {transaction.method === "deposit" ||
-              (transaction.method === "withdraw" && (
-                <Text
-                  fw="bold"
-                  c="green"
-                  style={{ fontSize: "16px", lineHeight: "19px" }}
-                >
-                  {transaction.status === "success" && "Thành công"}
-                  {transaction.status === "pending" && "Chờ"}
-                  {transaction.status === "failed" && "Thất bại"}
-                </Text>
-              ))}
-            <Text style={{ fontSize: "12px", lineHeight: "16px" }}>
-              {description && description}
+            {(transaction.method === "deposit" ||
+              transaction.method === "withdraw") && (
+              <Text
+                fw="bold"
+                c="green"
+                style={{ fontSize: "16px", lineHeight: "19px" }}
+              >
+                {transaction.status === "success" && "Thành công"}
+                {transaction.status === "pending" && "Chờ"}
+                {transaction.status === "failed" && "Thất bại"}
+              </Text>
+            )}
+            <Text
+              style={{
+                fontSize: "12px",
+                lineHeight: "16px",
+              }}
+            >
+              <Spoiler maxHeight={16} showLabel="Show more" hideLabel="Hide">
+                {description && description}
+              </Spoiler>
             </Text>
           </Box>
         </Group>
