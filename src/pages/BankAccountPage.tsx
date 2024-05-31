@@ -3,12 +3,15 @@ import { Button, Center, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Swal from "sweetalert2";
 import axios from "../services/api";
-import { useAppSelector } from "../hooks/store";
+import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { getToken } from "../utils/helpers";
 import { useEffect } from "react";
+import { setUser } from "../features/user/userSlice";
 
 const BankAccountPage = () => {
   const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -32,11 +35,28 @@ const BankAccountPage = () => {
     }
     try {
       const token = getToken();
-      await axios.put(`/users/${user.id}`, form.getValues(), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const { bankName, accountNumber, accountHolder } = form.getValues();
+      await axios.put(
+        `/users/${user.id}`,
+        { bankName, accountNumber, accountHolder },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch(
+        setUser({
+          id: user.id,
+          phone: user.phone,
+          point: user.point,
+          role: user.role,
+          bankName,
+          accountNumber,
+          accountHolder,
+        })
+      );
 
       Swal.fire({
         icon: "success",
@@ -56,30 +76,11 @@ const BankAccountPage = () => {
 
   useEffect(() => {
     if (user)
-      (async () => {
-        try {
-          const token = getToken();
-          const {
-            data: { result },
-          } = await axios.get(`/users/${user!.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          form.setValues({
-            bankName: result.bankName,
-            accountNumber: result.accountNumber,
-            accountHolder: result.accountHolder,
-          });
-        } catch (err) {
-          Swal.fire({
-            icon: "error",
-            text: "Đăng nhập không thành công số điện thoại hoặc mật khẩu sai",
-            confirmButtonColor: "#6EE3A5",
-          });
-          console.log(err);
-        }
-      })();
+      form.setValues({
+        bankName: user.bankName,
+        accountNumber: user.accountNumber,
+        accountHolder: user.accountHolder,
+      });
   }, [user]);
 
   return (
