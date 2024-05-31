@@ -22,7 +22,8 @@ const ManageTransactionPage = () => {
   const [transactions, setTransactions] = useState<TransactionType[] | null>(
     []
   );
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | null>(null)
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<TransactionType | null>(null);
   const [callFetch, setCallFetch] = useState(false);
   const [
     openedApproveModal,
@@ -63,15 +64,12 @@ const ManageTransactionPage = () => {
     return new Date(date).toLocaleString("th-TH");
   };
 
-  const handleUpdateStatusTransaction = async (
-    transaction: TransactionType,
-    status: string
-  ) => {
+  const handleUpdateStatusTransaction = async (status: string) => {
     try {
       const token = getToken();
 
       await axios.put(
-        `/users/${transaction.userId}/transactions/${transaction.id}`,
+        `/users/${selectedTransaction?.userId}/transactions/${selectedTransaction?.id}`,
         {
           status,
         },
@@ -83,6 +81,12 @@ const ManageTransactionPage = () => {
       );
 
       refetchTransaction();
+
+      if (status == "success") {
+        closeApproveModal();
+      } else if (status == "failed") {
+        closeRejectModal();
+      }
 
       Swal.fire({
         icon: "success",
@@ -109,7 +113,7 @@ const ManageTransactionPage = () => {
       });
       const { result } = res.data;
       setSelectedUser(result);
-      setSelectedTransaction(transactinon)
+      setSelectedTransaction(transactinon);
       openApproveModal();
     } catch (err) {
       console.log(err);
@@ -155,10 +159,7 @@ const ManageTransactionPage = () => {
                   fullWidth
                   mt="md"
                   radius="md"
-                  onClick={
-                    () => handleApproveTransaction(transaction)
-                    // handleUpdateStatusTransaction(transaction, "success")
-                  }
+                  onClick={() => handleApproveTransaction(transaction)}
                 >
                   Approve
                 </Button>
@@ -168,11 +169,9 @@ const ManageTransactionPage = () => {
                   mt="md"
                   radius="md"
                   onClick={() => {
-                    setSelectedTransaction(transaction)
-                    openRejectModal()
-                  }
-                    // handleUpdateStatusTransaction(transaction, "failed")
-                  }
+                    setSelectedTransaction(transaction);
+                    openRejectModal();
+                  }}
                 >
                   Reject
                 </Button>
@@ -202,7 +201,12 @@ const ManageTransactionPage = () => {
             <p>{selectedUser?.accountHolder}</p>
           </Flex>
           <Flex align={"center"} justify={"end"} gap={10}>
-            <Button color="green">Confirm</Button>
+            <Button
+              color="green"
+              onClick={() => handleUpdateStatusTransaction("success")}
+            >
+              Confirm
+            </Button>
             <Button color="red" onClick={closeApproveModal}>
               Cancel
             </Button>
@@ -219,7 +223,12 @@ const ManageTransactionPage = () => {
         <Stack>
           <p>EN: Are you sure to reject this transacion ?</p>
           <Flex align={"center"} justify={"end"} gap={10}>
-            <Button color="green" onClick={}>Confirm</Button>
+            <Button
+              color="green"
+              onClick={() => handleUpdateStatusTransaction("failed")}
+            >
+              Confirm
+            </Button>
             <Button color="red" onClick={closeRejectModal}>
               Cancel
             </Button>
