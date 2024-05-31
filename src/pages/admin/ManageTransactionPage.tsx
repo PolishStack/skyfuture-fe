@@ -22,10 +22,15 @@ const ManageTransactionPage = () => {
   const [transactions, setTransactions] = useState<TransactionType[] | null>(
     []
   );
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionType | null>(null)
   const [callFetch, setCallFetch] = useState(false);
   const [
     openedApproveModal,
     { open: openApproveModal, close: closeApproveModal },
+  ] = useDisclosure(false);
+  const [
+    openedRejectModal,
+    { open: openRejectModal, close: closeRejectModal },
   ] = useDisclosure(false);
 
   const refetchTransaction = () => {
@@ -102,8 +107,9 @@ const ManageTransactionPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { result } = res.data
-      setSelectedUser(result)
+      const { result } = res.data;
+      setSelectedUser(result);
+      setSelectedTransaction(transactinon)
       openApproveModal();
     } catch (err) {
       console.log(err);
@@ -149,8 +155,8 @@ const ManageTransactionPage = () => {
                   fullWidth
                   mt="md"
                   radius="md"
-                  onClick={() => 
-                    handleApproveTransaction(transaction)
+                  onClick={
+                    () => handleApproveTransaction(transaction)
                     // handleUpdateStatusTransaction(transaction, "success")
                   }
                 >
@@ -161,8 +167,11 @@ const ManageTransactionPage = () => {
                   fullWidth
                   mt="md"
                   radius="md"
-                  onClick={() =>
-                    handleUpdateStatusTransaction(transaction, "failed")
+                  onClick={() => {
+                    setSelectedTransaction(transaction)
+                    openRejectModal()
+                  }
+                    // handleUpdateStatusTransaction(transaction, "failed")
                   }
                 >
                   Reject
@@ -176,12 +185,44 @@ const ManageTransactionPage = () => {
       <Modal
         opened={openedApproveModal}
         onClose={closeApproveModal}
-        title={<h3>EN: Approve user transaction</h3>}
+        title={<h3>EN: Confirm approve transaction</h3>}
         centered
       >
         <Stack>
-          <Flex>
-            <h4>Bank name: {}</h4>
+          <Flex align={"center"} gap={10}>
+            <h4>EN: Bank name:</h4>
+            <p>{selectedUser?.bankName}</p>
+          </Flex>
+          <Flex align={"center"} gap={10}>
+            <h4>EN: Account number:</h4>
+            <p>{selectedUser?.accountNumber}</p>
+          </Flex>
+          <Flex align={"center"} gap={10}>
+            <h4>EN: Account holder:</h4>
+            <p>{selectedUser?.accountHolder}</p>
+          </Flex>
+          <Flex align={"center"} justify={"end"} gap={10}>
+            <Button color="green">Confirm</Button>
+            <Button color="red" onClick={closeApproveModal}>
+              Cancel
+            </Button>
+          </Flex>
+        </Stack>
+      </Modal>
+
+      <Modal
+        opened={openedRejectModal}
+        onClose={closeRejectModal}
+        title={<h3>EN: Confirm reject transaction</h3>}
+        centered
+      >
+        <Stack>
+          <p>EN: Are you sure to reject this transacion ?</p>
+          <Flex align={"center"} justify={"end"} gap={10}>
+            <Button color="green" onClick={}>Confirm</Button>
+            <Button color="red" onClick={closeRejectModal}>
+              Cancel
+            </Button>
           </Flex>
         </Stack>
       </Modal>
