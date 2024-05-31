@@ -6,6 +6,7 @@ import {
   Card,
   Flex,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
 } from "@mantine/core";
@@ -16,7 +17,7 @@ import { getToken } from "../../utils/helpers";
 
 const ManageTransactionPage = () => {
   const [transactions, setTransactions] = useState<TransactionType[] | null>(
-    []
+    null
   );
   const [callFetch, setCallFetch] = useState(false);
 
@@ -95,52 +96,66 @@ const ManageTransactionPage = () => {
             Refresh
           </Button>
         </Flex>
-        <SimpleGrid cols={{ base: 1, sm: 2 }}>
-          {transactions?.map((transaction) => (
-            <Card
-              shadow="sm"
-              padding="lg"
-              radius="md"
-              withBorder
-              key={transaction.id}
-            >
-              <Stack gap={4}>
-                <Flex justify={"space-between"} align={"center"}>
-                  <Text>User id: {transaction.userId}</Text>
-                  <Badge color="yellow">{transaction.status}</Badge>
-                </Flex>
-                <Text>Method: {transaction.method}</Text>
-                <Text>Amount: {transaction.amount * -1}</Text>
-                <Text>Date: {convertDate(transaction.createdAt)}</Text>
-              </Stack>
+        {transactions === null ? (
+          <SimpleGrid cols={{ base: 1, sm: 2 }}>
+            {Array.from({ length: 2 }).map((_, index) => (
+              <Skeleton key={index} h={176}>
+                <Card shadow="sm" padding="lg" radius="md"></Card>
+              </Skeleton>
+            ))}
+          </SimpleGrid>
+        ) : transactions.length > 0 ? (
+          <SimpleGrid cols={{ base: 1, sm: 2 }}>
+            {transactions.map((transaction) => (
+              <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                key={transaction.id}
+              >
+                <Stack gap={4}>
+                  <Flex justify={"space-between"} align={"center"}>
+                    <Text>User id: {transaction.userId}</Text>
+                    <Badge color="yellow">{transaction.status}</Badge>
+                  </Flex>
+                  <Text>Method: {transaction.method}</Text>
+                  <Text>Amount: {transaction.amount * -1}</Text>
+                  <Text>Date: {convertDate(transaction.createdAt)}</Text>
+                </Stack>
 
-              <Flex gap={"xs"}>
-                <Button
-                  color="green"
-                  fullWidth
-                  mt="md"
-                  radius="md"
-                  onClick={() =>
-                    handleUpdateStatusTransaction(transaction, "success")
-                  }
-                >
-                  Approve
-                </Button>
-                <Button
-                  color="red"
-                  fullWidth
-                  mt="md"
-                  radius="md"
-                  onClick={() =>
-                    handleUpdateStatusTransaction(transaction, "failed")
-                  }
-                >
-                  Reject
-                </Button>
-              </Flex>
-            </Card>
-          ))}
-        </SimpleGrid>
+                <Flex gap={"xs"}>
+                  <Button
+                    color="green"
+                    fullWidth
+                    mt="md"
+                    radius="md"
+                    onClick={() =>
+                      handleUpdateStatusTransaction(transaction, "success")
+                    }
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    color="red"
+                    fullWidth
+                    mt="md"
+                    radius="md"
+                    onClick={() =>
+                      handleUpdateStatusTransaction(transaction, "failed")
+                    }
+                  >
+                    Reject
+                  </Button>
+                </Flex>
+              </Card>
+            ))}
+          </SimpleGrid>
+        ) : (
+          <Badge variant="light" color="grey" mx="auto" mt="lg">
+            EN: no data
+          </Badge>
+        )}
       </Stack>
     </div>
   );
