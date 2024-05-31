@@ -96,7 +96,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const { width, height } = useWindowSize();
 
   const onCloseReward = () => {
-    if (rewardList) {
+    if (rewardList && user) {
       (async () => {
         try {
           const token = getToken();
@@ -112,6 +112,18 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                 Authorization: `Bearer ${token}`,
               },
             }
+          );
+
+          dispatch(
+            setUser({
+              id: user.id,
+              phone: user.phone,
+              point: user.point + rewardList[0].amount,
+              role: user.role,
+              bankName: user.bankName,
+              accountNumber: user.accountNumber,
+              accountHolder: user.accountHolder,
+            })
           );
         } catch (err) {
           Swal.fire({
