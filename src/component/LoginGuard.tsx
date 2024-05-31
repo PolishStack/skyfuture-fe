@@ -14,7 +14,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { getToken } from "../utils/helpers";
 import { jwtDecode } from "jwt-decode";
-import { useAppDispatch } from "../hooks/store";
+import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { setUser } from "../features/user/userSlice";
 import { User } from "../features/user/type";
 import { TransactionType } from "../services/api/type";
@@ -25,6 +25,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const [visible, { close }] = useDisclosure(true);
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
   const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
   const [rewardOpened, { open: openReward, close: closeReward }] =
@@ -41,21 +42,26 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
             Authorization: `Bearer ${token}`,
           },
         });
-        const res = await axios.get(`/users/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const { result } = res.data;
+        if (!user) {
+          const res = await axios.get(`/users/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const { result } = res.data;
 
-        dispatch(
-          setUser({
-            id: result.id,
-            phone: result.phone,
-            point: result.point,
-            role: result.role,
-          })
-        );
+          dispatch(
+            setUser({
+              id: result.id,
+              phone: result.phone,
+              point: result.point,
+              role: result.role,
+              bankName: result.bankName,
+              accountNumber: result.accountNumber,
+              accountHolder: result.accountHolder,
+            })
+          );
+        }
 
         close();
 

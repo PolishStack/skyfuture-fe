@@ -52,6 +52,9 @@ function LoginPage() {
           phone: result.phone,
           point: result.point,
           role: result.role,
+          bankName: result.bankName,
+          accountNumber: result.accountNumber,
+          accountHolder: result.accountHolder,
         })
       );
 
