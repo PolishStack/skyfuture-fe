@@ -28,11 +28,10 @@ const ManageUserPointPage = () => {
       amount: 0,
       method: "deposit",
       description:
-        "Chúc mừng quý khách mang ID 0 đã trúng giải thưởng ngẫu nhiên trị giá 0 VNĐ. Vui òng liên hệ CSKI để biết thêm ch iết.",
+        "Chúc mừng quý khách mang ID[number] đã trúng giải thưởng ngẫu nhiên trị giá [number]VNĐ .Vui lòng liên hệ CSKH để biết thêm chi tiết !",
     },
     validate: {
-      amount: (amount) =>
-        amount < 1 ? "Số tiền phải lớn hơn 0" : null,
+      amount: (amount) => (amount < 1 ? "Số tiền phải lớn hơn 0" : null),
     },
   });
 
