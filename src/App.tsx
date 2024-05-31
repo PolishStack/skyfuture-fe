@@ -19,7 +19,7 @@ import CautionPage from "./pages/CautionPage";
 import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
 import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
 import ManageUserDataPage from "./pages/admin/ManageUsersPage";
-import EditUserPage from "./component/ManageUser/EditUser";
+import EditUserPage from "./pages/admin/EditUserPage";
 
 function App() {
   return (
@@ -49,8 +49,25 @@ function App() {
               element={<ManageTransactionPage />}
             />
             <Route path="manage-point" element={<ManageUserPointPage />} />
-            <Route path="manage-user" element={<ManageUserDataPage />} />
-            <Route path="manage-user/:id" element={<EditUserPage />} />
+            <Route path="manage-user">
+              <Route index element={<ManageUserDataPage />} />
+              <Route path=":id">
+                <Route index element={<EditUserPage />} />
+                <Route
+                  path="participation_history"
+                  element={<ParticipationHistoryPage />}
+                />
+                <Route path="reward_history" element={<RewardHistoryPage />} />
+                <Route
+                  path="deposit_history"
+                  element={<DepositHistoryPage />}
+                />
+                <Route
+                  path="withdrawal_history"
+                  element={<WithdrawHistoryPage />}
+                />
+              </Route>
+            </Route>
           </Route>
           <Route path="home" element={<HomePage />} />
           <Route path="individual" element={<IndividualPage />} />
