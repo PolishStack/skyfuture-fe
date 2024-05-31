@@ -43,7 +43,7 @@ const ManageUsersPage = () => {
 
   return (
     <div>
-      <Header title="Quản trị viên Quản lý giao dịch" />
+      <Header title="EN: Manage users" />
       <Stack gap="16px" style={{ padding: "16px 24px 24px 24px" }}>
         <Autocomplete
           data={users ? users.map((user) => user.id.toString()) : []}
