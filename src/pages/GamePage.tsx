@@ -31,7 +31,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { id: roomIdParam } = useParams();
-  let roomId = parseInt(roomIdParam || "0");
+  const roomId = parseInt(roomIdParam || "0");
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -48,7 +48,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
 
   const onTimerEnd = () => {
     setRoomNumberList((rnl) => {
-      let newList = [...rnl];
+      const newList = [...rnl];
       newList[roomId - 1] = getCurrentRound(
         roomId,
         gamesStartDateTime[roomId - 1]
@@ -76,7 +76,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
     if (amount > user.point) {
       Swal.fire({
         icon: "error",
-        text: "Số tiền đặt cược không được vượt quá số điểm của người dùng",
+        text: "Số điểm không đủ để thực hiện thao tác !",
         confirmButtonColor: "#6EE3A5",
       });
       return;
@@ -101,7 +101,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
 
       Swal.fire({
         icon: "success",
-        text: "tạo yêu cầu rút tiền thành công",
+        text: "Thành Công",
         confirmButtonColor: "#6EE3A5",
         timer: 2000,
       });
@@ -113,14 +113,15 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
       });
       const { result } = res.data;
 
-      localStorage.setItem("token", result.token);
-
       dispatch(
         setUser({
           id: result.id,
           phone: result.phone,
           point: result.point,
           role: result.role,
+          bankName: result.bankName,
+          accountNumber: result.accountNumber,
+          accountHolder: result.accountHolder,
         })
       );
     } catch (err) {
@@ -151,6 +152,9 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
             phone: result.phone,
             point: result.point,
             role: result.role,
+            bankName: result.bankName,
+            accountNumber: result.accountNumber,
+            accountHolder: result.accountHolder,
           })
         );
       } catch (err) {

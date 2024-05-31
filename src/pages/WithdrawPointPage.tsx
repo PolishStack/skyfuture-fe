@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import { getToken } from "../utils/helpers";
 import axios from "../services/api";
 import { setUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const WithdrawPointPage = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -22,12 +24,22 @@ const WithdrawPointPage = () => {
   ) => {
     e.preventDefault();
     const amount = form.getValues().amount;
+
     if (!user) {
       Swal.fire({
         icon: "error",
         text: "Không tìm thấy người dùng",
         confirmButtonColor: "#6EE3A5",
       });
+      return;
+    }
+    if (!(user.accountHolder && user.accountNumber && user.bankName)) {
+      Swal.fire({
+        icon: "error",
+        text: "EN: plase fill bank information first",
+        confirmButtonColor: "#6EE3A5",
+      });
+      navigate("/app/bank_account");
       return;
     }
     if (amount < 1) {
@@ -84,6 +96,9 @@ const WithdrawPointPage = () => {
           phone: result.phone,
           point: result.point,
           role: result.role,
+          bankName: result.bankName,
+          accountNumber: result.accountNumber,
+          accountHolder: result.accountHolder,
         })
       );
     } catch (err) {

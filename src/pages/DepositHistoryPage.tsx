@@ -7,9 +7,13 @@ import Swal from "sweetalert2";
 import axios from "../services/api";
 import { getToken } from "../utils/helpers";
 import { useAppSelector } from "../hooks/store";
+import { useParams } from "react-router-dom";
 
 const DepositHistoryPage = () => {
+  const { id: userIdParams } = useParams();
   const { user } = useAppSelector((state) => state.user);
+  const userId = userIdParams || user?.id;
+
   const [depositList, setDepositList] = useState<TransactionType[] | null>(
     null
   );
@@ -21,7 +25,7 @@ const DepositHistoryPage = () => {
           const token = getToken();
           const {
             data: { result: transactionList },
-          } = (await axios.get(`/users/${user.id}/transactions`, {
+          } = (await axios.get(`/users/${userId}/transactions`, {
             params: { method: "deposit" },
             headers: { Authorization: `Bearer ${token}` },
           })) as { data: { result: TransactionType[] } };
@@ -45,7 +49,7 @@ const DepositHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title="Lịch sử giao dịch" />
+      <Header title={`Lịch sử giao dịch${userIdParams && ` (user id: ${userIdParams})`}`} />
       <Stack gap="0">
         {depositList ? (
           depositList.length > 0 ? (
@@ -58,7 +62,7 @@ const DepositHistoryPage = () => {
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              Không tìm thấy tiền sử
+              Không tìm thấy lịch sử
             </Badge>
           )
         ) : (

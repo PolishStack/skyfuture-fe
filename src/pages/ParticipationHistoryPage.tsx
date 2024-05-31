@@ -7,9 +7,13 @@ import axios from "../services/api";
 import Swal from "sweetalert2";
 import { Badge, Skeleton, Stack } from "@mantine/core";
 import Transaction from "../component/Transaction";
+import { useParams } from "react-router-dom";
 
 const ParticipationHistoryPage = () => {
+  const { id: userIdParams } = useParams();
   const { user } = useAppSelector((state) => state.user);
+  const userId = userIdParams || user?.id;
+
   const [depositList, setDepositList] = useState<TransactionType[] | null>(
     null
   );
@@ -26,7 +30,7 @@ const ParticipationHistoryPage = () => {
                 betInfomation: gamePendingList,
               },
             },
-          } = (await axios.get(`/users/${user.id}/game-history`, {
+          } = (await axios.get(`/users/${userId}/game-history`, {
             headers: { Authorization: `Bearer ${token}` },
           })) as {
             data: {
@@ -72,7 +76,9 @@ const ParticipationHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title="Lịch sử tham gia" />
+      <Header
+        title={`Lịch sử tham gia${userIdParams && ` (user id: ${userIdParams})`}`}
+      />
       <Stack gap="0">
         {depositList ? (
           depositList.length > 0 ? (
@@ -85,7 +91,7 @@ const ParticipationHistoryPage = () => {
             ))
           ) : (
             <Badge variant="light" color="grey" mx="auto" mt="lg">
-              Không tìm thấy tiền sử
+              Không tìm thấy lịch sử
             </Badge>
           )
         ) : (
