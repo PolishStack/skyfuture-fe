@@ -26,12 +26,14 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const [visible, { close }] = useDisclosure(true);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-
-  const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
   const [rewardOpened, { open: openReward, close: closeReward }] =
     useDisclosure(false);
 
+  const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
+  const [currentRewardIndex, setCurrentRewardIndex] = useState(0);
+
   useEffect(() => {
+    let ws: WebSocket | undefined;
     const auth = async () => {
       try {
         const token = getToken();
@@ -63,8 +65,6 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
           );
         }
 
-        close();
-
         const {
           data: { result: transactionList },
         } = (await axios.get(`/users/${id}/transactions`, {
@@ -73,6 +73,47 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         })) as { data: { result: TransactionType[] } };
 
         setRewardList(transactionList);
+
+        // Initialize WebSocket connection
+        const wsURL = import.meta.env.VITE_WS_SERVER_URL;
+
+        if (wsURL) {
+          let retryCount = 0;
+          ws = new WebSocket(wsURL);
+          ws.onmessage = (event) => {
+            const message = JSON.parse(event.data) as TransactionType;
+            setRewardList((prevRewardList) => {
+              if (prevRewardList) {
+                return [...prevRewardList, message];
+              } else {
+                return [message];
+              }
+            });
+          };
+
+          ws.onerror = (error) => {
+            console.error("WebSocket error:", error);
+            if (retryCount < 5) {
+              setTimeout(() => {
+                if (ws) {
+                  ws.close();
+                  ws = new WebSocket(wsURL);
+                }
+                retryCount++;
+              }, 600);
+            } else {
+              console.error("Maximum retry attempts reached. Giving up.");
+              Swal.fire({
+                icon: "error",
+                text: "EN: Failed to persist connection to server. reward may not display instantly",
+                confirmButtonColor: "#6EE3A5",
+                timer: 2000,
+              });
+            }
+          };
+        }
+
+        close();
       } catch (err) {
         Swal.fire({
           icon: "error",
@@ -85,14 +126,17 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
       }
     };
     auth();
+
+    return () => {
+      if (ws) ws.close();
+    };
   }, []);
 
   useEffect(() => {
-    if (rewardList && rewardList.length > 0 && !rewardOpened) {
+    if (!rewardOpened && rewardList && rewardList.length > currentRewardIndex) {
       openReward();
     }
-  }, [rewardList]);
-
+  }, [rewardList, currentRewardIndex]);
   const { width, height } = useWindowSize();
 
   const onCloseReward = () => {
@@ -103,7 +147,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
           const { id } = jwtDecode<User>(token);
 
           await axios.put(
-            `/users/${id}/transactions/${rewardList[0].id}`,
+            `/users/${id}/transactions/${rewardList[currentRewardIndex].id}`,
             {
               status: "success",
             },
@@ -118,7 +162,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
             setUser({
               id: user.id,
               phone: user.phone,
-              point: user.point + rewardList[0].amount,
+              point: user.point + rewardList[currentRewardIndex].amount,
               role: user.role,
               bankName: user.bankName,
               accountNumber: user.accountNumber,
@@ -137,12 +181,8 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         }
       })();
 
+      setCurrentRewardIndex((cri) => cri + 1);
       closeReward();
-      setRewardList((rl) => {
-        if (rl && rl.length > 0) {
-          return [...rl.slice(1, -1)];
-        } else return [];
-      });
     }
   };
 
@@ -158,7 +198,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         />
       )}
       <Box pos="relative">
-        {rewardList && rewardList.length > 0 && (
+        {rewardList && rewardList.length >= currentRewardIndex + 1 && (
           <Modal.Root
             opened={rewardOpened}
             onClose={onCloseReward}
@@ -179,7 +219,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                 </Modal.Header>
                 <Modal.Body>
                   <Text px={8} mt={8}>
-                    {rewardList[0].description}
+                    {rewardList[currentRewardIndex].description}
                   </Text>
                   <Center>
                     <Button
