@@ -19,6 +19,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
 const IndividualPage = () => {
@@ -192,6 +193,29 @@ const IndividualPage = () => {
                 }}
               >
                 Quản trị viên Quản lý điểm người dùng
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-user"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<FaUsers />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Manage users
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />
