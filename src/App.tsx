@@ -18,6 +18,7 @@ import GamePage from "./pages/GamePage";
 import CautionPage from "./pages/CautionPage";
 import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
 import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
+import ManageUserDataPage from "./pages/admin/ManageUsersPage";
 
 function App() {
   return (
@@ -42,8 +43,12 @@ function App() {
           }
         >
           <Route path="admin">
-            <Route path="manage-transaction" element={<ManageTransactionPage />}/>
-            <Route path="manage-point" element={<ManageUserPointPage  />}/>
+            <Route
+              path="manage-transaction"
+              element={<ManageTransactionPage />}
+            />
+            <Route path="manage-point" element={<ManageUserPointPage />} />
+            <Route path="manage-user" element={<ManageUserDataPage />} />
           </Route>
           <Route path="home" element={<HomePage />} />
           <Route path="individual" element={<IndividualPage />} />
