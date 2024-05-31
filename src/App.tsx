@@ -19,6 +19,7 @@ import CautionPage from "./pages/CautionPage";
 import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
 import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
 import ManageUserDataPage from "./pages/admin/ManageUsersPage";
+import EditUserPage from "./component/ManageUser/EditUser";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             />
             <Route path="manage-point" element={<ManageUserPointPage />} />
             <Route path="manage-user" element={<ManageUserDataPage />} />
+            <Route path="manage-user/:id" element={<EditUserPage />} />
           </Route>
           <Route path="home" element={<HomePage />} />
           <Route path="individual" element={<IndividualPage />} />
