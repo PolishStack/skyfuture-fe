@@ -1,6 +1,8 @@
 import {
+  Anchor,
   Center,
   Container,
+  Group,
   Image,
   PasswordInput,
   Stack,
@@ -118,7 +120,16 @@ function LoginPage() {
               {...form.getInputProps("password")}
               style={{ width: "100%" }}
             />
-            <p>Bạn quên mật khẩu ? Hãy ấn vào đây</p>
+            <Group gap={4}>
+              <Text>Bạn quên mật khẩu ?</Text>
+              <Anchor
+                href={import.meta.env.VITE_CHAT_URL}
+                target="_blank"
+                display="inline"
+              >
+                Hãy ấn vào đây
+              </Anchor>
+            </Group>
             <button
               onClick={(e) => handleOnFormSubmit(e)}
               style={{
