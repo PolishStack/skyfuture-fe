@@ -1,4 +1,12 @@
-import { Button, Flex, Input, NumberInput, Select, Stack } from "@mantine/core";
+import {
+  Button,
+  Flex,
+  Input,
+  NumberInput,
+  PasswordInput,
+  Select,
+  Stack,
+} from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -137,6 +145,12 @@ const EditUserForm = () => {
           {...newUser.getInputProps("accountHolder")}
         />
       </Input.Wrapper>
+      <PasswordInput
+        placeholder="Password"
+        label="Password"
+        key={newUser.key("password")}
+        {...newUser.getInputProps("password")}
+      />
       <Select
         label="Role"
         placeholder="Change user role"

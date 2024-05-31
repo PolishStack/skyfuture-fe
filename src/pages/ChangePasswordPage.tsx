@@ -8,7 +8,7 @@ import { useForm } from "@mantine/form";
 import { useNavigate } from "react-router-dom";
 
 const ChangePasswordPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
 
   const form = useForm({
@@ -59,12 +59,15 @@ const ChangePasswordPage = () => {
         text: "Cập nhật mật khẩu tài khoản thành công",
         confirmButtonColor: "#6EE3A5",
       });
-      navigate("/app/home")
-    } catch (err) {
+      navigate("/app/home");
+    } catch (err: any) {
       console.log(err);
       Swal.fire({
         icon: "error",
-        text: "Cập nhật mật khẩu tài khoản không thành công, vui lòng thử lại",
+        text:
+          err?.response?.data?.error === "Old password is not correct"
+            ? "EN: old password is incorrect"
+            : "Cập nhật mật khẩu tài khoản không thành công, vui lòng thử lại",
         confirmButtonColor: "#6EE3A5",
       });
     }
