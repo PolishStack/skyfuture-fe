@@ -19,7 +19,46 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../hooks/store";
 import { MdAddCard } from "react-icons/md";
 import { BiMoneyWithdraw } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa6";
 import Swal from "sweetalert2";
+
+const menuList = [
+  {
+    title: "Lịch sử tham gia",
+    href: "/app/participation_history",
+    icon: <AiOutlinePartition />,
+  },
+  {
+    title: "Lịch sử nhận thưởng",
+    href: "/app/reward_history",
+    icon: <SlPresent />,
+  },
+  {
+    title: "Lịch sử nạp",
+    href: "/app/deposit_history",
+    icon: <PiHandDeposit />,
+  },
+  {
+    title: "Lịch sử rút",
+    href: "/app/withdrawal_history",
+    icon: <PiHandWithdraw />,
+  },
+  {
+    title: "Thêm tài khoản ngân hàng",
+    href: "/app/bank_account",
+    icon: <AiFillBank />,
+  },
+  {
+    title: "Đổi mật khẩu",
+    href: "/app/change_password",
+    icon: <RiLockPasswordLine />,
+  },
+  {
+    title: "Đăng xuất",
+    href: "/",
+    icon: <IoIosLogOut />,
+  },
+];
 
 const IndividualPage = () => {
   const navigate = useNavigate();
@@ -47,44 +86,6 @@ const IndividualPage = () => {
       console.log(err);
     }
   };
-  //vn-commerce-be-production.up.railway.app
-  const menuList = [
-    {
-      title: "Lịch sử tham gia",
-      href: "/app/participation_history",
-      icon: <AiOutlinePartition />,
-    },
-    {
-      title: "Lịch sử nhận thưởng",
-      href: "/app/reward_history",
-      icon: <SlPresent />,
-    },
-    {
-      title: "Lịch sử nạp",
-      href: "/app/deposit_history",
-      icon: <PiHandDeposit />,
-    },
-    {
-      title: "Lịch sử rút",
-      href: "/app/withdrawal_history",
-      icon: <PiHandWithdraw />,
-    },
-    {
-      title: "Thêm tài khoản ngân hàng",
-      href: "/app/bank_account",
-      icon: <AiFillBank />,
-    },
-    {
-      title: "Đổi mật khẩu",
-      href: "/app/change_password",
-      icon: <RiLockPasswordLine />,
-    },
-    {
-      title: "Đăng xuất",
-      href: "/",
-      icon: <IoIosLogOut />,
-    },
-  ];
 
   return (
     <>
@@ -192,6 +193,29 @@ const IndividualPage = () => {
                 }}
               >
                 Quản trị viên Quản lý điểm người dùng
+                <IoIosArrowForward
+                  style={{ position: "absolute", right: "26px" }}
+                />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-user"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<FaUsers />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "normal",
+                  position: "relative",
+                }}
+              >
+                EN: Manage users
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />
