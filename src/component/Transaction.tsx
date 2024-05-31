@@ -9,9 +9,21 @@ import {
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { IoAlertCircle, IoCloseCircle } from "react-icons/io5";
 
-import { TransactionStatusType, TransactionType } from "../services/api/type";
+import { TransactionType } from "../services/api/type";
 import { formatDate } from "../utils/helpers";
 
+const getIcon = (transaction: TransactionType) => {
+  if (transaction.method === "reward")
+    return <IoIosCheckmarkCircle color="#48b02c" size="calc(35px * 1.23)" />;
+  switch (transaction.status) {
+    case "success":
+      return <IoIosCheckmarkCircle color="#48b02c" size="calc(35px * 1.23)" />;
+    case "failed":
+      return <IoCloseCircle color="red" size="calc(35px * 1.23)" />;
+    case "pending":
+      return <IoAlertCircle color="orange" size="calc(35px * 1.23)" />;
+  }
+};
 interface TransactionProps {
   title: string;
   transaction: TransactionType;
@@ -38,23 +50,11 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
       break;
   }
 
-  const getIcon = (status: TransactionStatusType) => {
-    switch (status) {
-      case "success":
-        return (
-          <IoIosCheckmarkCircle color="#48b02c" size="calc(35px * 1.23)" />
-        );
-      case "failed":
-        return <IoCloseCircle color="red" size="calc(35px * 1.23)" />;
-      case "pending":
-        return <IoAlertCircle color="orange" size="calc(35px * 1.23)" />;
-    }
-  };
   return (
     <>
       <Group wrap="nowrap" justify="space-between" p="5px" gap="0">
         <Group gap={12}>
-          {getIcon(transaction.status)}
+          {getIcon(transaction)}
           <Box ml="4px">
             <Title
               order={6}
