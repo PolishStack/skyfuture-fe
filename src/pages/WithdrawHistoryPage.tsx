@@ -7,9 +7,13 @@ import axios from "../services/api";
 import Swal from "sweetalert2";
 import { Badge, Skeleton, Stack } from "@mantine/core";
 import Transaction from "../component/Transaction";
+import { useParams } from "react-router-dom";
 
 const WithdrawHistoryPage = () => {
+  const { id: userIdParams } = useParams();
   const { user } = useAppSelector((state) => state.user);
+  const userId = userIdParams || user?.id;
+
   const [withdrawList, setWithdrawList] = useState<TransactionType[] | null>(
     null
   );
@@ -21,7 +25,7 @@ const WithdrawHistoryPage = () => {
           const token = getToken();
           const {
             data: { result: transactionList },
-          } = (await axios.get(`/users/${user.id}/transactions`, {
+          } = (await axios.get(`/users/${userId}/transactions`, {
             params: { method: "withdraw" },
             headers: { Authorization: `Bearer ${token}` },
           })) as { data: { result: TransactionType[] } };

@@ -7,9 +7,13 @@ import axios from "../services/api";
 import Swal from "sweetalert2";
 import { Badge, Skeleton, Stack } from "@mantine/core";
 import Transaction from "../component/Transaction";
+import { useParams } from "react-router-dom";
 
 const RewardHistoryPage = () => {
+  const { id: userIdParams } = useParams();
   const { user } = useAppSelector((state) => state.user);
+  const userId = userIdParams || user?.id;
+
   const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
 
   useEffect(() => {
@@ -19,7 +23,7 @@ const RewardHistoryPage = () => {
           const token = getToken();
           const {
             data: { result: transactionList },
-          } = (await axios.get(`/users/${user.id}/transactions`, {
+          } = (await axios.get(`/users/${userId}/transactions`, {
             params: { method: "reward" },
             headers: { Authorization: `Bearer ${token}` },
           })) as { data: { result: TransactionType[] } };
