@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import Header from "../../component/Header";
 import {
   Autocomplete,
+  Badge,
   Button,
   Card,
   Flex,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
 } from "@mantine/core";
@@ -43,7 +45,7 @@ const ManageUsersPage = () => {
 
   return (
     <div>
-      <Header title="Quản trị viên Quản lý giao dịch" />
+      <Header title="EN: Manage users" />
       <Stack gap="16px" style={{ padding: "16px 24px 24px 24px" }}>
         <Autocomplete
           data={users ? users.map((user) => user.id.toString()) : []}
@@ -51,39 +53,53 @@ const ManageUsersPage = () => {
           onChange={setSelectedUserId}
           limit={5}
         />
-
-        <SimpleGrid cols={{ base: 1, sm: 2 }}>
-          {users
-            ?.filter((user) => user.id.toString().includes(selectedUserId))
-            .map((user) => (
-              <Card
-                shadow="sm"
-                padding="lg"
-                radius="md"
-                withBorder
-                key={user.id}
-              >
-                <Stack gap={4}>
-                  <Text>User id: {user.id}</Text>
-                  <Text>Phone: {user.phone}</Text>
-                  <Text>Point: {user.point}</Text>
-                </Stack>
-                <Flex gap={"xs"}>
-                  <Button
-                    color="blue"
-                    fullWidth
-                    mt="md"
-                    radius="md"
-                    onClick={() =>
-                      navigate(`/app/admin/manage-user/${user.id}`)
-                    }
-                  >
-                    EN: more
-                  </Button>
-                </Flex>
-              </Card>
+        {users === null ? (
+          <SimpleGrid cols={{ base: 1, sm: 2 }}>
+            {Array.from({ length: 2 }).map((_, index) => (
+              <Skeleton key={index} h={176}>
+                <Card shadow="sm" padding="lg" radius="md"></Card>
+              </Skeleton>
             ))}
-        </SimpleGrid>
+          </SimpleGrid>
+        ) : users.length > 0 ? (
+          <SimpleGrid cols={{ base: 1, sm: 2 }}>
+            {users
+              .slice(0, Math.min(users.length, 50))
+              .filter((user) => user.id.toString().includes(selectedUserId))
+              .map((user) => (
+                <Card
+                  shadow="sm"
+                  padding="lg"
+                  radius="md"
+                  withBorder
+                  key={user.id}
+                >
+                  <Stack gap={4}>
+                    <Text>User id: {user.id}</Text>
+                    <Text>Phone: {user.phone}</Text>
+                    <Text>Point: {user.point}</Text>
+                  </Stack>
+                  <Flex gap={"xs"}>
+                    <Button
+                      color="blue"
+                      fullWidth
+                      mt="md"
+                      radius="md"
+                      onClick={() =>
+                        navigate(`/app/admin/manage-user/${user.id}`)
+                      }
+                    >
+                      More
+                    </Button>
+                  </Flex>
+                </Card>
+              ))}
+          </SimpleGrid>
+        ) : (
+          <Badge variant="light" color="grey" mx="auto" mt="lg">
+            Không tìm thấy thông tin
+          </Badge>
+        )}
       </Stack>
     </div>
   );

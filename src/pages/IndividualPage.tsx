@@ -22,6 +22,44 @@ import { BiMoneyWithdraw } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
+const menuList = [
+  {
+    title: "Lịch sử tham gia",
+    href: "/app/participation_history",
+    icon: <AiOutlinePartition />,
+  },
+  {
+    title: "Lịch sử nhận thưởng",
+    href: "/app/reward_history",
+    icon: <SlPresent />,
+  },
+  {
+    title: "Lịch sử nạp",
+    href: "/app/deposit_history",
+    icon: <PiHandDeposit />,
+  },
+  {
+    title: "Lịch sử rút",
+    href: "/app/withdrawal_history",
+    icon: <PiHandWithdraw />,
+  },
+  {
+    title: "Thêm tài khoản ngân hàng",
+    href: "/app/bank_account",
+    icon: <AiFillBank />,
+  },
+  {
+    title: "Đổi mật khẩu",
+    href: "/app/change_password",
+    icon: <RiLockPasswordLine />,
+  },
+  {
+    title: "Đăng xuất",
+    href: "/",
+    icon: <IoIosLogOut />,
+  },
+];
+
 const IndividualPage = () => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
@@ -48,44 +86,6 @@ const IndividualPage = () => {
       console.log(err);
     }
   };
-  //vn-commerce-be-production.up.railway.app
-  const menuList = [
-    {
-      title: "Lịch sử tham gia",
-      href: "/app/participation_history",
-      icon: <AiOutlinePartition />,
-    },
-    {
-      title: "Lịch sử nhận thưởng",
-      href: "/app/reward_history",
-      icon: <SlPresent />,
-    },
-    {
-      title: "Lịch sử nạp",
-      href: "/app/deposit_history",
-      icon: <PiHandDeposit />,
-    },
-    {
-      title: "Lịch sử rút",
-      href: "/app/withdrawal_history",
-      icon: <PiHandWithdraw />,
-    },
-    {
-      title: "Thêm tài khoản ngân hàng",
-      href: "/app/bank_account",
-      icon: <AiFillBank />,
-    },
-    {
-      title: "Đổi mật khẩu",
-      href: "/app/change_password",
-      icon: <RiLockPasswordLine />,
-    },
-    {
-      title: "Đăng xuất",
-      href: "/",
-      icon: <IoIosLogOut />,
-    },
-  ];
 
   return (
     <>
