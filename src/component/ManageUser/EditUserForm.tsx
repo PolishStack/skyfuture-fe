@@ -1,5 +1,4 @@
 import { Button, Flex, Input, NumberInput, Select, Stack } from "@mantine/core";
-import Header from "../Header";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -7,7 +6,6 @@ import { User } from "../../features/user/type";
 import { getToken } from "../../utils/helpers";
 import axios from "../../services/api";
 import { useForm } from "@mantine/form";
-import UserHistoryList from "./UserHistoryList";
 
 const EditUserForm = () => {
   const { id: roomIdParam } = useParams();
