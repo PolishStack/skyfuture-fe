@@ -9,7 +9,7 @@ import axios from "../../services/api";
 import { useForm } from "@mantine/form";
 import UserHistoryList from "./UserHistoryList";
 
-const EditUserPage = () => {
+const EditUserForm = () => {
   const { id: roomIdParam } = useParams();
   const userId = parseInt(roomIdParam || "-1");
 
@@ -92,81 +92,78 @@ const EditUserPage = () => {
   };
 
   return (
-    <div>
-      <Header title={`EN: Edit user ${userId}`} />
-      <Stack gap={8} px={16} mt={16}>
-        <Input.Wrapper label="Id" description="EN: User id (read only)">
-          <Input
-            placeholder="User id"
-            key={newUser.key("id")}
-            {...newUser.getInputProps("id")}
-            readOnly
-          />
-        </Input.Wrapper>
-        <Input.Wrapper label="Phone">
-          <Input
-            placeholder="Phone number"
-            key={newUser.key("phone")}
-            {...newUser.getInputProps("phone")}
-          />
-        </Input.Wrapper>
-        <NumberInput
-          label="Point"
-          placeholder="Point"
-          withAsterisk
-          allowNegative={true}
-          allowDecimal={false}
-          key={newUser.key("point")}
-          {...newUser.getInputProps("point")}
+    <Stack gap={8} px={16} mt={16}>
+      <Input.Wrapper label="Id" description="EN: User id (read only)">
+        <Input
+          placeholder="User id"
+          key={newUser.key("id")}
+          {...newUser.getInputProps("id")}
+          readOnly
+          disabled
         />
-        <Input.Wrapper label="Bank name">
-          <Input
-            placeholder="Bank name"
-            key={newUser.key("bankName")}
-            {...newUser.getInputProps("bankName")}
-          />
-        </Input.Wrapper>
-        <Input.Wrapper label="Account Number">
-          <Input
-            placeholder="Account number"
-            key={newUser.key("accountNumber")}
-            {...newUser.getInputProps("accountNumber")}
-          />
-        </Input.Wrapper>
-        <Input.Wrapper label="Account Holder">
-          <Input
-            placeholder="Account holder"
-            key={newUser.key("accountHolder")}
-            {...newUser.getInputProps("accountHolder")}
-          />
-        </Input.Wrapper>
-        <Select
-          label="Role"
-          placeholder="Change user role"
-          data={["user", "admin"]}
-          key={newUser.key("role")}
-          {...newUser.getInputProps("role")}
+      </Input.Wrapper>
+      <Input.Wrapper label="Phone">
+        <Input
+          placeholder="Phone number"
+          key={newUser.key("phone")}
+          {...newUser.getInputProps("phone")}
         />
-        <Flex justify={"end"} gap={10}>
-          <Button color="green" onClick={handleSaveData}>
-            Save
-          </Button>
-          <Button
-            color="red"
-            onClick={() => {
-              if (!user) {
-                return;
-              }
-              newUser.setValues(user);
-            }}
-          >
-            Reset
-          </Button>
-        </Flex>
-        <UserHistoryList userId={userId} />
-      </Stack>
-    </div>
+      </Input.Wrapper>
+      <NumberInput
+        label="Point"
+        placeholder="Point"
+        withAsterisk
+        allowNegative={true}
+        allowDecimal={false}
+        key={newUser.key("point")}
+        {...newUser.getInputProps("point")}
+      />
+      <Input.Wrapper label="Bank name">
+        <Input
+          placeholder="Bank name"
+          key={newUser.key("bankName")}
+          {...newUser.getInputProps("bankName")}
+        />
+      </Input.Wrapper>
+      <Input.Wrapper label="Account Number">
+        <Input
+          placeholder="Account number"
+          key={newUser.key("accountNumber")}
+          {...newUser.getInputProps("accountNumber")}
+        />
+      </Input.Wrapper>
+      <Input.Wrapper label="Account Holder">
+        <Input
+          placeholder="Account holder"
+          key={newUser.key("accountHolder")}
+          {...newUser.getInputProps("accountHolder")}
+        />
+      </Input.Wrapper>
+      <Select
+        label="Role"
+        placeholder="Change user role"
+        data={["user", "admin"]}
+        key={newUser.key("role")}
+        {...newUser.getInputProps("role")}
+      />
+      <Flex justify={"end"} gap={10}>
+        <Button color="green" onClick={handleSaveData}>
+          Save
+        </Button>
+        <Button
+          color="red"
+          onClick={() => {
+            if (!user) {
+              return;
+            }
+            newUser.setValues(user);
+          }}
+        >
+          Reset
+        </Button>
+      </Flex>
+    </Stack>
   );
 };
 
-export default EditUserPage;
+export default EditUserForm;

@@ -30,7 +30,7 @@ const UserHistoryList = ({ userId }: { userId: number }) => {
   ];
   return (
     <>
-      <Title order={3} ta="center" mt={24}>
+      <Title order={3} ta="center" mt={32}>
         User's history
       </Title>
       <Stack
