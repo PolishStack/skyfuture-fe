@@ -34,7 +34,7 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
     case "withdraw":
       if (transaction.status === "failed")
         description =
-          "Lý do :  Hệ thống đã huỷ lệnh rút của quý khách trước đó ,vui lòng vào web để kiểm tra số dư ,trân trọng cảm ơn !";
+          "Lý do : Hệ thống đã huỷ lệnh rút không hợp lệ của Quý khách trước đó, vui lòng vào web để kiểm tra số dư, trân trọng cảm ơn !";
       break;
     case "win":
       description = "Win";
