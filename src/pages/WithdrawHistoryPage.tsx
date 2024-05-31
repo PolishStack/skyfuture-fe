@@ -49,7 +49,7 @@ const WithdrawHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title="Lịch sử rút điểm" />
+      <Header title={`Lịch sử rút điểm${userIdParams && ` (user id: ${userIdParams})`}`} />
       <Stack gap="0">
         {withdrawList ? (
           withdrawList.length > 0 ? (

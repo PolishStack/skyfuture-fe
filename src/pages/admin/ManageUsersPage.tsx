@@ -89,7 +89,7 @@ const ManageUsersPage = () => {
                         navigate(`/app/admin/manage-user/${user.id}`)
                       }
                     >
-                      EN: more
+                      More
                     </Button>
                   </Flex>
                 </Card>
@@ -97,7 +97,7 @@ const ManageUsersPage = () => {
           </SimpleGrid>
         ) : (
           <Badge variant="light" color="grey" mx="auto" mt="lg">
-            EN: no data
+            Không tìm thấy thông tin
           </Badge>
         )}
       </Stack>

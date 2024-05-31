@@ -76,7 +76,9 @@ const ParticipationHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title="Lịch sử tham gia" />
+      <Header
+        title={`Lịch sử tham gia${userIdParams && ` (user id: ${userIdParams})`}`}
+      />
       <Stack gap="0">
         {depositList ? (
           depositList.length > 0 ? (

@@ -49,7 +49,7 @@ const DepositHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title="Lịch sử giao dịch" />
+      <Header title={`Lịch sử giao dịch${userIdParams && ` (user id: ${userIdParams})`}`} />
       <Stack gap="0">
         {depositList ? (
           depositList.length > 0 ? (

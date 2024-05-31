@@ -153,7 +153,7 @@ const ManageTransactionPage = () => {
           </SimpleGrid>
         ) : (
           <Badge variant="light" color="grey" mx="auto" mt="lg">
-            EN: no data
+            Không tìm thấy thông tin
           </Badge>
         )}
       </Stack>
