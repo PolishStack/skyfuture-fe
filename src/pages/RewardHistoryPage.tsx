@@ -47,7 +47,7 @@ const RewardHistoryPage = () => {
   }, [user]);
   return (
     <>
-      <Header title={`Lịch sử nhận thưởng${userIdParams && ` (user id: ${userIdParams})`}`} />
+      <Header title={`Lịch sử nhận thưởng${ userIdParams ? ` (user id: ${userIdParams})` : "" }`} />
       <Stack gap="0">
         {rewardList ? (
           rewardList.length > 0 ? (
