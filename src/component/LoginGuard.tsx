@@ -105,7 +105,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               console.error("Maximum retry attempts reached. Giving up.");
               Swal.fire({
                 icon: "error",
-                text: "EN: Failed to persist connection to server. reward may not display instantly",
+                text: "Không thể duy trì kết nối với máy chủ. phần thưởng có thể không hiển thị ngay lập tức",
                 confirmButtonColor: "#6EE3A5",
                 timer: 2000,
               });

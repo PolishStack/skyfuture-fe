@@ -120,7 +120,7 @@ const ManageTransactionPage = () => {
       console.log(err);
       Swal.fire({
         icon: "error",
-        text: "EN: Failed to load bank information",
+        text: "Không tải được thông tin ngân hàng",
         confirmButtonColor: "#6ee3a5",
       });
     }
@@ -199,20 +199,20 @@ const ManageTransactionPage = () => {
       <Modal
         opened={openedApproveModal}
         onClose={closeApproveModal}
-        title={<h3>EN: Confirm approve transaction</h3>}
+        title={<h3>Xác nhận phê duyệt giao dịch</h3>}
         centered
       >
         <Stack>
           <Flex align={"center"} gap={10}>
-            <h4>EN: Bank name:</h4>
+            <h4>tên ngân hàng:</h4>
             <p>{selectedUser?.bankName}</p>
           </Flex>
           <Flex align={"center"} gap={10}>
-            <h4>EN: Account number:</h4>
+            <h4>Số tài khoản:</h4>
             <p>{selectedUser?.accountNumber}</p>
           </Flex>
           <Flex align={"center"} gap={10}>
-            <h4>EN: Account holder:</h4>
+            <h4>Chủ tài khoản:</h4>
             <p>{selectedUser?.accountHolder}</p>
           </Flex>
           <Flex align={"center"} justify={"end"} gap={10}>
@@ -232,11 +232,11 @@ const ManageTransactionPage = () => {
       <Modal
         opened={openedRejectModal}
         onClose={closeRejectModal}
-        title={<h3>EN: Confirm reject transaction</h3>}
+        title={<h3>Xác nhận từ chối giao dịch</h3>}
         centered
       >
         <Stack>
-          <p>EN: Are you sure to reject this transacion ?</p>
+          <p>Bạn có chắc chắn từ chối giao dịch này không ?</p>
           <Flex align={"center"} justify={"end"} gap={10}>
             <Button
               color="green"

@@ -27,7 +27,7 @@ const EditUserForm = () => {
       phone: (value) =>
         value.length < 10 ? "Số điện thoại không hợp lệ" : null,
       role: (role) =>
-        role != "admin" && role != "user" ? "EN: Select role" : null,
+        role != "admin" && role != "user" ? "Chọn vai trò" : null,
     },
   });
 
@@ -50,7 +50,7 @@ const EditUserForm = () => {
         console.log(err);
         Swal.fire({
           icon: "error",
-          text: "EN: Failed to load user data",
+          text: "Không tải được dữ liệu người dùng",
           confirmButtonColor: "#6ee3a5",
         });
       }
@@ -84,14 +84,14 @@ const EditUserForm = () => {
       setUser(newUser.getValues());
       Swal.fire({
         icon: "success",
-        text: "EN: Update user data success",
+        text: "Cập nhật dữ liệu người dùng thành công",
         confirmButtonColor: "#6EE3A5",
       });
     } catch (err) {
       console.log(err);
       Swal.fire({
         icon: "error",
-        text: `EN: Failed to update user data`,
+        text: `Không cập nhật được dữ liệu người dùng`,
         confirmButtonColor: "#6ee3a5",
       });
     }
@@ -99,7 +99,7 @@ const EditUserForm = () => {
 
   return (
     <Stack gap={8} px={16} mt={16}>
-      <Input.Wrapper label="Id" description="EN: User id (read only)">
+      <Input.Wrapper label="Id" description="Id người dùng (chỉ đọc)">
         <Input
           placeholder="User id"
           key={newUser.key("id")}

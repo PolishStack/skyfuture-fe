@@ -66,7 +66,7 @@ const ChangePasswordPage = () => {
         icon: "error",
         text:
           err?.response?.data?.error === "Old password is not correct"
-            ? "EN: old password is incorrect"
+            ? "mật khẩu cũ không đúng"
             : "Cập nhật mật khẩu tài khoản không thành công, vui lòng thử lại",
         confirmButtonColor: "#6EE3A5",
       });

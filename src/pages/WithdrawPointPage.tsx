@@ -36,7 +36,7 @@ const WithdrawPointPage = () => {
     if (!(user.accountHolder && user.accountNumber && user.bankName)) {
       Swal.fire({
         icon: "error",
-        text: "EN: plase fill bank information first",
+        text: "vui lòng điền thông tin ngân hàng trước",
         confirmButtonColor: "#6EE3A5",
       });
       navigate("/app/bank_account");

@@ -10,7 +10,7 @@ const EditUserPage = () => {
     <>
       {userId ? (
         <>
-          <Header title={`EN: Edit user ${userId}`} />
+          <Header title={`Người dùng biên tập ${userId}`} />
           <EditUserForm />
           <UserHistoryList userId={parseInt(userId)} />
         </>
