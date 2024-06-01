@@ -55,13 +55,12 @@ const ManageUserPointPage = () => {
     if (form.validate().hasErrors) return;
     try {
       const token = getToken();
-
       await axios.post(
         `/users/${userId}/transactions`,
         {
           userId,
           amount,
-          status: method === "deposit" ? "success" : "pending",
+          status: "pending",
           method,
           description,
         },
@@ -87,7 +86,6 @@ const ManageUserPointPage = () => {
       console.log(err);
     }
   };
-
   return (
     <>
       <Header title="Thêm điểm người dùng" />

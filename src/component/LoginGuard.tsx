@@ -28,9 +28,15 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const { user } = useAppSelector((state) => state.user);
   const [rewardOpened, { open: openReward, close: closeReward }] =
     useDisclosure(false);
+  const [depositOpened, { open: openDeposit, close: closeDeposit }] =
+    useDisclosure(false);
 
   const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
+  const [depositList, setDepositList] = useState<TransactionType[] | null>(
+    null
+  );
   const [currentRewardIndex, setCurrentRewardIndex] = useState(0);
+  const [currentDepositIndex, setCurrentDepositIndex] = useState(0);
 
   useEffect(() => {
     let ws: WebSocket | undefined;
@@ -66,13 +72,29 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         }
 
         const {
-          data: { result: transactionList },
+          data: { result: transactionsList },
         } = (await axios.get(`/users/${id}/transactions`, {
-          params: { method: "reward", status: "pending" },
+          params: { method: "reward,deposit", status: "pending" },
           headers: { Authorization: `Bearer ${token}` },
         })) as { data: { result: TransactionType[] } };
 
-        setRewardList(transactionList);
+        transactionsList.forEach((tl: TransactionType) => {
+          if (tl.method === "reward") {
+            setRewardList((prevValue) => {
+              if (prevValue) {
+                return [...prevValue, tl];
+              }
+              return [tl];
+            });
+          } else if (tl.method === "deposit") {
+            setDepositList((prevValue) => {
+              if (prevValue) {
+                return [...prevValue, tl];
+              }
+              return [tl];
+            });
+          }
+        });
 
         // Initialize WebSocket connection
         const wsURL = import.meta.env.VITE_WS_SERVER_URL + "/ws/" + id;
@@ -82,13 +104,23 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
           ws = new WebSocket(wsURL);
           ws.onmessage = (event) => {
             const message = JSON.parse(event.data) as TransactionType;
-            setRewardList((prevRewardList) => {
-              if (prevRewardList) {
-                return [...prevRewardList, message];
-              } else {
-                return [message];
-              }
-            });
+            if (message.method === "reward") {
+              setRewardList((prevRewardList) => {
+                if (prevRewardList) {
+                  return [...prevRewardList, message];
+                } else {
+                  return [message];
+                }
+              });
+            } else if (message.method === "deposit") {
+              setDepositList((prevDepositList) => {
+                if (prevDepositList) {
+                  return [...prevDepositList, message];
+                } else {
+                  return [message];
+                }
+              });
+            }
           };
           ws.onclose = (event: CloseEvent) => {
             console.log("WebSocket connection closed:", event);
@@ -141,7 +173,15 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
     if (!rewardOpened && rewardList && rewardList.length > currentRewardIndex) {
       openReward();
     }
-  }, [rewardList, currentRewardIndex]);
+    if (
+      !depositOpened &&
+      depositList &&
+      depositList.length > currentDepositIndex
+    ) {
+      openDeposit();
+    }
+  }, [rewardList, currentRewardIndex, depositList, currentDepositIndex]);
+
   const { width, height } = useWindowSize();
 
   const onCloseReward = () => {
@@ -175,19 +215,62 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
             })
           );
         } catch (err) {
+          console.log(err);
           Swal.fire({
             icon: "error",
             text: "Thông báo không thể được đánh dấu là đã đọc",
             confirmButtonColor: "#6EE3A5",
             timer: 2000,
           });
-
-          console.log(err);
         }
       })();
 
       setCurrentRewardIndex((cri) => cri + 1);
       closeReward();
+    }
+  };
+
+  const onCloseDeposit = async () => {
+    if (depositList && user) {
+      (async () => {
+        try {
+          const token = getToken();
+          const { id } = jwtDecode<User>(token);
+          await axios.put(
+            `/users/${id}/transactions/${depositList[currentDepositIndex].id}`,
+            {
+              status: "success",
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          dispatch(
+            setUser({
+              id: user.id,
+              phone: user.phone,
+              point: user.point + depositList[currentDepositIndex].amount,
+              role: user.role,
+              bankName: user.bankName,
+              accountNumber: user.accountNumber,
+              accountHolder: user.accountHolder,
+            })
+          );
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            text: "Không thể thu thập điểm",
+            confirmButtonColor: "#6EE3A5",
+            timer: 2000,
+          });
+          console.log(err);
+        }
+      })();
+
+      setCurrentDepositIndex((cri) => cri + 1);
+      closeDeposit();
     }
   };
 
@@ -229,6 +312,54 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                   <Center>
                     <Button
                       onClick={() => onCloseReward()}
+                      mt={20}
+                      c="black"
+                      bg="linear-gradient(#fff,#f7f8fd 19%,#fcfdff 69%,#fcfdff)"
+                    >
+                      Đồng ý
+                    </Button>
+                  </Center>
+                </Modal.Body>
+              </BackgroundImage>
+            </Modal.Content>
+          </Modal.Root>
+        )}
+        <LoadingOverlay
+          visible={visible}
+          zIndex={1000}
+          overlayProps={{ radius: "sm", blur: 2 }}
+          loaderProps={{ color: "lime", type: "bars" }}
+        />
+        {children}
+      </Box>
+
+      <Box pos="relative">
+        {depositList && depositList.length >= currentDepositIndex + 1 && (
+          <Modal.Root
+            opened={depositOpened}
+            onClose={onCloseDeposit}
+            centered
+            w="80px"
+            c="white"
+          >
+            <Modal.Overlay />
+            <Modal.Content style={{ borderRadius: "16px" }}>
+              <BackgroundImage src="/reward-background.png" bgsz="cover">
+                <Modal.Header bg="none" c="#ffe858" pt={40}>
+                  <Modal.Title
+                    mx="auto"
+                    style={{ fontSize: "24px", fontWeight: "600" }}
+                  >
+                    Gửi tiền thành công
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Text px={8} mt={8}>
+                    Xác nhận để thu thập điểm
+                  </Text>
+                  <Center>
+                    <Button
+                      onClick={() => onCloseDeposit()}
                       mt={20}
                       c="black"
                       bg="linear-gradient(#fff,#f7f8fd 19%,#fcfdff 69%,#fcfdff)"
