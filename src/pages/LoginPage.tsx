@@ -17,6 +17,8 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/store";
 import { setUser } from "../features/user/userSlice";
+import { jwtDecode } from "jwt-decode";
+import { User } from "../features/user/type";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -45,18 +47,19 @@ function LoginPage() {
     try {
       const res = await axios.post("/login", form.getValues(), {});
       const { result } = res.data;
-
       localStorage.setItem("token", result.token);
 
+      const { id, phone, point, role, bankName, accountNumber, accountHolder } =
+        jwtDecode<User>(result.token);
       dispatch(
         setUser({
-          id: result.id,
-          phone: result.phone,
-          point: result.point,
-          role: result.role,
-          bankName: result.bankName,
-          accountNumber: result.accountNumber,
-          accountHolder: result.accountHolder,
+          id,
+          phone,
+          point,
+          role,
+          bankName,
+          accountNumber,
+          accountHolder,
         })
       );
 

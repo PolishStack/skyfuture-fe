@@ -109,7 +109,7 @@ const IndividualPage = () => {
           <div>
             <p style={{ margin: "0px" }}>Số điểm tài khoản</p>
             <h1 style={{ margin: "0px", textAlign: "center" }}>
-              {user?.point}
+              {user?.point.toLocaleString()}
             </h1>
           </div>
         </Center>
