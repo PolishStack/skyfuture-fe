@@ -215,7 +215,7 @@ const IndividualPage = () => {
                   position: "relative",
                 }}
               >
-                EN: Manage users
+                Quản lý người dùng
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />
