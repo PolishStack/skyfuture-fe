@@ -28,8 +28,6 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const { user } = useAppSelector((state) => state.user);
   const [rewardOpened, { open: openReward, close: closeReward }] =
     useDisclosure(false);
-  const [depositOpened, { open: openDeposit, close: closeDeposit }] =
-    useDisclosure(false);
 
   const [rewardList, setRewardList] = useState<TransactionType[] | null>(null);
   const [depositList, setDepositList] = useState<TransactionType[] | null>(
@@ -174,11 +172,10 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
       openReward();
     }
     if (
-      !depositOpened &&
       depositList &&
       depositList.length > currentDepositIndex
     ) {
-      openDeposit();
+      onCloseDeposit()
     }
   }, [rewardList, currentRewardIndex, depositList, currentDepositIndex]);
 
@@ -270,7 +267,6 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
       })();
 
       setCurrentDepositIndex((cri) => cri + 1);
-      closeDeposit();
     }
   };
 
@@ -312,54 +308,6 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                   <Center>
                     <Button
                       onClick={() => onCloseReward()}
-                      mt={20}
-                      c="black"
-                      bg="linear-gradient(#fff,#f7f8fd 19%,#fcfdff 69%,#fcfdff)"
-                    >
-                      Đồng ý
-                    </Button>
-                  </Center>
-                </Modal.Body>
-              </BackgroundImage>
-            </Modal.Content>
-          </Modal.Root>
-        )}
-        <LoadingOverlay
-          visible={visible}
-          zIndex={1000}
-          overlayProps={{ radius: "sm", blur: 2 }}
-          loaderProps={{ color: "lime", type: "bars" }}
-        />
-        {children}
-      </Box>
-
-      <Box pos="relative">
-        {depositList && depositList.length >= currentDepositIndex + 1 && (
-          <Modal.Root
-            opened={depositOpened}
-            onClose={onCloseDeposit}
-            centered
-            w="80px"
-            c="white"
-          >
-            <Modal.Overlay />
-            <Modal.Content style={{ borderRadius: "16px" }}>
-              <BackgroundImage src="/reward-background.png" bgsz="cover">
-                <Modal.Header bg="none" c="#ffe858" pt={40}>
-                  <Modal.Title
-                    mx="auto"
-                    style={{ fontSize: "24px", fontWeight: "600" }}
-                  >
-                    Gửi tiền thành công
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Text px={8} mt={8}>
-                    Xác nhận để thu thập điểm
-                  </Text>
-                  <Center>
-                    <Button
-                      onClick={() => onCloseDeposit()}
                       mt={20}
                       c="black"
                       bg="linear-gradient(#fff,#f7f8fd 19%,#fcfdff 69%,#fcfdff)"
