@@ -87,21 +87,16 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
                 {transaction.status === "failed" && "Thất bại"}
               </Text>
             )}
-            <Text
-              style={{
-                fontSize: "12px",
-                lineHeight: "16px",
-              }}
+
+            <Spoiler
+              maxHeight={transaction.method === "withdraw" ? 100 : 16}
+              showLabel="Show more"
+              hideLabel="Hide"
+              maw="80%"
+              style={{ fontSize: "12px" }}
             >
-              <Spoiler
-                maxHeight={transaction.method === "withdraw" ? 100 : 16}
-                showLabel="Show more"
-                hideLabel="Hide"
-                maw="80%"
-              >
-                {description && description}
-              </Spoiler>
-            </Text>
+              {description && description}
+            </Spoiler>
           </Box>
         </Group>
         {transaction.method !== "game-pending" ? (
@@ -117,7 +112,7 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
             />
           </Text>
         ) : (
-          <Text c="gray" fw="bold">
+          <Text>
             <NumberFormatter
               value={Math.abs(transaction.amount)}
               thousandSeparator

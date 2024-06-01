@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 
 interface HeaderProps {
   title: string;
-  position?: "absolute";
+  position?: "fixed";
 }
 const Header = ({ title, position }: HeaderProps) => {
   const navigate = useNavigate();
@@ -15,8 +15,10 @@ const Header = ({ title, position }: HeaderProps) => {
       style={{
         padding: "8px",
         fontSize: "18px",
-        position: position === "absolute" ? "absolute" : "relative",
-        top: position === "absolute" ? "0" : "",
+        position: position ? "fixed" : "relative",
+        top: position ? "0" : "",
+        width: position ? "100%" : "",
+        maxWidth: position ? "540px" : "",
       }}
     >
       <b>{title}</b>
