@@ -140,7 +140,7 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
               Number: {roomNumber}
             </Text>
             <Text fw="bold" style={{ fontSize: "14px" }}>
-              Số dư: {user?.point}
+              Số dư: {user?.point.toLocaleString()}
             </Text>
           </Group>
         </Stack>

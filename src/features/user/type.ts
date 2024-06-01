@@ -6,6 +6,7 @@ type User = {
   accountNumber: string;
   accountHolder: string;
   role: "user" | "admin";
+  password?: string;
 };
 
 type UserState = {

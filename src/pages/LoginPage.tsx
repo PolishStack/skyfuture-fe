@@ -1,6 +1,8 @@
 import {
+  Anchor,
   Center,
   Container,
+  Group,
   Image,
   PasswordInput,
   Stack,
@@ -15,6 +17,8 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/store";
 import { setUser } from "../features/user/userSlice";
+import { jwtDecode } from "jwt-decode";
+import { User } from "../features/user/type";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -43,18 +47,19 @@ function LoginPage() {
     try {
       const res = await axios.post("/login", form.getValues(), {});
       const { result } = res.data;
-
       localStorage.setItem("token", result.token);
 
+      const { id, phone, point, role, bankName, accountNumber, accountHolder } =
+        jwtDecode<User>(result.token);
       dispatch(
         setUser({
-          id: result.id,
-          phone: result.phone,
-          point: result.point,
-          role: result.role,
-          bankName: result.bankName,
-          accountNumber: result.accountNumber,
-          accountHolder: result.accountHolder,
+          id,
+          phone,
+          point,
+          role,
+          bankName,
+          accountNumber,
+          accountHolder,
         })
       );
 
@@ -118,7 +123,16 @@ function LoginPage() {
               {...form.getInputProps("password")}
               style={{ width: "100%" }}
             />
-            <p>Bạn quên mật khẩu ? Hãy ấn vào đây</p>
+            <Group gap={4}>
+              <Text>Bạn quên mật khẩu ?</Text>
+              <Anchor
+                href={import.meta.env.VITE_CHAT_URL}
+                target="_blank"
+                display="inline"
+              >
+                Hãy ấn vào đây
+              </Anchor>
+            </Group>
             <button
               onClick={(e) => handleOnFormSubmit(e)}
               style={{
