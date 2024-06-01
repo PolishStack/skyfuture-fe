@@ -88,15 +88,18 @@ const Transaction = ({ title, transaction }: TransactionProps) => {
               </Text>
             )}
 
-            <Spoiler
-              maxHeight={transaction.method === "withdraw" ? 100 : 16}
-              showLabel="Show more"
-              hideLabel="Hide"
-              maw="80%"
-              style={{ fontSize: "12px" }}
-            >
-              {description && description}
-            </Spoiler>
+            {(transaction.method === "withdraw" ||
+              transaction.method === "reward") && (
+              <Spoiler
+                maxHeight={transaction.method === "withdraw" ? 100 : 16}
+                showLabel="Show more"
+                hideLabel="Hide"
+                maw="80%"
+                style={{ fontSize: "12px" }}
+              >
+                {description && description}
+              </Spoiler>
+            )}
           </Box>
         </Group>
         {transaction.method !== "game-pending" ? (

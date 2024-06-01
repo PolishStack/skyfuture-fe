@@ -75,12 +75,14 @@ const BankAccountPage = () => {
   };
 
   useEffect(() => {
-    if (user)
+    console.log("test")
+    if (user) {
       form.setValues({
         bankName: user.bankName,
         accountNumber: user.accountNumber,
         accountHolder: user.accountHolder,
       });
+    }
   }, [user]);
 
   return (
