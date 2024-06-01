@@ -75,7 +75,6 @@ const BankAccountPage = () => {
   };
 
   useEffect(() => {
-    console.log("test")
     if (user) {
       form.setValues({
         bankName: user.bankName,
