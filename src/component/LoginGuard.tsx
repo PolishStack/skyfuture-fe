@@ -75,7 +75,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         setRewardList(transactionList);
 
         // Initialize WebSocket connection
-        const wsURL = import.meta.env.VITE_WS_SERVER_URL + "/ws?userId=" + id;
+        const wsURL = import.meta.env.VITE_WS_SERVER_URL + "/ws/" + id;
 
         if (wsURL) {
           let retryCount = 0;
