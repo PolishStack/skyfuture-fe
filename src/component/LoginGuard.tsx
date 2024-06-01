@@ -90,6 +90,11 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               }
             });
           };
+          ws.onclose = (event: CloseEvent) => {
+            console.log("WebSocket connection closed:", event);
+            // Optionally, log specific close reason and code
+            console.log(`Close reason: ${event.reason} (code: ${event.code})`);
+          };
 
           ws.onerror = (error) => {
             console.error("WebSocket error:", error);

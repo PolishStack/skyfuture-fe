@@ -77,7 +77,7 @@ const ManageUsersPage = () => {
                   <Stack gap={4}>
                     <Text>User id: {user.id}</Text>
                     <Text>Phone: {user.phone}</Text>
-                    <Text>Point: {user.point}</Text>
+                    <Text>Point: {user.point.toLocaleString()}</Text>
                   </Stack>
                   <Flex gap={"xs"}>
                     <Button

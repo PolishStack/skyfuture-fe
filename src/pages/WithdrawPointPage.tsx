@@ -115,7 +115,7 @@ const WithdrawPointPage = () => {
       <Header title="Rút điểm" />
       <Stack style={{ padding: "20px 24px 0px 24px" }}>
         <Box>
-          <p style={{ margin: "0px" }}>Số điểm hiện có: {user?.point} đ</p>
+          <p style={{ margin: "0px" }}>Số điểm hiện có: {user?.point.toLocaleString()} đ</p>
           <NumberInput
             placeholder="Nhập số điểm cần rút"
             withAsterisk

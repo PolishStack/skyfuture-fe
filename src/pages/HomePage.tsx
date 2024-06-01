@@ -24,7 +24,7 @@ const HomePage = () => {
             <Text style={{ fontSize: "14px" }}>ID: {user?.id}</Text>
           </Flex>
           <Flex>
-            <Text style={{ fontSize: "14px" }}>Số điểm: {user?.point}</Text>
+            <Text style={{ fontSize: "14px" }}>Số điểm: {user?.point.toLocaleString()}</Text>
           </Flex>
         </Flex>
       </Container>
