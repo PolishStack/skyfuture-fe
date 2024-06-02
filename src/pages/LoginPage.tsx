@@ -45,21 +45,37 @@ function LoginPage() {
     }
 
     try {
-      const res = await axios.post("/login", form.getValues(), {});
-      const { result } = res.data;
-      localStorage.setItem("token", result.token);
+      const {
+        res: {
+          data: { result: token, id },
+        },
+      } = await axios.post<
+        { phone: string; password: string },
+        { res: { data: { result: string; id: string } } }
+      >("/login", form.getValues(), {});
+      localStorage.setItem("token", token);
 
-      const { id, phone, point, role, bankName, accountNumber, accountHolder } =
-        jwtDecode<User>(result.token);
+      await axios.get("/auth", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const res = await axios.get(`/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { result } = res.data;
+
       dispatch(
         setUser({
-          id,
-          phone,
-          point,
-          role,
-          bankName,
-          accountNumber,
-          accountHolder,
+          id: result.id,
+          phone: result.phone,
+          point: result.point,
+          role: result.role,
+          bankName: result.bankName,
+          accountNumber: result.accountNumber,
+          accountHolder: result.accountHolder,
         })
       );
 
