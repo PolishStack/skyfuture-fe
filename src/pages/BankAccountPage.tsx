@@ -38,7 +38,7 @@ const BankAccountPage = () => {
       const { bankName, accountNumber, accountHolder } = form.getValues();
       await axios.put(
         `/users/${user.id}`,
-        { bankName, accountNumber, accountHolder },
+        { bankName, accountNumber, accountHolder, point: user.point },
         {
           headers: {
             Authorization: `Bearer ${token}`,
