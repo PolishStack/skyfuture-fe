@@ -44,12 +44,10 @@ function LoginPage() {
 
     try {
       const {
-        res: {
-          data: { result: token, id },
-        },
+        data: { result: token, id },
       } = await axios.post<
         { phone: string; password: string },
-        { res: { data: { result: string; id: string } } }
+        { data: { result: string; id: string } }
       >("/login", form.getValues(), {});
       localStorage.setItem("token", token);
 
