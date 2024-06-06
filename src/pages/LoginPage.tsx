@@ -17,8 +17,6 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../hooks/store";
 import { setUser } from "../features/user/userSlice";
-import { jwtDecode } from "jwt-decode";
-import { User } from "../features/user/type";
 
 function LoginPage() {
   const navigate = useNavigate();
