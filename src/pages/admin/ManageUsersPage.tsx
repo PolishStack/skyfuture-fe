@@ -64,8 +64,8 @@ const ManageUsersPage = () => {
         ) : users.length > 0 ? (
           <SimpleGrid cols={{ base: 1, sm: 2 }}>
             {users
-              .slice(0, Math.min(users.length, 50))
               .filter((user) => user.id.toString().includes(selectedUserId))
+              .slice(0, Math.min(users.length, 50))
               .map((user) => (
                 <Card
                   shadow="sm"
