@@ -215,7 +215,8 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
             <IoIosAlert
               onClick={() => navigate("/app/caution")}
               className="clickable"
-              color="rgba(245, 40, 145, 0.8)"
+              // color="rgba(245, 40, 145, 0.8)"
+              color="rgb(135, 243, 217)"
               size="24px"
               style={{ backgroundColor: "white", borderRadius: "100%" }}
             />
