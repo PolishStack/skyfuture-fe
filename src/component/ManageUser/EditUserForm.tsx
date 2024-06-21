@@ -2,20 +2,26 @@ import {
   Button,
   Flex,
   Input,
+  Modal,
   NumberInput,
   PasswordInput,
   Select,
   Stack,
+  Switch,
 } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { User } from "../../features/user/type";
 import { getToken } from "../../utils/helpers";
 import axios from "../../services/api";
 import { useForm } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
 
 const EditUserForm = () => {
+  const navigate = useNavigate()
+  const [opened, { open, close }] = useDisclosure(false);
+
   const { id: roomIdParam } = useParams();
   const userId = parseInt(roomIdParam || "-1");
 
@@ -75,8 +81,10 @@ const EditUserForm = () => {
     }
     try {
       const token = getToken();
-      console.log(newUser.getValues().point);
-      await axios.put(`/users/${userId}`, newUser.getValues(), {
+
+      await axios.put(`/users/${userId}`, {
+        ...newUser.getValues(),
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,7 +96,7 @@ const EditUserForm = () => {
         confirmButtonColor: "#6EE3A5",
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       Swal.fire({
         icon: "error",
         text: `Không cập nhật được dữ liệu người dùng`,
@@ -96,6 +104,38 @@ const EditUserForm = () => {
       });
     }
   };
+
+  const handleDeleteUser = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault()
+
+    try {
+      const token = getToken()
+
+      await axios.delete(`/users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      navigate("../")
+
+      Swal.fire({
+        icon: "success",
+        text: "Đã xóa người dùng thành công",
+        confirmButtonColor: "#6EE3A5",
+      });
+
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: "error",
+        text: "không thể xóa người dùng",
+        confirmButtonColor: "#6ee3a5",
+      });
+    }
+  }
 
   return (
     <Stack gap={8} px={16} mt={16}>
@@ -131,6 +171,14 @@ const EditUserForm = () => {
           {...newUser.getInputProps("bankName")}
         />
       </Input.Wrapper>
+      <Switch
+        description={newUser.getValues().canUpdateBankName !== user?.canUpdateBankName ? "Những thay đổi đã được thực hiện (phải được lưu)" : ""}
+        checked={!newUser.getValues().canUpdateBankName}
+        onChange={(event) => newUser.setFieldValue("canUpdateBankName", !event.currentTarget.checked)}
+        color="teal"
+        label="Khóa người dùng thay đổi thông tin"
+        size="xs"
+      />
       <Input.Wrapper label="Account Number">
         <Input
           placeholder="Account number"
@@ -138,6 +186,14 @@ const EditUserForm = () => {
           {...newUser.getInputProps("accountNumber")}
         />
       </Input.Wrapper>
+      <Switch
+        description={newUser.getValues().canUpdateAccountNumber !== user?.canUpdateAccountNumber ? "Những thay đổi đã được thực hiện (phải được lưu)" : ""}
+        checked={!newUser.getValues().canUpdateAccountNumber}
+        onChange={(event) => newUser.setFieldValue("canUpdateAccountNumber", !event.currentTarget.checked)}
+        color="teal"
+        label="Khóa người dùng thay đổi thông tin"
+        size="xs"
+      />
       <Input.Wrapper label="Account Holder">
         <Input
           placeholder="Account holder"
@@ -145,11 +201,27 @@ const EditUserForm = () => {
           {...newUser.getInputProps("accountHolder")}
         />
       </Input.Wrapper>
+      <Switch
+        description={newUser.getValues().canUpdateAccountHolder !== user?.canUpdateAccountHolder ? "Những thay đổi đã được thực hiện (phải được lưu)" : ""}
+        checked={!newUser.getValues().canUpdateAccountHolder}
+        onChange={(event) => newUser.setFieldValue("canUpdateAccountHolder", !event.currentTarget.checked)}
+        color="teal"
+        label="Khóa người dùng thay đổi thông tin"
+        size="xs"
+      />
       <PasswordInput
         placeholder="Password"
         label="Password"
         key={newUser.key("password")}
         {...newUser.getInputProps("password")}
+      />
+      <Switch
+        description={newUser.getValues().canUpdatePassword !== user?.canUpdatePassword ? "Những thay đổi đã được thực hiện (phải được lưu)" : ""}
+        checked={!newUser.getValues().canUpdatePassword}
+        onChange={(event) => newUser.setFieldValue("canUpdatePassword", !event.currentTarget.checked)}
+        color="teal"
+        label="Khóa người dùng thay đổi thông tin"
+        size="xs"
       />
       <Select
         label="Role"
@@ -160,10 +232,10 @@ const EditUserForm = () => {
       />
       <Flex justify={"end"} gap={10}>
         <Button color="green" onClick={handleSaveData}>
-          Save
+          ghi
         </Button>
         <Button
-          color="red"
+          color="gray"
           onClick={() => {
             if (!user) {
               return;
@@ -171,9 +243,24 @@ const EditUserForm = () => {
             newUser.setValues(user);
           }}
         >
-          Reset
+          cài lại
+        </Button>
+        <Button color="red" onClick={open}>
+          Xóa bỏ
         </Button>
       </Flex>
+      <Modal centered opened={opened} onClose={close} title="Xác nhận xóa người dùng">
+        <Stack>
+          <h4>Quá trình này là không thể đảo ngược.</h4>
+          <Flex justify={"end"} gap={4}>
+            <Button color="gray" onClick={close}>Hủy bỏ</Button>
+            <Button color="red" onClick={async (e) => {
+              await handleDeleteUser(e)
+              close()
+            }}>xác nhận</Button>
+          </Flex>
+        </Stack>
+      </Modal>
     </Stack>
   );
 };

@@ -78,22 +78,27 @@ const ChangePasswordPage = () => {
       <Header title="Mật khẩu cũ" />
       <Stack gap="16px" style={{ padding: "16px 24px 0px 24px" }}>
         <PasswordInput
+          disabled={!user?.canUpdatePassword}
+          description={!user?.canUpdatePassword ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ." : ""}
           placeholder="Mật khẩu cũ"
           key={form.key("oldPassword")}
           {...form.getInputProps("oldPassword")}
         />
         <PasswordInput
+          disabled={!user?.canUpdatePassword}
           placeholder="Mật khẩu mới"
           key={form.key("newPassword")}
           {...form.getInputProps("newPassword")}
         />
         <PasswordInput
+          disabled={!user?.canUpdatePassword}
           placeholder="Nhập lại mật khẩu"
           key={form.key("confirmNewPassword")}
           {...form.getInputProps("confirmNewPassword")}
         />
         <Center>
           <Button
+            disabled={!user?.canUpdatePassword}
             variant="gradient"
             style={{ paddingLeft: "25px", paddingRight: "25px" }}
             onClick={handleChangePassword}
