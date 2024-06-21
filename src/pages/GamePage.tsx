@@ -122,6 +122,10 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
           bankName: result.bankName,
           accountNumber: result.accountNumber,
           accountHolder: result.accountHolder,
+          canUpdatePassword: result.canUpdatePassword,
+          canUpdateBankName: result.canUpdateBankName,
+          canUpdateAccountNumber: result.canUpdateAccountNumber,
+          canUpdateAccountHolder: result.canUpdateAccountHolder
         })
       );
     } catch (err) {
@@ -155,6 +159,10 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
             bankName: result.bankName,
             accountNumber: result.accountNumber,
             accountHolder: result.accountHolder,
+            canUpdatePassword: result.canUpdatePassword,
+            canUpdateBankName: result.canUpdateBankName,
+            canUpdateAccountNumber: result.canUpdateAccountNumber,
+            canUpdateAccountHolder: result.canUpdateAccountHolder
           })
         );
       } catch (err) {

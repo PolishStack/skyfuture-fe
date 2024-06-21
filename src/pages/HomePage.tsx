@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const HomePage = () => {
   const { user } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
+  
   return (
     <Stack bg="#77d5ae">
       <Center bg="#88ffce" style={{ padding: "8px" }}>

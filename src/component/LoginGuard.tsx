@@ -65,6 +65,10 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               bankName: result.bankName,
               accountNumber: result.accountNumber,
               accountHolder: result.accountHolder,
+              canUpdatePassword: result.canUpdatePassword,
+              canUpdateBankName: result.canUpdateBankName,
+              canUpdateAccountNumber: result.canUpdateAccountNumber,
+              canUpdateAccountHolder: result.canUpdateAccountHolder
             })
           );
         }
@@ -209,6 +213,10 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               bankName: user.bankName,
               accountNumber: user.accountNumber,
               accountHolder: user.accountHolder,
+              canUpdatePassword: user.canUpdatePassword,
+              canUpdateBankName: user.canUpdateBankName,
+              canUpdateAccountNumber: user.canUpdateAccountNumber,
+              canUpdateAccountHolder: user.canUpdateAccountHolder
             })
           );
         } catch (err) {
@@ -253,6 +261,10 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               bankName: user.bankName,
               accountNumber: user.accountNumber,
               accountHolder: user.accountHolder,
+              canUpdatePassword: user.canUpdatePassword,
+              canUpdateBankName: user.canUpdateBankName,
+              canUpdateAccountNumber: user.canUpdateAccountNumber,
+              canUpdateAccountHolder: user.canUpdateAccountHolder
             })
           );
         } catch (err) {

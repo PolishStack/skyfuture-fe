@@ -5,6 +5,10 @@ type User = {
   bankName: string;
   accountNumber: string;
   accountHolder: string;
+  canUpdatePassword: boolean;
+  canUpdateBankName: boolean;
+  canUpdateAccountNumber: boolean;
+  canUpdateAccountHolder: boolean;
   role: "user" | "admin";
   password?: string;
 };
