@@ -166,15 +166,17 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
           })
         );
       } catch (err) {
+        console.error(err);
+
         Swal.fire({
           icon: "error",
           text: "Không thể tạo yêu cầu rút tiền thành công",
           confirmButtonColor: "#6EE3A5",
         });
-        console.log(err);
       }
     })();
   }, []);
+
   useEffect(() => {
     (async () => {
       setRoom5DigitNumber(
@@ -185,6 +187,7 @@ const GamePage = ({ imageSrc, left, right }: GamePageProps) => {
       );
     })();
   }, [roomId]);
+  
   return (
     <>
       <Box bg="#87f3d9" pb={30}>

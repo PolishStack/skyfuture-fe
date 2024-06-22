@@ -20,6 +20,7 @@ import { User } from "../features/user/type";
 import { TransactionType } from "../services/api/type";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import toast from "react-hot-toast";
 
 const LoginGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -33,11 +34,15 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
   const [depositList, setDepositList] = useState<TransactionType[] | null>(
     null
   );
+  const [gameList, setGameList] = useState<TransactionType[] | null>(null);
+
   const [currentRewardIndex, setCurrentRewardIndex] = useState(0);
   const [currentDepositIndex, setCurrentDepositIndex] = useState(0);
+  const [currentGameIndex, setCurrentGameIndex] = useState(0);
 
   useEffect(() => {
     let ws: WebSocket | undefined;
+
     const auth = async () => {
       try {
         const token = getToken();
@@ -95,6 +100,14 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
               }
               return [tl];
             });
+          } else if (tl.method === "win" || tl.method == "lose") {
+
+            setGameList((prevValue) => {
+              if (prevValue) {
+                return [...prevValue, tl];
+              }
+              return [tl]
+            })
           }
         });
 
@@ -104,6 +117,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
         if (wsURL) {
           let retryCount = 0;
           ws = new WebSocket(wsURL);
+
           ws.onmessage = (event) => {
             const message = JSON.parse(event.data) as TransactionType;
             if (message.method === "reward") {
@@ -122,8 +136,17 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                   return [message];
                 }
               });
+            } else if (message.method === "win" || message.method === "lose") {
+              setGameList((prevGameList) => {
+                if (prevGameList) {
+                  return [...prevGameList, message]
+                } else {
+                  return [message]
+                }
+              })
             }
           };
+
           ws.onclose = (event: CloseEvent) => {
             console.log("WebSocket connection closed:", event);
             // Optionally, log specific close reason and code
@@ -160,6 +183,7 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
           confirmButtonColor: "#6EE3A5",
           timer: 2000,
         });
+
         navigate("/");
         console.log(err);
       }
@@ -181,7 +205,20 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
     ) {
       onCloseDeposit()
     }
-  }, [rewardList, currentRewardIndex, depositList, currentDepositIndex]);
+    if (
+      gameList &&
+      gameList.length > currentGameIndex
+    ) {
+      onCloseGame()
+    }
+  }, [
+    rewardList,
+    currentRewardIndex,
+    depositList,
+    currentDepositIndex,
+    gameList,
+    currentGameIndex,
+  ]);
 
   const { width, height } = useWindowSize();
 
@@ -220,7 +257,8 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
             })
           );
         } catch (err) {
-          console.log(err);
+          console.error(err);
+
           Swal.fire({
             icon: "error",
             text: "Thông báo không thể được đánh dấu là đã đọc",
@@ -235,12 +273,62 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const onCloseGame = async () => {
+    if (gameList && user) {
+      (async () => {
+        try {
+          if (gameList[currentGameIndex].method === "win") {
+            dispatch(
+              setUser({
+                id: user.id,
+                phone: user.phone,
+                point: user.point + gameList[currentGameIndex].amount,
+                role: user.role,
+                bankName: user.bankName,
+                accountNumber: user.accountNumber,
+                accountHolder: user.accountHolder,
+                canUpdatePassword: user.canUpdatePassword,
+                canUpdateBankName: user.canUpdateBankName,
+                canUpdateAccountNumber: user.canUpdateAccountNumber,
+                canUpdateAccountHolder: user.canUpdateAccountHolder
+              })
+            )
+          }
+
+          if (gameList[currentGameIndex].method === "win") {
+            toast.success(`Bạn giành chiến thắng và kiếm được ${gameList[currentGameIndex].amount} điểm`, {
+              duration: 4000,
+              position: "top-center",
+            });
+          } else if (gameList[currentGameIndex].method === "lose") {
+            toast.error(`Bạn thua và mất ${gameList[currentGameIndex].amount * -1} điểm`, {
+              duration: 4000,
+              position: "top-center",
+            })
+          }
+
+        } catch (err) {
+          console.error(err)
+
+          Swal.fire({
+            icon: "error",
+            text: "Something went wrong, please contact service",
+            confirmButtonColor: "#6ee3a5"
+          })
+        }
+      })()
+
+      setCurrentGameIndex((cri) => cri + 1)
+    }
+  }
+
   const onCloseDeposit = async () => {
     if (depositList && user) {
       (async () => {
         try {
           const token = getToken();
           const { id } = jwtDecode<User>(token);
+
           await axios.put(
             `/users/${id}/transactions/${depositList[currentDepositIndex].id}`,
             {
@@ -268,13 +356,13 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
             })
           );
         } catch (err) {
+          console.error(err);
+
           Swal.fire({
             icon: "error",
             text: "Không thể thu thập điểm",
             confirmButtonColor: "#6EE3A5",
-            timer: 2000,
           });
-          console.log(err);
         }
       })();
 
