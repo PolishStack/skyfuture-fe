@@ -20,7 +20,6 @@ import { User } from "../features/user/type";
 import { TransactionType } from "../services/api/type";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
-import toast from "react-hot-toast";
 
 const LoginGuard = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -293,18 +292,6 @@ const LoginGuard = ({ children }: { children: ReactNode }) => {
                 canUpdateAccountHolder: user.canUpdateAccountHolder
               })
             )
-          }
-
-          if (gameList[currentGameIndex].method === "win") {
-            toast.success(`Bạn giành chiến thắng và kiếm được ${gameList[currentGameIndex].amount} điểm`, {
-              duration: 4000,
-              position: "top-center",
-            });
-          } else if (gameList[currentGameIndex].method === "lose") {
-            toast.error(`Bạn thua và mất ${gameList[currentGameIndex].amount * -1} điểm`, {
-              duration: 4000,
-              position: "top-center",
-            })
           }
 
         } catch (err) {
