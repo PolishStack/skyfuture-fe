@@ -79,7 +79,7 @@ const ChangePasswordPage = () => {
       <Stack gap="16px" style={{ padding: "16px 24px 0px 24px" }}>
         <PasswordInput
           disabled={!user?.canUpdatePassword}
-          description={!user?.canUpdatePassword ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ." : ""}
+          // description={!user?.canUpdatePassword ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ." : ""}
           placeholder="Mật khẩu cũ"
           key={form.key("oldPassword")}
           {...form.getInputProps("oldPassword")}
