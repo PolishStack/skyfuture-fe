@@ -1,18 +1,18 @@
 import {
   Button,
-  Center,
-  Flex,
+  // Center,
+  // Flex,
   Group,
-  Modal,
+  // Modal,
   NumberInput,
   SimpleGrid,
   Stack,
   Text,
 } from "@mantine/core";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { BsTrash3 } from "react-icons/bs";
 import { useAppSelector } from "../../hooks/store";
-import { useDisclosure } from "@mantine/hooks";
+// import { useDisclosure } from "@mantine/hooks";
 
 interface GameBody {
   left: string;
@@ -25,24 +25,24 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
   const [selectedSide, setSelectedSide] = useState<boolean | null>(null);
   const [amount, setAmount] = useState<number>(100);
   const amountChoiceList = [100, 500, 1000, 10000, 20000];
-  const [timer, setTimer] = useState(-1);
-  const [opened, { open, close }] = useDisclosure(false);
-  const intervalRef = useRef(0);
+  // const [timer, setTimer] = useState(-1);
+  // const [opened, { open, close }] = useDisclosure(false);
+  // const intervalRef = useRef(0);
 
-  useEffect(() => {
-    if (timer <= 0 && selectedSide !== null) {
-      clearInterval(intervalRef.current);
-      close()
-      onSubmit(selectedSide, amount);
-    }
-  }, [timer])
+  // useEffect(() => {
+  //   if (timer <= 0 && selectedSide !== null) {
+  //     clearInterval(intervalRef.current);
+  //     close()
+  //     onSubmit(selectedSide, amount);
+  //   }
+  // }, [timer])
 
-  const openModal = async () => {
-    setTimer(3);
+  // const openModal = async () => {
+  //   setTimer(3);
 
-    // Interval handler
-    intervalRef.current = setInterval(() => setTimer(prev => prev - 1), 1000);
-  }
+  //   // Interval handler
+  //   intervalRef.current = setInterval(() => setTimer(prev => prev - 1), 1000);
+  // }
 
   return (
     <Group mt={18} gap={0}>
@@ -158,10 +158,7 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
               Xác nhận
             </Button> */}
             <Button
-              onClick={async () => {
-                open()
-                openModal();
-              }}
+              onClick={async () => onSubmit(selectedSide, amount)}
               bg="url(/button-background.png) 0 0/cover no-repeat"
               c="#fff"
               p="0 12px"
@@ -185,7 +182,7 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
               Số dư: {user?.point.toLocaleString()}
             </Text>
           </Group>
-          <Modal opened={opened} onClose={close} title="Xác n hận bỏ phiếu" centered closeOnClickOutside={false} withCloseButton={false}>
+          {/* <Modal opened={opened} onClose={close} title="Xác n hận bỏ phiếu" centered closeOnClickOutside={false} withCloseButton={false}>
             <Center>
               <Stack>
                 <h3>{timer}</h3>
@@ -202,7 +199,7 @@ const GameBody = ({ left, right, roomNumber, onSubmit }: GameBody) => {
                 onSubmit(selectedSide, amount);
               }}>xác nhận</Button>
             </Flex>
-          </Modal>
+          </Modal> */}
         </Stack>
       )}
     </Group>
