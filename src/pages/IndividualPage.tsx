@@ -11,7 +11,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { AiFillBank, AiOutlinePartition } from "react-icons/ai";
 import { IoIosLogOut, IoIosArrowForward } from "react-icons/io";
-import { PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
+import { PiGameController, PiHandDeposit, PiHandWithdraw } from "react-icons/pi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { SlPresent } from "react-icons/sl";
 import { MdHistoryEdu, MdInput } from "react-icons/md";
@@ -219,6 +219,26 @@ const IndividualPage = () => {
                 <IoIosArrowForward
                   style={{ position: "absolute", right: "26px" }}
                 />
+              </Button>
+            </Link>
+            <Link
+              to={"/app/admin/manage-game"}
+              style={{ textDecorationLine: "none" }}
+            >
+              <Button
+                fullWidth
+                leftSection={<PiGameController />}
+                variant="transparent"
+                justify="flex-start"
+                size="lg"
+                color="#444"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: "normal",
+                  position: "relative"
+                }}
+              >
+                Quản lý trò chơi đang chờ xử lý
               </Button>
             </Link>
           </>

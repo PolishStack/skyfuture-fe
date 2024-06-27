@@ -20,6 +20,8 @@ import ManageTransactionPage from "./pages/admin/ManageTransactionPage";
 import ManageUserPointPage from "./pages/admin/ManageUserPointPage";
 import ManageUserDataPage from "./pages/admin/ManageUsersPage";
 import EditUserPage from "./pages/admin/EditUserPage";
+import ManageGamePage from "./pages/admin/ManageGamePage";
+import ManageGameBody from "./component/Game/ManageGameBody";
 
 function App() {
   return (
@@ -49,6 +51,27 @@ function App() {
               path="manage-transaction"
               element={<ManageTransactionPage />}
             />
+
+            <Route path="manage-game" element={<ManageGamePage />} />
+            <Route
+              path="manage-game/game/1/:id"
+              element={
+                <ManageGameBody
+                  gameNumber={1}
+                  left={import.meta.env.VITE_GAME1_LEFT}
+                  right={import.meta.env.VITE_GAME1_RIGHT}
+                />}
+            />
+            <Route
+              path="manage-game/game/2/:id"
+              element={
+                <ManageGameBody
+                  gameNumber={2}
+                  left={import.meta.env.VITE_GAME2_LEFT}
+                  right={import.meta.env.VITE_GAME2_RIGHT}
+                />}
+            />
+
             <Route path="manage-point" element={<ManageUserPointPage />} />
             <Route path="manage-user">
               <Route index element={<ManageUserDataPage />} />

@@ -98,7 +98,7 @@ const BankAccountPage = () => {
       <Stack gap="16px" style={{ padding: "16px 24px 0px 24px" }}>
         <TextInput
           disabled={!user?.canUpdateBankName}
-          description={!user?.canUpdateBankName ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
+          // description={!user?.canUpdateBankName ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
           label="Tên ngân hàng"
           placeholder="Nhập tên ngân hàng"
           key={form.key("bankName")}
@@ -106,7 +106,7 @@ const BankAccountPage = () => {
         />
         <TextInput
           disabled={!user?.canUpdateAccountNumber}
-          description={!user?.canUpdateAccountNumber ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
+          // description={!user?.canUpdateAccountNumber ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
           label="Số tài khoản"
           placeholder="Nhập số tài khoản"
           key={form.key("accountNumber")}
@@ -114,7 +114,7 @@ const BankAccountPage = () => {
         />
         <TextInput
           disabled={!user?.canUpdateAccountHolder}
-          description={!user?.canUpdateAccountHolder ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
+          // description={!user?.canUpdateAccountHolder ? "Bạn đã được quản trị viên chỉnh sửa và không thể chỉnh sửa chúng. Vui lòng liên hệ với bộ phận dịch vụ.": ""}
           label="Chủ tài khoản"
           placeholder="Nhập họ tên người nhận"
           key={form.key("accountHolder")}
